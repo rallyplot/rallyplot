@@ -1,0 +1,14 @@
+sphinx
+pydata-sphinx-theme
+myst-parser
+sphinx-autodoc-typehints
+sphinx-copybutton
+sphinx-design
+sphinxcontrib-bibtex
+sphinxext-opengraph
+sphinx-design
+sphinx-design
+sphinx-autodoc-typehints
+numpydoc
+nbsphinx
+breathe

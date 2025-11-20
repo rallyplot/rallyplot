@@ -1,0 +1,214 @@
+name: Build Wheels
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  pull_request:
+
+jobs:
+
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest, macos-15-intel]
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel
+
+      - name: Build wheels
+        env:
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
+          CIBW_SKIP: "cp38-* cp39-* *-win32 pp* *-musllinux*"
+
+          # Before build
+          # -------------------------------------------------------------------
+
+          # First, install the many dependencies required for linux to
+          # run our plotting library. This is because the cibuildwheel image
+          # comes with very little pre-installed. We build to support both X11
+          # and Wayland, so we need both included here to pick up relevant libs
+          # and for testing.
+          CIBW_BEFORE_ALL_LINUX: |
+            set -euxo pipefail
+            python -m pip install -U cmake ninja aqtinstall
+            yum install -y \
+              mesa-libEGL \
+              mesa-libGL \
+              mesa-libgbm \
+              mesa-dri-drivers \
+              libwayland-client \
+              libwayland-cursor \
+              libxkbcommon \
+              libxkbcommon-x11 \
+              xkeyboard-config \
+              libxkbcommon-devel \
+              libxkbcommon-x11-devel \
+              xcb-util-image \
+              xcb-util \
+              xcb-util-renderutil \
+              xcb-util-keysyms \
+              xcb-util-wm \
+              xcb-util-cursor \
+              libX11 \
+              libX11-xcb \
+              libXext \
+              libXrender \
+              libXi \
+              mesa-libwayland-egl \
+              xorg-x11-server-Xvfb
+            aqt install-qt linux desktop 6.8.2 -O {package}/distribution/qt
+
+          # For Windows and macOS, the required libraries are already found on the system.
+          CIBW_BEFORE_ALL_WINDOWS: >
+            python -m pip install -U cmake ninja aqtinstall &&
+            aqt install-qt windows desktop 6.8.2 win64_msvc2022_64 -O D:/a/rallyplot/rallyplot/distribution/qt
+
+          # ---- macOS: install Qt ----
+          CIBW_BEFORE_ALL_MACOS: >
+            set -eux;
+            python -m pip install -U cmake ninja aqtinstall;
+            aqt install-qt mac desktop 6.8.2 -O {package}/distribution/qt;
+
+          # Dump a load of environment information for debugging purposes
+          CIBW_BEFORE_BUILD: "echo '--- ENV DUMP START ---' && env | sort && echo '--- ENV DUMP END ---'"
+
+          # Set Environments
+          # -------------------------------------------------------------------
+          # The windows paths are hard-coded, which is obviously going to cause problems in future.
+          # The problem is on Windows, ${{ github.workspace }} resolves with backward-slashes which
+          # then dissapear when read into cmake. It's a huge pain to debug and will require a fair
+          # bit of boilerplate, so for now just hard code for windows.
+
+          CIBW_ENVIRONMENT_WINDOWS: >
+            QT_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6"
+            Qt6_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6"
+            CMAKE_GENERATOR_PLATFORM="x64"
+            CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
+
+          # macOS support 12 (Monterey) or newer because of python 3.10 / Qt 6.8.2 dependency
+          CIBW_ENVIRONMENT_MACOS: >
+            QT_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
+            Qt6_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
+            MACOSX_DEPLOYMENT_TARGET="12.0"  
+            CMAKE_OSX_DEPLOYMENT_TARGET="12.0"
+            CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
+
+          CIBW_ENVIRONMENT_LINUX: >
+            QT_DIR="/project/distribution/qt/6.8.2/gcc_64/lib/cmake/Qt6"
+            Qt6_DIR="/project/distribution/qt/6.8.2/gcc_64/lib/cmake/Qt6"
+            CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
+
+          # Repair Wheels
+          # -------------------------------------------------------------------
+
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
+            python -m pip install delvewheel && 
+            python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
+
+          # For linux, there are many core libs we do not want to vendor, because of incompatibilities.
+          # We want to use the system wayland / x11 as much as possible (and users install core dependency
+          # libs on their end) rather than try and inject wayland / x11 libs into peoples distros
+          CIBW_REPAIR_WHEEL_COMMAND_LINUX: |
+            LD_LIBRARY_PATH=/project/distribution/qt/6.8.2/gcc_64/lib:$LD_LIBRARY_PATH
+            auditwheel repair -w {dest_dir} \
+            --exclude libEGL.so.1 \
+            --exclude libGLX.so.0 \
+            --exclude libOpenGL.so.0 \
+            --exclude libGLdispatch.so.0 \
+            --exclude libgbm.so.1 \
+            --exclude libdrm.so.2 \
+            --exclude libxcb.so.1 \
+            --exclude libXau.so.6 \
+            --exclude libXdmcp.so.6 \
+            --exclude libwayland-client.so.0 \
+            --exclude libwayland-egl.so.1 \
+            --exclude libwayland-cursor.so.0 \
+            --exclude libdbus-1.so.3 \
+            --exclude libsystemd.so.0 \
+            --exclude libvulkan.so.1 \
+            {wheel}
+
+          CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""
+          # Could not get this to work, could not find the vendored frameworks. If not vendoring, it did not
+          # pull in the frameworks and just pulled in the libs (not useful)
+          #    CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
+          #      sh -c 'DYLD_LIBRARY_PATH=$(dirname $(find "$(dirname "$0")" -name libqoffscreen.dylib | head -n 1))/../
+          #      delocate-wheel --require-archs x86_64 -w "$1" "$0"' {wheel} {dest_dir}
+
+          # Test Wheels
+          # -------------------------------------------------------------------
+
+          CIBW_TEST_COMMAND_WINDOWS: >
+            python D:/a/rallyplot/rallyplot/tests/python/test_simple_plotter.py
+
+          CIBW_TEST_COMMAND_MACOS: >
+            python ${{ github.workspace }}/tests/python/test_simple_plotter.py
+
+          CIBW_TEST_COMMAND_LINUX: |
+            bash <<'BASH'
+            set -euxo pipefail
+
+            # Start Xvfb (GLX path). If you later choose EGL/offscreen, you can delete this block.
+            Xvfb :99 -screen 0 1280x800x24 >/dev/null 2>&1 &
+            XVFB_PID=$!
+            trap 'kill "$XVFB_PID" 2>/dev/null || true' EXIT
+            export DISPLAY=:99
+
+            # Pick ONE platform. For Xvfb use xcb; do NOT override it with offscreen later.
+            export QT_QPA_PLATFORM=xcb
+            export QT_XCB_GL_INTEGRATION=none
+            export QT_OPENGL=software
+            export QT_QUICK_BACKEND=software
+
+            # Mesa software GL + verbose logging
+            export LIBGL_ALWAYS_SOFTWARE=1
+            export MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
+            export LIBGL_DEBUG=verbose
+            export MESA_DEBUG=1
+            export PYTHONFAULTHANDLER=1
+
+            # Optional quick sanity prints
+            echo "DISPLAY=$DISPLAY  QT_QPA_PLATFORM=$QT_QPA_PLATFORM"
+
+            python /project/tests/python/test_simple_plotter.py
+            BASH
+
+        # --- Wayland test (optional) ---
+        # if command -v weston >/dev/null 2>&1; then
+        #   export XDG_RUNTIME_DIR="$(mktemp -d)"; chmod 700 "$XDG_RUNTIME_DIR"
+        #   weston --backend=headless --socket=wayland-1 --idle-time=0 >/dev/null 2>&1 &
+        #   WPID=$!
+        #   for i in $(seq 1 50); do [ -S "$XDG_RUNTIME_DIR/wayland-1" ] && break; sleep 0.1; done
+        #   QT_QPA_PLATFORM=wayland WAYLAND_DISPLAY=wayland-1 python {project}/tests/python/test_simple_plotter.py
+        #   kill "$WPID" || true
+        #   rm -rf "$XDG_RUNTIME_DIR"
+        # else
+        #   echo "Skipping Wayland test (weston not installed)"
+        # fi
+
+
+        # Run cibuildwheel and upload wheels
+        # -------------------------------------------------------------------
+
+        run: |
+          python -m pip install -U pip
+          python -m cibuildwheel --output-dir wheelhouse
+
+      - name: Publish to PyPI
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages_dir: wheelhouse
+          verbose: true

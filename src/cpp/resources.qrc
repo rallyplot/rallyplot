@@ -1,0 +1,46 @@
+<RCC>
+    <qresource prefix="/shaders">
+        <file>charts/shaders/shader_code/axes_fragment.shader</file>
+        <file>charts/shaders/shader_code/axes_tick_vertex.shader</file>
+        <file>charts/shaders/shader_code/axes_vertex.shader</file>
+        <file>charts/shaders/shader_code/bar_fragment.shader</file>
+        <file>charts/shaders/shader_code/bar_vertex.shader</file>
+        <file>charts/shaders/shader_code/candlestick_fragment.shader</file>
+        <file>charts/shaders/shader_code/candlestick_line_fragment.shader</file>
+        <file>charts/shaders/shader_code/candlestick_vertex.shader</file>
+        <file>charts/shaders/shader_code/font_fragment.shader</file>
+        <file>charts/shaders/shader_code/font_vertex.shader</file>
+        <file>charts/shaders/shader_code/line_fragment.shader</file>
+        <file>charts/shaders/shader_code/line_geometry.shader</file>
+        <file>charts/shaders/shader_code/line_vertex.shader</file>
+        <file>charts/shaders/shader_code/scatterplot_fragment.shader</file>
+        <file>charts/shaders/shader_code/scatterplot_vertex.shader</file>
+        <file>charts/shaders/shader_code/simple_line_fragment.shader</file>
+        <file>charts/shaders/shader_code/simple_line_geomtry.shader</file>
+        <file>charts/shaders/shader_code/simple_line_vertex.shader</file>
+        <file>charts/shaders/shader_code/legend_fragment.shader</file>
+        <file>charts/shaders/shader_code/legend_vertex.shader</file>
+        <file>charts/shaders/shader_code/legend_text_vertex.shader</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>charts/fonts/arial.ttf</file>
+        <file>charts/fonts/arialbd.ttf</file>
+        <file>charts/fonts/arialbi.ttf</file>
+        <file>charts/fonts/ariali.ttf</file>
+        <file>charts/fonts/ARIALN.TTF</file>
+        <file>charts/fonts/ARIALNB.TTF</file>
+        <file>charts/fonts/ARIALNBI.TTF</file>
+        <file>charts/fonts/ARIALNI.TTF</file>
+        <file>charts/fonts/ariblk.ttf</file>
+        <file>charts/fonts/consola.ttf</file>
+        <file>charts/fonts/consolab.ttf</file>
+        <file>charts/fonts/consolai.ttf</file>
+        <file>charts/fonts/consolaz.ttf</file>
+    </qresource>
+    <qresource prefix="/scatterTexture">
+        <file>charts/plots/textures/circle.png</file>
+        <file>charts/plots/textures/cross.png</file>
+        <file>charts/plots/textures/triangle_down.png</file>
+        <file>charts/plots/textures/triangle_up.png</file>
+    </qresource>
+</RCC>

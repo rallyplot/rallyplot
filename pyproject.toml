@@ -1,0 +1,44 @@
+[project]
+name = "rallyplot"
+dynamic = ["version"]
+description = "Fast finance plots on the graphics card."
+dependencies = ["numpy", "pandas"]
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+]
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "matplotlib",
+  "aqtinstall",
+]
+
+[build-system]
+requires = [
+  "scikit-build-core>=0.10",
+  "pybind11",
+  "setuptools",
+  "setuptools-scm>=8",
+]
+build-backend = "scikit_build_core.build"
+
+[tool.scikit-build]
+# Source directory containing CMakeLists.txt
+cmake.source-dir = "."
+# Optional: if you want the built `.pyd` to land in src/python/your_module
+wheel.packages = ["dist/rallyplot"]
+
+sdist.include = [
+  "dist/rallyplot/**"
+]
+
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
