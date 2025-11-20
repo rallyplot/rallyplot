@@ -1,0 +1,816 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="auto">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Get Started &#8212; rallyplot 0.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "auto";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=7026087e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/get_started';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Linked Subplots" href="linked_subplots.html" />
+    <link rel="prev" title="Tutorials" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="auto">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">rallyplot</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_reference.html">
+    API Docs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/rallyplot/rallyplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api_reference.html">
+    API Docs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/rallyplot/rallyplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Get Started</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="linked_subplots.html">Linked Subplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subplots.html">Subplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="candlestick_plot.html">Candlestick Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="line_plot.html">Line Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar_plot.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter_plot.html">Scatterplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customising_plots.html">Customising the Plots</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Get Started</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="get-started">
+<span id="get-started-tutorial"></span><h1>Get Started<a class="headerlink" href="#get-started" title="Link to this heading">#</a></h1>
+<p>On this page we go through a simple, and more complex introductory example in code (Python and C++ examples).
+We also cover some important topics, including:</p>
+<ul class="simple">
+<li><p>some <a class="reference internal" href="#key-considerations"><span class="std std-ref">key considerations</span></a> when using the package</p></li>
+<li><p>how to <a class="reference internal" href="#camera-and-keyboard-controls"><span class="std std-ref">control the camera</span></a></p></li>
+<li><p>the different ways to <a class="reference internal" href="#passing-dates"><span class="std std-ref">pass dates</span></a></p></li>
+<li><p>options for <a class="reference internal" href="#maximising-performance"><span class="std std-ref">maximising performance</span></a></p></li>
+</ul>
+<p>In this tutorial, we will create a <a class="reference internal" href="#simple-example"><span class="std std-ref">simple candlestick</span></a> plot of prices, and
+a more <a class="reference internal" href="#advanced-example"><span class="std std-ref">advanced example</span></a> which  x-axis linked subplot including volumes.</p>
+<p>Note in this and all tutorials, the actual data plot is arbitrary. See
+<a class="reference internal" href="../examples/example-indicators.html#example-with-indicators"><span class="std std-ref">this example</span></a> using real computed indicators.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-simple-example">
+<span id="simple-example"></span><h1>A simple example<a class="headerlink" href="#a-simple-example" title="Link to this heading">#</a></h1>
+<p>In this example, we plot a simple candlestick plot. Check out the
+<a class="reference internal" href="candlestick_plot.html#candlestick-tutorial"><span class="std std-ref">candlestick tutorial</span></a> and <a class="reference internal" href="../api_reference.html"><span class="std std-doc">API reference</span></a>
+for details on all candlestick options.</p>
+<a class="only-dark reference internal image-reference" href="../_images/getting-started-simple-dark600.png"><img alt="../_images/getting-started-simple-dark600.png" class="only-dark align-center" src="../_images/getting-started-simple-dark600.png" style="width: 65%;" />
+</a>
+<a class="only-light reference internal image-reference" href="../_images/getting-started-simple-light600.png"><img alt="../_images/getting-started-simple-light600.png" class="only-light align-center" src="../_images/getting-started-simple-light600.png" style="width: 65%;" />
+</a>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="python" for="sd-tab-item-0">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rallyplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plotter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rallyplot.plotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_toy_candlestick_data</span>
+
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span>
+    <span class="n">color_mode</span><span class="o">=</span><span class="s2">&quot;light&quot;</span><span class="p">,</span>       <span class="c1"># &quot;light&quot; or &quot;dark&quot;</span>
+    <span class="n">anti_aliasing_samples</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  <span class="c1"># &quot;0&quot; is fastest, higher results in higher-quality images</span>
+<span class="p">)</span>
+
+<span class="n">open_high_low_close_df</span><span class="p">,</span> <span class="n">volume</span><span class="p">,</span> <span class="n">dates</span> <span class="o">=</span> <span class="n">get_toy_candlestick_data</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">100_000</span><span class="p">)</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">candlestick_from_df</span><span class="p">(</span>  
+    <span class="n">open_high_low_close_df</span><span class="p">,</span> <span class="n">dates</span>
+<span class="p">)</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_x_label</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_y_label</span><span class="p">(</span><span class="s2">&quot;Price ($)&quot;</span><span class="p">)</span> 
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;My First Plot&quot;</span><span class="p">)</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cpp" for="sd-tab-item-1">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Plotter.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ToyData.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+
+<span class="w">    </span><span class="n">PlotterArgs</span><span class="w"> </span><span class="n">plotArgs</span><span class="p">;</span>
+<span class="w">    </span><span class="n">plotArgs</span><span class="p">.</span><span class="n">colorMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ColorMode</span><span class="o">::</span><span class="n">light</span><span class="p">;</span><span class="w">  </span><span class="c1">// light or dark</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Set antialiasing </span>
+<span class="w">    </span><span class="n">plotArgs</span><span class="p">.</span><span class="n">antiAliasingSamples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w">  </span><span class="c1">// &quot;0&quot; is fastest, higher results in higher-quality images        </span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">Plotter</span><span class="w"> </span><span class="n">plotter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Plotter</span><span class="p">(</span><span class="n">plotArgs</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">CandleData</span><span class="w"> </span><span class="n">candleData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getToyCandlestickData</span><span class="p">(</span><span class="mi">100000</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Plot a candlestick chart</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">candlestick</span><span class="p">(</span>
+<span class="w">       </span><span class="n">candleData</span><span class="p">.</span><span class="n">open</span><span class="p">,</span>
+<span class="w">       </span><span class="n">candleData</span><span class="p">.</span><span class="n">high</span><span class="p">,</span>
+<span class="w">       </span><span class="n">candleData</span><span class="p">.</span><span class="n">low</span><span class="p">,</span>
+<span class="w">       </span><span class="n">candleData</span><span class="p">.</span><span class="n">close</span><span class="p">,</span>
+<span class="w">       </span><span class="n">candleData</span><span class="p">.</span><span class="n">dates</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setXLabel</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setYLabel</span><span class="p">(</span><span class="s">&quot;Price ($)&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setTitle</span><span class="p">(</span><span class="s">&quot;My Plot&quot;</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Start the interactive plot</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">start</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-more-advanced-example">
+<span id="advanced-example"></span><h1>A more advanced example<a class="headerlink" href="#a-more-advanced-example" title="Link to this heading">#</a></h1>
+<a class="only-dark reference internal image-reference" href="../_images/getting-started-advanced-dark600.png"><img alt="../_images/getting-started-advanced-dark600.png" class="only-dark align-center" src="../_images/getting-started-advanced-dark600.png" style="width: 65%;" />
+</a>
+<a class="only-light reference internal image-reference" href="../_images/getting-started-advanced-light600.png"><img alt="../_images/getting-started-advanced-light600.png" class="only-light align-center" src="../_images/getting-started-advanced-light600.png" style="width: 65%;" />
+</a>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="python" for="sd-tab-item-2">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">rallyplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plotter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rallyplot.plotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_toy_candlestick_data</span>
+
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span>
+    <span class="n">color_mode</span><span class="o">=</span><span class="s2">&quot;light&quot;</span><span class="p">,</span>       <span class="c1"># &quot;light&quot; or &quot;dark&quot;</span>
+    <span class="n">anti_aliasing_samples</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  <span class="c1"># &quot;0&quot; is fastest, higher results in higher-quality images</span>
+<span class="p">)</span>
+
+<span class="n">open_high_low_close_df</span><span class="p">,</span> <span class="n">volume</span><span class="p">,</span> <span class="n">dates</span> <span class="o">=</span> <span class="n">get_toy_candlestick_data</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">100_000</span><span class="p">)</span>
+
+<span class="c1"># Plot a candlestick chart (use plotter.candlestick to</span>
+<span class="c1"># pass `open`, `close`, `high`, `low` arrays separately)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">candlestick_from_df</span><span class="p">(</span>
+    <span class="n">open_high_low_close_df</span><span class="p">,</span> <span class="n">dates</span>
+<span class="p">)</span>
+
+<span class="c1"># Create a new x-axis linked subplot and plot a bar plot.</span>
+<span class="c1"># It only takes 10% of the space.</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_linked_subplot</span><span class="p">(</span><span class="mf">0.10</span><span class="p">)</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span>
+
+<span class="c1"># Set axis labels, titles and legends</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_x_label</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_y_label</span><span class="p">(</span><span class="s2">&quot;Price ($)&quot;</span><span class="p">)</span>  <span class="c1"># currently can only share 1 y-axis label</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;My First Plot&quot;</span><span class="p">)</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_legend</span><span class="p">([</span><span class="s2">&quot;AAPL&quot;</span><span class="p">],</span> <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_legend</span><span class="p">([</span><span class="s2">&quot;Volume&quot;</span><span class="p">],</span> <span class="n">linked_subplot_idx</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># We can change the camera mode on a specific subplot</span>
+<span class="c1"># if `linked_subplot_idx=None`, it will be applied to all linked subplots.</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">pin_y_axis</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_y_limits</span><span class="p">(</span><span class="o">-</span><span class="mi">20000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Applies to all linked subplots</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">set_crosshair_settings</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># We can resize the space each plots takes later</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">resize_linked_subplots</span><span class="p">([</span><span class="mf">0.77</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">])</span>
+
+<span class="c1"># We can plot more data on any linked subplot.</span>
+<span class="c1"># If `linked_subplot_idx` is `None` (default) then</span>
+<span class="c1"># it will be added to the most recent linked subplot.</span>
+<span class="n">some_indicator</span> <span class="o">=</span> <span class="n">open_high_low_close_df</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">25.0</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">some_indicator</span><span class="p">,</span> <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cpp" for="sd-tab-item-3">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Plotter.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ToyData.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+
+<span class="w">    </span><span class="n">PlotterArgs</span><span class="w"> </span><span class="n">plotArgs</span><span class="p">;</span>
+<span class="w">    </span><span class="n">plotArgs</span><span class="p">.</span><span class="n">colorMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ColorMode</span><span class="o">::</span><span class="n">light</span><span class="p">;</span><span class="w">  </span><span class="c1">// light or dark</span>
+
+<span class="w">    </span><span class="c1">// &quot;0&quot; is fastest, higher results in higher-quality images</span>
+<span class="w">    </span><span class="n">plotArgs</span><span class="p">.</span><span class="n">antiAliasingSamples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Plotter</span><span class="w"> </span><span class="n">plotter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Plotter</span><span class="p">(</span><span class="n">plotArgs</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">CandleData</span><span class="w"> </span><span class="n">candleData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getToyCandlestickData</span><span class="p">(</span><span class="mi">100000</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Plot a candlestick chart</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">candlestick</span><span class="p">(</span>
+<span class="w">        </span><span class="n">candleData</span><span class="p">.</span><span class="n">open</span><span class="p">,</span>
+<span class="w">        </span><span class="n">candleData</span><span class="p">.</span><span class="n">high</span><span class="p">,</span>
+<span class="w">        </span><span class="n">candleData</span><span class="p">.</span><span class="n">low</span><span class="p">,</span>
+<span class="w">        </span><span class="n">candleData</span><span class="p">.</span><span class="n">close</span><span class="p">,</span>
+<span class="w">        </span><span class="n">candleData</span><span class="p">.</span><span class="n">dates</span>
+<span class="w">        </span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Create a new x-axis linked subplot and plot a bar plot.</span>
+<span class="w">    </span><span class="c1">// It only takes 10% of the space.</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">addLinkedSubplot</span><span class="p">(</span><span class="mf">0.10</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">candleData</span><span class="p">.</span><span class="n">volume</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Set axis labels, titles and legends</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setLegend</span><span class="p">({</span><span class="s">&quot;AAPL&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// last argument is linkedSubplotIdx</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setLegend</span><span class="p">({</span><span class="s">&quot;Volume&quot;</span><span class="p">},</span><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setXLabel</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setYLabel</span><span class="p">(</span><span class="s">&quot;Price ($)&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setTitle</span><span class="p">(</span><span class="s">&quot;My First Plot&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// We can change the camera mode on a specific subplot</span>
+<span class="w">    </span><span class="c1">// if `linked_subplot_idx=None`, it will be applied to all linked subplots.</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">linkedSubplotIdx_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">pinYAxis</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">linkedSubplotIdx_0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setYLimits</span><span class="p">(</span><span class="mi">-20000</span><span class="p">,</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w"> </span><span class="n">linkedSubplotIdx_0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Applies to all linked subplots</span>
+<span class="w">    </span><span class="n">CrosshairSettings</span><span class="w"> </span><span class="n">crosshairSettings</span><span class="p">{};</span>
+<span class="w">    </span><span class="n">crosshairSettings</span><span class="p">.</span><span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">setCrosshairSettings</span><span class="p">(</span><span class="n">crosshairSettings</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// We can resize the space each plots takes later</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">resizeLinkedSubplots</span><span class="p">({</span><span class="mf">0.77</span><span class="p">,</span><span class="w"> </span><span class="mf">0.33</span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// We can plot more data on any linked subplot.</span>
+<span class="w">    </span><span class="c1">// If `linked_subplot_idx` is `None` (default) then</span>
+<span class="w">    </span><span class="c1">// it will be added to the most recent linked subplot.</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">someIndicator</span><span class="p">(</span><span class="n">candleData</span><span class="p">.</span><span class="n">open</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">candleData</span><span class="p">.</span><span class="n">open</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">someIndicator</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">candleData</span><span class="p">.</span><span class="n">open</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">25.0f</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">line</span><span class="p">(</span><span class="n">someIndicator</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="n">linkedSubplotIdx_0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Start the interactive plot</span>
+<span class="w">    </span><span class="n">plotter</span><span class="p">.</span><span class="n">start</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="key-considerations">
+<span id="id1"></span><h2>Key Considerations<a class="headerlink" href="#key-considerations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>If passing dates as <code class="docutils literal notranslate"><span class="pre">datetime</span></code> (Python) or <code class="docutils literal notranslate"><span class="pre">chrono</span></code> (C++), they should be <strong>Coordinated Universal Time (UTC)</strong>
+to ensure accuracy in the dynamic time display.
+See the <a class="reference internal" href="#passing-dates"><span class="std std-ref">passing dates</span></a> section for more information.</p></li>
+<li><p>All floating-point values are cast to 32-bit floats before display, due to limited support for float64 on most GPUs.</p></li>
+<li><p>At around 10 million points, floating point inaccuracies can lead to visible offset between gridlines and the
+plot when zoomed in, and other rendering issues. This is due to floating-point resolution limits and becomes more pronounced
+as more data points are added, leading to noticeable visual distortions at around 20 million points.
+This is a <a class="reference external" href="https://stackoverflow.com/a/74565145">known issue</a> in GPU-accelerated plotting
+and is a key area for <a class="reference internal" href="../roadmap.html#roadmap"><span class="std std-ref">future improvements to the package</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start()</span></code> initialises a <code class="docutils literal notranslate"><span class="pre">Qt</span></code> event loop,  creating an interactive plot. Once the plot is closed, the
+<code class="docutils literal notranslate"><span class="pre">plotter</span></code> object may still be used but plots will be cleared from the object.
+Use <code class="docutils literal notranslate"><span class="pre">plotter.finish()</span></code> in a Jupyter Notebook ensure the plotter is properly torn down.</p></li>
+<li><p>Only ASCII characters (code points 0–127) are allowed for any text displayed.
+This is due to the complexity of rendering text on the GPU.</p></li>
+</ul>
+</section>
+<section id="camera-and-keyboard-controls">
+<span id="id2"></span><h2>Camera and Keyboard Controls<a class="headerlink" href="#camera-and-keyboard-controls" title="Link to this heading">#</a></h2>
+<p>The interactive plot can be controlled using the mouse or keyboard.</p>
+<p>The <strong>mouse controls</strong> are:</p>
+<ul class="simple">
+<li><p><strong>Left-click:</strong> pan</p></li>
+<li><p><strong>Right-click:</strong> zoom</p></li>
+<li><p><strong>Scroll wheel:</strong> zoom x</p></li>
+<li><p><strong>Scroll wheel + Shift:</strong> zoom y</p></li>
+<li><p><strong>CTRL + right-click zoom:</strong> pin zoom to the axis-edge</p></li>
+</ul>
+<p>and the <strong>keyboard controls</strong> are:</p>
+<ul class="simple">
+<li><p><strong>A/D:</strong> pan left-right</p></li>
+<li><p><strong>W/X:</strong> pan top-bottom</p></li>
+<li><p><strong>Q/E:</strong> zoom y-axis (no effect if <code class="docutils literal notranslate"><span class="pre">pin_y_axis</span></code> is on)</p></li>
+<li><p><strong>Z/C:</strong> zoom x-axis</p></li>
+<li><p><strong>Enter:</strong> to cycle through candlestick plot modes</p></li>
+<li><p><strong>CTRL+S:</strong> cycle through the plot that the value pop-up displays when in “always show” mode.</p></li>
+<li><p><strong>M + Right-click:</strong> Draw a straight line onto the plot.</p></li>
+</ul>
+</section>
+<section id="maximising-performance">
+<span id="id3"></span><h2>Maximising performance<a class="headerlink" href="#maximising-performance" title="Link to this heading">#</a></h2>
+<p>The capability of your GPU is the primary factor which affect the speed of the plots.
+However, a number of settings can help improve performance:</p>
+<ul class="simple">
+<li><p><strong>Unpin the Y-axis</strong>
+By default, the Y-axis limits are pinned to the current visible data range.
+Removing this pin improves speed (<code class="docutils literal notranslate"><span class="pre">pin_y_axis(False)</span></code> in Python, <code class="docutils literal notranslate"><span class="pre">pinYAxis(false)</span></code> in C++)</p>
+<ul>
+<li><p><strong>Disable antialiasing</strong>
+Antialiasing is off by default. Keeping it disabled yields the fastest rendering.</p></li>
+</ul>
+</li>
+<li><p><strong>Use basic line mode</strong>
+Use ‘basic line’ mode for <code class="docutils literal notranslate"><span class="pre">line()</span></code>  (and <code class="docutils literal notranslate"><span class="pre">candlestick()</span></code> plots in line-mode). See <a class="reference internal" href="line_plot.html#line-tutorial"><span class="std std-ref">here</span></a> for more details.</p></li>
+</ul>
+<p><strong>Data copying</strong></p>
+<p>All data arrays to be displayed are passed by reference and are not copied
+(except to GPU buffer). However, if <code class="docutils literal notranslate"><span class="pre">dates</span></code> are passed (either as date-time objects or strings) these
+will be copied once as they are stored in a hash-table for fast indexing, but they are not copied to GPU buffer.</p>
+<p>Under the hood, <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> is written in C++. When passing data from Python, numpy arrays
+are passed by reference and will not be copied. However <code class="docutils literal notranslate"><span class="pre">dates</span></code> (lists of string or <code class="docutils literal notranslate"><span class="pre">datetime</span></code>)
+will be copied once.</p>
+<p>“””</p>
+</section>
+<section id="passing-dates">
+<span id="id4"></span><h2>Passing Dates<a class="headerlink" href="#passing-dates" title="Link to this heading">#</a></h2>
+<p>There are three option for configuring the x-axis tick labels in <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code>:
+<strong>1) No dates provided (default):</strong>
+The x-axis shows the data index.
+<strong>2) String labels:</strong>
+An array of ASCII <code class="docutils literal notranslate"><span class="pre">string</span></code> labels, the same length as the data being plotted.
+<strong>3) Datetime labels:</strong>
+An array of <code class="docutils literal notranslate"><span class="pre">datetime</span></code> (Python) / <code class="docutils literal notranslate"><span class="pre">chrono</span></code> <code class="docutils literal notranslate"><span class="pre">time_point</span></code> (C++) labels, the same size as the displayed
+dataset. If this option is chosen, datetimes will be formatted appropriately according to
+the zoom level.</p>
+<p><strong>Datetime / chrono dates must be in UTC.</strong></p>
+<p><strong>Linked subplots</strong></p>
+<p>Because dates are shared across linked subplots, you only need to pass dates for one
+plot on a linked subplot. Passing dates to later plotting calls plots have no effect.</p>
+<p><strong>Scatter plots</strong>
+When using the scatter plot, x-axis indices to plot can be passed as integers,
+otherwise must be passed in the same format as the currently displayed data.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Get Started</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-example">A simple example</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-more-advanced-example">A more advanced example</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-considerations">Key Considerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#camera-and-keyboard-controls">Camera and Keyboard Controls</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximising-performance">Maximising performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#passing-dates">Passing Dates</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, rallyplot.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

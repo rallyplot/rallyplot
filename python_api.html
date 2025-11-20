@@ -1,0 +1,1109 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" data-theme="auto">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python API &#8212; rallyplot 0.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "auto";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=7026087e"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python_api';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="C++ API" href="cpp_api.html" />
+    <link rel="prev" title="API Docs" href="api_reference.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="auto">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">rallyplot</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="api_reference.html">
+    API Docs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/rallyplot/rallyplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="api_reference.html">
+    API Docs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/rallyplot/rallyplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_api.html">C++ API</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api_reference.html" class="nav-link">API Docs</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Python API</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="python-api">
+<span id="api-reference"></span><h1>Python API<a class="headerlink" href="#python-api" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="rallyplot.Plotter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rallyplot.</span></span><span class="sig-name descname"><span class="pre">Plotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'light'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_aliasing_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_tick_label_font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_tick_label_font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_margin_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height_margin_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter" title="Link to this definition">#</a></dt>
+<dd><p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.add_linked_subplot" title="rallyplot.Plotter.add_linked_subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_linked_subplot</span></code></a>(height_as_proportion)</p></td>
+<td><p>Add a linked subplot to the subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.add_subplot" title="rallyplot.Plotter.add_subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_subplot</span></code></a>(row, col, row_span, col_span)</p></td>
+<td><p>Add a new subplot to the figure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.bar" title="rallyplot.Plotter.bar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bar</span></code></a>(y[, dates, linked_subplot_idx, color, ...])</p></td>
+<td><p>Add a bar plot to the linked subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.candlestick" title="rallyplot.Plotter.candlestick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">candlestick</span></code></a>(open, high, low, close[, dates, ...])</p></td>
+<td><p>Add a candlestick plot to the linked subplot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.candlestick_from_df" title="rallyplot.Plotter.candlestick_from_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">candlestick_from_df</span></code></a>(df[, dates, ...])</p></td>
+<td><p>Add a candlestick plot to the linked subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.finish" title="rallyplot.Plotter.finish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">finish</span></code></a>()</p></td>
+<td><p>Ensure c++ side is completely cleared.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.line" title="rallyplot.Plotter.line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line</span></code></a>(y[, dates, linked_subplot_idx, color, ...])</p></td>
+<td><p>Add a line plot to the linked subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.link_y_axes" title="rallyplot.Plotter.link_y_axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">link_y_axes</span></code></a>([on])</p></td>
+<td><p>Link the y-axis across all linked subplots.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.pin_y_axis" title="rallyplot.Plotter.pin_y_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pin_y_axis</span></code></a>([on, linked_subplot_idx])</p></td>
+<td><p>Fix the y-axis zoom to the minimum and maximum values of the plot currently in view.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.resize_linked_subplots" title="rallyplot.Plotter.resize_linked_subplots"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize_linked_subplots</span></code></a>(y_heights)</p></td>
+<td><p>Resize the linked subplots.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.scatter" title="rallyplot.Plotter.scatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scatter</span></code></a>(x, y[, linked_subplot_idx, shape, ...])</p></td>
+<td><p>Add a scatter plot to the linked subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_active_subplot" title="rallyplot.Plotter.set_active_subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_active_subplot</span></code></a>(row, col)</p></td>
+<td><p>Set the 'active' subplot to the subplot at index row, col.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_background_color" title="rallyplot.Plotter.set_background_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_background_color</span></code></a>(color)</p></td>
+<td><p>Set the background color for the subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_camera_settings" title="rallyplot.Plotter.set_camera_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_camera_settings</span></code></a>([key_zoom_speed, ...])</p></td>
+<td><p>Set the camera settings that control pan and zooming.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_crosshair_settings" title="rallyplot.Plotter.set_crosshair_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_crosshair_settings</span></code></a>([on, font, ...])</p></td>
+<td><p>Settings for the crosshair that follows the mouse over the plot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_draw_line_settings" title="rallyplot.Plotter.set_draw_line_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_draw_line_settings</span></code></a>([linewidth, color])</p></td>
+<td><p>Control how lines drawn on the plot are displayed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_hover_value_settings" title="rallyplot.Plotter.set_hover_value_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_hover_value_settings</span></code></a>([display_mode, ...])</p></td>
+<td><p>Control how the pop-up label that appears on mouse hover over plot is displayed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_legend" title="rallyplot.Plotter.set_legend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_legend</span></code></a>(label_names[, ...])</p></td>
+<td><p>Set a legend on a linked subplot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_title" title="rallyplot.Plotter.set_title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_title</span></code></a>(text[, font, weight, font_size, color])</p></td>
+<td><p>Set a title on the subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_x_axis_settings" title="rallyplot.Plotter.set_x_axis_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_x_axis_settings</span></code></a>([min_num_ticks, ...])</p></td>
+<td><p>Control how the x-axis is displayed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_x_label" title="rallyplot.Plotter.set_x_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_x_label</span></code></a>(text[, font, weight, font_size, ...])</p></td>
+<td><p>Set a label on the x-axis for the subplot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_x_limits" title="rallyplot.Plotter.set_x_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_x_limits</span></code></a>(min, max)</p></td>
+<td><p>Set the minimum and maximum values for the x-axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_y_axis_settings" title="rallyplot.Plotter.set_y_axis_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_y_axis_settings</span></code></a>([min_num_ticks, ...])</p></td>
+<td><p>Control how the y-axis is displayed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_y_label" title="rallyplot.Plotter.set_y_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_y_label</span></code></a>(text[, font, weight, font_size, ...])</p></td>
+<td><p>Set a label on the y-axis for the subplot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rallyplot.Plotter.set_y_limits" title="rallyplot.Plotter.set_y_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_y_limits</span></code></a>([min, max, linked_subplot_idx])</p></td>
+<td><p>Set minimum and / or maximum values for the y-axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rallyplot.Plotter.start" title="rallyplot.Plotter.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start</span></code></a>()</p></td>
+<td><p>Start the event loop to display and interact with plots.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p><strong>is_number</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>)</p></li>
+<li><p><strong>height</strong> (<em>int</em>)</p></li>
+<li><p><strong>color_mode</strong> (<em>Literal</em><em>[</em><em>'light'</em><em>, </em><em>'dark'</em><em>]</em>)</p></li>
+<li><p><strong>anti_aliasing_samples</strong> (<em>int</em>)</p></li>
+<li><p><strong>axis_tick_label_font</strong> (<em>FontType</em>)</p></li>
+<li><p><strong>axis_tick_label_font_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>axis_right</strong> (<em>bool</em>)</p></li>
+<li><p><strong>width_margin_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>height_margin_size</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.start" title="Link to this definition">#</a></dt>
+<dd><p>Start the event loop to display and interact with plots.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.finish" title="Link to this definition">#</a></dt>
+<dd><p>Ensure c++ side is completely cleared.</p>
+<p>This ensures you can the below and avoid seg faults.:
+plotter = Plotter()
+plotter.finish()
+plotter = Plotter()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_background_color">
+<span class="sig-name descname"><span class="pre">set_background_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_background_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_background_color" title="Link to this definition">#</a></dt>
+<dd><p>Set the background color for the subplot.</p>
+<dl class="simple">
+<dt>color</dt><dd><p>Array of length 1 to 4 setting RGBA color values.
+Missing values are set to 0.0f for color and 1.0f for alpha.
+e.g. {0.1f, 0.2f} sets {0.1f, 0.2f, 0.0f, 1.0f}.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>list</em><em> | </em><em>tuple</em><em> | </em><em>numpy.ndarray</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_camera_settings">
+<span class="sig-name descname"><span class="pre">set_camera_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_zoom_speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mouse_zoom_speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.004</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_pan_speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mouse_pan_speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wheel_speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.002</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lock_most_recent_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_zoom_at_edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_camera_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_camera_settings" title="Link to this definition">#</a></dt>
+<dd><p>Set the camera settings that control pan and zooming.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_zoom_speed</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Controls the speed of zoom by key-press (Q, E, Z, C).</p></li>
+<li><p><strong>mouse_zoom_speed</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Controls the speed of zoom by mouse move (right-click).</p></li>
+<li><p><strong>key_pan_speed</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Controls the speed of panning by key-press (A, D, W, X).</p></li>
+<li><p><strong>mouse_pan_speed</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Controls the speed of panning by mouse move (left-click).</p></li>
+<li><p><strong>wheel_speed</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Controls the speed of zoom by the mouse wheel.</p></li>
+<li><p><strong>lock_most_recent_date</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>true</cite>, the axis zoom / pan is locked to the largest x-axis position.</p></li>
+<li><p><strong>fix_zoom_at_edge</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – All zooming will be fixed to the y-axis (right or left depending on PlotterArgs.axisRight).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_crosshair_settings">
+<span class="sig-name descname"><span class="pre">set_crosshair_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_crosshair_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_crosshair_settings" title="Link to this definition">#</a></dt>
+<dd><p>Settings for the crosshair that follows the mouse over the plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>on</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>False</cite>, the crosshair is turned off.</p></li>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'consola'</span></code>, <code class="docutils literal notranslate"><span class="pre">'arial'</span></code>]</span>) – Font of the label that appears in the axis.</p></li>
+<li><p><strong>font_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Font size of the label that appears in the axis.</p></li>
+<li><p><strong>linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Crosshair line width.</p></li>
+<li><p><strong>line_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Crosshair line color (array-like, length 1-4, RGBA). Default is based on ColorMode.</p></li>
+<li><p><strong>background_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Background color (array-like, length 1-4, RGBA) of the label that appears in the axis. Default is based on ColorMode.</p></li>
+<li><p><strong>font_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Color (array-like, length 1-4, RGBA) of the font that appears in the axis. Default is based on ColorMode.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_draw_line_settings">
+<span class="sig-name descname"><span class="pre">set_draw_line_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_draw_line_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_draw_line_settings" title="Link to this definition">#</a></dt>
+<dd><p>Control how lines drawn on the plot are displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the drawn line.</p></li>
+<li><p><strong>color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Color (array-like, length 1-4, RGBA) of the drawn line. Default blue.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_hover_value_settings">
+<span class="sig-name descname"><span class="pre">set_hover_value_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'always_show'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_hover_value_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_hover_value_settings" title="Link to this definition">#</a></dt>
+<dd><p>Control how the pop-up label that appears on mouse hover over plot is displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>display_mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'always_show'</span></code>, <code class="docutils literal notranslate"><span class="pre">'only_under_mouse'</span></code>, <code class="docutils literal notranslate"><span class="pre">'off'</span></code>]</span>) – “always_show” will always display the pop-up. “only_under_mouse” will show only when mouse
+is hovered over the plot. Otherwise, “off”.</p></li>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'consola'</span></code>, <code class="docutils literal notranslate"><span class="pre">'arial'</span></code>]</span>) – Font of the hover label.</p></li>
+<li><p><strong>font_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Font size of the hover label.</p></li>
+<li><p><strong>font_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Font color (array-like, length 1-4, RGBA) of the hover label. Default is based on ColorMode.</p></li>
+<li><p><strong>background_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Background color (array-like, length 1-4, RGBA) of the hover label. Default is based on ColorMode.</p></li>
+<li><p><strong>border_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Border color (array-like, length 1-4, RGBA) of the hover label. Default is based on ColorMode.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_x_axis_settings">
+<span class="sig-name descname"><span class="pre">set_x_axis_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tick_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tick_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_gridline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridline_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridline_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_x_axis_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_x_axis_settings" title="Link to this definition">#</a></dt>
+<dd><p>Control how the x-axis is displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_num_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Minimum number of ticks that should be displayed. Should be a multiple of 2.
+If too close to max_num_ticks, a flickering artifact may be observed.</p></li>
+<li><p><strong>max_num_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Maximum number of ticks that should be displayed. Should be a multiple of 2.
+If too close to min_num_ticks, a flickering artifact may be observed.</p></li>
+<li><p><strong>init_num_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Initial number of ticks, must be a multiple of two and between min / max num ticks.</p></li>
+<li><p><strong>show_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>true</cite>, small tick-lines will be displayed.</p></li>
+<li><p><strong>tick_linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the tick line. May have no effect on some GPUs.</p></li>
+<li><p><strong>tick_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Length of the tick line.</p></li>
+<li><p><strong>show_gridline</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>true</cite>, grid lines (that extend the tick line across the plot) are displayed.</p></li>
+<li><p><strong>gridline_width</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the grid line. May have no effect on some GPUs.</p></li>
+<li><p><strong>axis_linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the axis line. May have no effect on some GPUs.</p></li>
+<li><p><strong>gridline_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Grid line (array-like, length 1-4, RGBA) color, if <cite>None</cite> uses the default according to ColorMode.</p></li>
+<li><p><strong>axis_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Axis color (array-like, length 1-4, RGBA) , if <cite>None</cite> uses the default according to ColorMode.</p></li>
+<li><p><strong>font_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Axis tick label color(array-like, length 1-4, RGBA), if <cite>None</cite> uses the default according to ColorMode.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – The linked subplot on which to set the settings. If <cite>None</cite>, will be applied to all linked subplots.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_y_axis_settings">
+<span class="sig-name descname"><span class="pre">set_y_axis_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tick_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tick_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_gridline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridline_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tick_label_decimal_places</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridline_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_y_axis_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_y_axis_settings" title="Link to this definition">#</a></dt>
+<dd><p>Control how the y-axis is displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_num_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Minimum number of ticks that should be displayed. Should be a multiple of 2.
+If too close to max_num_ticks, a flickering artifact may be observed.</p></li>
+<li><p><strong>max_num_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Maximum number of ticks that should be displayed. Should be a multiple of 2.
+If too close to min_num_ticks, a flickering artifact may be observed.</p></li>
+<li><p><strong>init_num_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Initial number of ticks, must be a multiple of two and between min / max num ticks.</p></li>
+<li><p><strong>show_ticks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>true</cite>, small tick-lines will be displayed.</p></li>
+<li><p><strong>tick_linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the tick line. May have no effect on some GPUs.</p></li>
+<li><p><strong>tick_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Length of the tick line.</p></li>
+<li><p><strong>show_gridline</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>true</cite>, grid lines (that extend the tick line across the plot) are displayed.</p></li>
+<li><p><strong>gridline_width</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the grid line. May have no effect on some GPUs.</p></li>
+<li><p><strong>axis_linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the axis line. May have no effect on some GPUs.</p></li>
+<li><p><strong>tick_label_decimal_places</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Controls the number of decimal places for the y-axis tick labels.</p></li>
+<li><p><strong>gridline_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Grid line color, if <cite>None</cite> uses the default according to ColorMode.</p></li>
+<li><p><strong>axis_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Axis color (array-like, length 1-4, RGBA) , if <cite>None</cite> uses the default according to ColorMode.</p></li>
+<li><p><strong>font_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Axis tick label color (array-like, length 1-4, RGBA) , if <cite>None</cite> uses the default according to ColorMode.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – The linked subplot on which to set the settings. If <cite>None</cite>, will be applied to all linked subplots.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.pin_y_axis">
+<span class="sig-name descname"><span class="pre">pin_y_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.pin_y_axis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.pin_y_axis" title="Link to this definition">#</a></dt>
+<dd><p>Fix the y-axis zoom to the minimum and maximum values of the plot currently in view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>on</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>False</cite>, y-axis is unpinned and can be zoomed freely.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – The linked subplot to pin. If <cite>None</cite>, will be applied to all linked subplots.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_y_limits">
+<span class="sig-name descname"><span class="pre">set_y_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_y_limits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_y_limits" title="Link to this definition">#</a></dt>
+<dd><p>Set minimum and / or maximum values for the y-axis.</p>
+<p>Only has an effect if pin_y_axis() is set to <cite>False</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – Minimum value for the y-axis, if <cite>None</cite> is set to -inf.</p></li>
+<li><p><strong>max</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – Maximum value for the y-axis, if <cite>None</cite> is set to inf.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – The linked subplot on which to limit the y-axis view. If <cite>None</cite>, will be applied to all linked subplots.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_x_limits">
+<span class="sig-name descname"><span class="pre">set_x_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_x_limits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_x_limits" title="Link to this definition">#</a></dt>
+<dd><p>Set the minimum and maximum values for the x-axis.</p>
+<p>Must be the same type as the x-axis data. x-axis values should be unique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – Minimum value for the x-axis, if <cite>None</cite> is set to the minimum x value.
+Must be the same type as <cite>dates</cite> used for the plot.</p></li>
+<li><p><strong>max</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – Maximum value for the x-axis, if <cite>None</cite> is set to the maximum x value.
+Must be the same type as <cite>dates</cite> used for the plot.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.link_y_axes">
+<span class="sig-name descname"><span class="pre">link_y_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.link_y_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.link_y_axes" title="Link to this definition">#</a></dt>
+<dd><p>Link the y-axis across all linked subplots.</p>
+<dl class="simple">
+<dt>on</dt><dd><p>If <cite>true</cite>, zooming on one plot will zoom on all linked subplots.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>on</strong> (<em>bool</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_y_label">
+<span class="sig-name descname"><span class="pre">set_y_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bold'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_y_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_y_label" title="Link to this definition">#</a></dt>
+<dd><p>Set a label on the y-axis for the subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Text to set as the label.</p></li>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'consola'</span></code>, <code class="docutils literal notranslate"><span class="pre">'arial'</span></code>]</span>) – Font of the label.</p></li>
+<li><p><strong>weight</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'thin'</span></code>, <code class="docutils literal notranslate"><span class="pre">'extralight'</span></code>, <code class="docutils literal notranslate"><span class="pre">'light'</span></code>, <code class="docutils literal notranslate"><span class="pre">'normal'</span></code>, <code class="docutils literal notranslate"><span class="pre">'regular'</span></code>, <code class="docutils literal notranslate"><span class="pre">'medium'</span></code>, <code class="docutils literal notranslate"><span class="pre">'demibold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'bold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'extrabold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'black'</span></code>]</span>) – Weight of the label font.</p></li>
+<li><p><strong>font_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Point size of the label font.</p></li>
+<li><p><strong>color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Color (array-like, length 1-4, RGBA) of the label text.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_x_label">
+<span class="sig-name descname"><span class="pre">set_x_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bold'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_x_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_x_label" title="Link to this definition">#</a></dt>
+<dd><p>Set a label on the x-axis for the subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Text to set as the label.</p></li>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'consola'</span></code>, <code class="docutils literal notranslate"><span class="pre">'arial'</span></code>]</span>) – Font of the label.</p></li>
+<li><p><strong>weight</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'thin'</span></code>, <code class="docutils literal notranslate"><span class="pre">'extralight'</span></code>, <code class="docutils literal notranslate"><span class="pre">'light'</span></code>, <code class="docutils literal notranslate"><span class="pre">'normal'</span></code>, <code class="docutils literal notranslate"><span class="pre">'regular'</span></code>, <code class="docutils literal notranslate"><span class="pre">'medium'</span></code>, <code class="docutils literal notranslate"><span class="pre">'demibold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'bold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'extrabold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'black'</span></code>]</span>) – Weight of the label font.</p></li>
+<li><p><strong>font_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Point size of the label font.</p></li>
+<li><p><strong>color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Color (array-like, length 1-4, RGBA) of the label text.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_title">
+<span class="sig-name descname"><span class="pre">set_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'extrabold'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_title" title="Link to this definition">#</a></dt>
+<dd><p>Set a title on the subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Text to set as the title.</p></li>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'consola'</span></code>, <code class="docutils literal notranslate"><span class="pre">'arial'</span></code>]</span>) – Font of the title.</p></li>
+<li><p><strong>weight</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'thin'</span></code>, <code class="docutils literal notranslate"><span class="pre">'extralight'</span></code>, <code class="docutils literal notranslate"><span class="pre">'light'</span></code>, <code class="docutils literal notranslate"><span class="pre">'normal'</span></code>, <code class="docutils literal notranslate"><span class="pre">'regular'</span></code>, <code class="docutils literal notranslate"><span class="pre">'medium'</span></code>, <code class="docutils literal notranslate"><span class="pre">'demibold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'bold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'extrabold'</span></code>, <code class="docutils literal notranslate"><span class="pre">'black'</span></code>]</span>) – Weight of the title font.</p></li>
+<li><p><strong>font_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Point size of the title font.</p></li>
+<li><p><strong>color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Color (array-like, length 1-4, RGBA) of the title text</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_legend">
+<span class="sig-name descname"><span class="pre">set_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_size_scalar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_box_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_box_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">35.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_line_pad_left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_line_pad_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_text_pad_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_inter_item_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_item_pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arial'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">1.0,</span> <span class="pre">1.0,</span> <span class="pre">0.0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_legend" title="Link to this definition">#</a></dt>
+<dd><p>Set a legend on a linked subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label_names</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – A list of label names for the legend. Must be the same length
+as the number of plots in the linked subplot.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Linked subplot on which to add the legend.</p></li>
+<li><p><strong>legend_size_scalar</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – A convenient scalar by which to increase or decrease the legend size.
+Other settings add further customization to the legend size.</p></li>
+<li><p><strong>x_box_pad</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – X position of the legend expressed as distance from the right of the plot.</p></li>
+<li><p><strong>y_box_pad</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Y position of the legend expressed as distance from the top of the plot.</p></li>
+<li><p><strong>line_width</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Width of the legend item colored lines.</p></li>
+<li><p><strong>line_height</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Height of the legend items colored lines.</p></li>
+<li><p><strong>x_line_pad_left</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Padding between the edge of the legend box and the text (left)</p></li>
+<li><p><strong>x_line_pad_right</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Padding between the legend item colored line (left) i.e. between the line text.</p></li>
+<li><p><strong>x_text_pad_right</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Padding between the text (right) i.e. the text and the item colored line.</p></li>
+<li><p><strong>y_inter_item_pad</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Vertical padding between legend items.</p></li>
+<li><p><strong>y_item_pad</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Padding between the legend items (top and bottom) and the legend box.</p></li>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'consola'</span></code>, <code class="docutils literal notranslate"><span class="pre">'arial'</span></code>]</span>) – Font for the legend item text.</p></li>
+<li><p><strong>font_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Font size for the legend item text.</p></li>
+<li><p><strong>font_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – Font color (array-like, length 1-4, RGBA) for the legend item text.</p></li>
+<li><p><strong>box_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</span>) – Background color (array-like, length 1-4, RGBA) for the legend box.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.add_subplot">
+<span class="sig-name descname"><span class="pre">add_subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_span</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_span</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.add_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.add_subplot" title="Link to this definition">#</a></dt>
+<dd><p>Add a new subplot to the figure.</p>
+<p>After adding, all calls on Plotter will operate on the added subplot.
+To change, use set_active_subplot.</p>
+<p>Specify the row and col index at which to add the subplot, as well as
+how many rows and columns it spans. For example, to add a second subplot
+when there is 1 existing plot:
+(0, 1, 1, 1) will add a new subplot to the right of the existing plot.
+(1, 0, 1, 1) will add the new subplot underneath the existing plot.</p>
+<p>Note that a ‘subplot’ is a different entity to a ‘linked subplot’.
+All linked subplots share the x-axis, while a subplot is a completely
+separate set of plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Index of the row in which to add the subplot.</p></li>
+<li><p><strong>col</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Index of the column in which to add the subplot.</p></li>
+<li><p><strong>row_span</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Number of rows the subplot will span.</p></li>
+<li><p><strong>col_span</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Number of columns the subplot will span.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.set_active_subplot">
+<span class="sig-name descname"><span class="pre">set_active_subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.set_active_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.set_active_subplot" title="Link to this definition">#</a></dt>
+<dd><p>Set the ‘active’ subplot to the subplot at index row, col.</p>
+<p>All calls to Plotter e.g. Plotter.candlestick() operate on the active subplot.
+Row, Col should be the top-left corner of the subplot in the case it is spanned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Row of the subplot to set active</p></li>
+<li><p><strong>col</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Column of the subplot to set active</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.resize_linked_subplots">
+<span class="sig-name descname"><span class="pre">resize_linked_subplots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_heights</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.resize_linked_subplots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.resize_linked_subplots" title="Link to this definition">#</a></dt>
+<dd><p>Resize the linked subplots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>y_heights</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</span>) – A vector of height proportions. Length must equal the
+number of linked subplots on the plot and must sum to 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.add_linked_subplot">
+<span class="sig-name descname"><span class="pre">add_linked_subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height_as_proportion</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.add_linked_subplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.add_linked_subplot" title="Link to this definition">#</a></dt>
+<dd><p>Add a linked subplot to the subplot.</p>
+<p>A ‘linked subplot’ is a subplot that shares the x-axis with the current plot.
+This is in contrast to a ‘subplot’ which is an entirely separate plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>height_as_proportion</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – The height of the new linked subplot as a proportion of the plot (in range [0, 1]).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.candlestick_from_df">
+<span class="sig-name descname"><span class="pre">candlestick_from_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0314,</span> <span class="pre">0.6,</span> <span class="pre">0.506,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">down_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.957,</span> <span class="pre">0.204,</span> <span class="pre">0.266,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'no_caps'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candle_width_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cap_width_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_mode_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_mode_miter_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_mode_basic_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.candlestick_from_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.candlestick_from_df" title="Link to this definition">#</a></dt>
+<dd><p>Add a candlestick plot to the linked subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></span>) – A Pandas dataframe either columns “Open”, “High”, “Low”, “Close”  (all lowercase accepted e.g. “open”).</p></li>
+<li><p><strong>dates</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If <cite>None</cite>, index will be displayed.
+If pd.Series, it will be converted to a list internally.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the linked subplot on which to plot the candlesticks. By default, it is the most recently added linked subplot.</p></li>
+<li><p><strong>up_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</span>) – Color (array-like, length 1-4, RGBA) for candles when close price is higher than open price.</p></li>
+<li><p><strong>down_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</span>) – Color (array-like, length 1-4, RGBA) for candles when open price is lower than close price.</p></li>
+<li><p><strong>mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'full'</span></code>, <code class="docutils literal notranslate"><span class="pre">'no_caps'</span></code>, <code class="docutils literal notranslate"><span class="pre">'body_only'</span></code>, <code class="docutils literal notranslate"><span class="pre">'line_open'</span></code>, <code class="docutils literal notranslate"><span class="pre">'line_closed'</span></code>]</span>) – Control how candles are displayed (see CandlestickMode).</p></li>
+<li><p><strong>candle_width_ratio</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Ratio between candle and gap width, a float between (0, 1] e.g. 1 is no space between candles.</p></li>
+<li><p><strong>cap_width_ratio</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Ratio between candle and cap width, a double between (0, 1] e.g. 1 the cap is the width of the candle.</p></li>
+<li><p><strong>line_mode_linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Line width for open-line and close-line mode for the candlestick plot.</p></li>
+<li><p><strong>line_mode_miter_limit</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Miter limit controls the maximum line-segment connection length, for open-line and close-line mode.</p></li>
+<li><p><strong>line_mode_basic_line</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>true</cite>, a simple line plot with fixd width is used (<cite>width</cite> and <cite>miterLimit</cite> have no effect). This is much faster.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.candlestick">
+<span class="sig-name descname"><span class="pre">candlestick</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0314,</span> <span class="pre">0.6,</span> <span class="pre">0.506,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">down_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.957,</span> <span class="pre">0.204,</span> <span class="pre">0.266,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'no_caps'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candle_width_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cap_width_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_mode_linewidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_mode_miter_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_mode_basic_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.candlestick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.candlestick" title="Link to this definition">#</a></dt>
+<dd><p>Add a candlestick plot to the linked subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>open</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span>) – Vector of candle open prices.</p></li>
+<li><p><strong>high</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span>) – Vector of candle high prices.</p></li>
+<li><p><strong>low</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span>) – Vector of candle low prices.</p></li>
+<li><p><strong>close</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span>) – Vector of candle close prices.</p></li>
+<li><p><strong>dates</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If <cite>None</cite>, index will be displayed.
+If pd.Series, it will be converted to a list internally.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the linked subplot on which to plot the candlesticks. By default, it is the most recently added linked subplot.</p></li>
+<li><p><strong>up_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</span>) – Color (array-like, length 1-4, RGBA) for candles when close price is higher than open price.</p></li>
+<li><p><strong>down_color</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</span>) – Color (array-like, length 1-4, RGBA) for candles when open price is lower than close price.</p></li>
+<li><p><strong>mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'full'</span></code>, <code class="docutils literal notranslate"><span class="pre">'no_caps'</span></code>, <code class="docutils literal notranslate"><span class="pre">'body_only'</span></code>, <code class="docutils literal notranslate"><span class="pre">'line_open'</span></code>, <code class="docutils literal notranslate"><span class="pre">'line_closed'</span></code>]</span>) – Control how candles are displayed (see CandlestickMode).</p></li>
+<li><p><strong>candle_width_ratio</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Ratio between candle and gap width, a float between (0, 1] e.g. 1 is no space between candles.</p></li>
+<li><p><strong>cap_width_ratio</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Ratio between candle and cap width, a double between (0, 1] e.g. 1 the cap is the width of the candle.</p></li>
+<li><p><strong>line_mode_linewidth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Line width for open-line and close-line mode for the candlestick plot.</p></li>
+<li><p><strong>line_mode_miter_limit</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Miter limit controls the maximum line-segment connection length, for open-line and close-line mode.</p></li>
+<li><p><strong>line_mode_basic_line</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <cite>true</cite>, a simple line plot with fixd width is used (<cite>width</cite> and <cite>miterLimit</cite> have no effect). This is much faster.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.line">
+<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miter_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basic_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.line" title="Link to this definition">#</a></dt>
+<dd><p>Add a line plot to the linked subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<span class="sphinx_autodoc_typehints-type">np.ndarray | pd.Series</span>) – Numpy array of float datapoints to plot.</p></li>
+<li><p><strong>dates</strong> (<span class="sphinx_autodoc_typehints-type">Dates | None</span>) – A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If <cite>None</cite>, index will be displayed.
+If pd.Series, it will be converted to a list internally.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type">int</span>) – The index of the linked subplot on which to plot the line plot. By default, it is the most recently added linked subplot.</p></li>
+<li><p><strong>color</strong> (<span class="sphinx_autodoc_typehints-type">Array | None</span>) – Color (array-like, length 1-4, RGBA) of the line plot.</p></li>
+<li><p><strong>width</strong> (<span class="sphinx_autodoc_typehints-type">float</span>) – Line width for the plot.</p></li>
+<li><p><strong>miter_limit</strong> (<span class="sphinx_autodoc_typehints-type">float</span>) – Miter limit controls the maximum line-segment connection length, for open-line and close-line mode.</p></li>
+<li><p><strong>basic_line</strong> (<span class="sphinx_autodoc_typehints-type">bool</span>) – If <cite>true</cite>, a simple line plot with fixd width is used (<cite>width</cite> and <cite>miterLimit</cite> have no effect). This is much faster.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.bar">
+<span class="sig-name descname"><span class="pre">bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.03137,</span> <span class="pre">0.6,</span> <span class="pre">0.50588,</span> <span class="pre">0.75)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.bar" title="Link to this definition">#</a></dt>
+<dd><p>Add a bar plot to the linked subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<span class="sphinx_autodoc_typehints-type">np.ndarray | pd.Series</span>) – Vector of float datapoints to plot.</p></li>
+<li><p><strong>dates</strong> (<span class="sphinx_autodoc_typehints-type">Dates | None</span>) – A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If <cite>None</cite>, index will be displayed.
+If pd.Series, it will be converted to a list internally.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type">int</span>) – The index of the linked subplot on which to plot the bar plot. By default, it is the most  recently added linked subplot.</p></li>
+<li><p><strong>color</strong> (<span class="sphinx_autodoc_typehints-type">Array | None</span>) – Color (array-like, length 1-4, RGBA) of the bar plot.</p></li>
+<li><p><strong>width_ratio</strong> (<span class="sphinx_autodoc_typehints-type">float</span>) – Ratio between the bar width and inter-bar gap, a float between (0, 1] e.g. 1 is no space between bars.</p></li>
+<li><p><strong>min_value</strong> (<span class="sphinx_autodoc_typehints-type">float | None</span>) – Minimum value of the bar plot. By default, the minimum number in <cite>y</cite> minus 1% of max y - min y as padding.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.scatter">
+<span class="sig-name descname"><span class="pre">scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linked_subplot_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'circle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.12,</span> <span class="pre">0.46,</span> <span class="pre">0.7,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size_fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_size_free</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.scatter" title="Link to this definition">#</a></dt>
+<dd><p>Add a scatter plot to the linked subplot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type">np.ndarray | Dates</span>) – A numpy array of indexes, or list of string or datetimes (UTC) of x-axis position of the scatter points.
+The type must match the current x tick label type.</p></li>
+<li><p><strong>y</strong> (<span class="sphinx_autodoc_typehints-type">np.ndarray | pd.Series</span>) – Vector of floats containing y-axis data. Must match x in length.</p></li>
+<li><p><strong>linked_subplot_idx</strong> (<span class="sphinx_autodoc_typehints-type">int</span>) – The index of the linked subplot on which to plot the scatter plot. By default, it is the most recently added linked subplot.</p></li>
+<li><p><strong>shape</strong> (<span class="sphinx_autodoc_typehints-type">ScatterShapeType</span>) – Shape of the scatter marker (see ScatterShapeType)</p></li>
+<li><p><strong>color</strong> (<span class="sphinx_autodoc_typehints-type">Array</span>) – Color (array-like, length 1-4, RGBA) of the scatter marker.</p></li>
+<li><p><strong>fixed_size</strong> (<span class="sphinx_autodoc_typehints-type">bool</span>) – If <cite>true</cite>, size of the scatter marker is the same at all zooms.
+If <cite>False</cite>, the size of the marker will decrease when zoomed out.</p></li>
+<li><p><strong>marker_size_fixed</strong> (<span class="sphinx_autodoc_typehints-type">float</span>) – Size of the scatter marker when <cite>fixed_size</cite> is <cite>true</cite>.</p></li>
+<li><p><strong>marker_size_free</strong> (<span class="sphinx_autodoc_typehints-type">float</span>) – Size of the scatter marker when <cite>fixed_size</cite> if <cite>False</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rallyplot.Plotter.is_number">
+<span class="sig-name descname"><span class="pre">is_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rallyplot/plotter.html#Plotter.is_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rallyplot.Plotter.is_number" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter"><code class="docutils literal notranslate"><span class="pre">Plotter</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.start"><code class="docutils literal notranslate"><span class="pre">Plotter.start()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.finish"><code class="docutils literal notranslate"><span class="pre">Plotter.finish()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_background_color"><code class="docutils literal notranslate"><span class="pre">Plotter.set_background_color()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_camera_settings"><code class="docutils literal notranslate"><span class="pre">Plotter.set_camera_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_crosshair_settings"><code class="docutils literal notranslate"><span class="pre">Plotter.set_crosshair_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_draw_line_settings"><code class="docutils literal notranslate"><span class="pre">Plotter.set_draw_line_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_hover_value_settings"><code class="docutils literal notranslate"><span class="pre">Plotter.set_hover_value_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_x_axis_settings"><code class="docutils literal notranslate"><span class="pre">Plotter.set_x_axis_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_y_axis_settings"><code class="docutils literal notranslate"><span class="pre">Plotter.set_y_axis_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.pin_y_axis"><code class="docutils literal notranslate"><span class="pre">Plotter.pin_y_axis()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_y_limits"><code class="docutils literal notranslate"><span class="pre">Plotter.set_y_limits()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_x_limits"><code class="docutils literal notranslate"><span class="pre">Plotter.set_x_limits()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.link_y_axes"><code class="docutils literal notranslate"><span class="pre">Plotter.link_y_axes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_y_label"><code class="docutils literal notranslate"><span class="pre">Plotter.set_y_label()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_x_label"><code class="docutils literal notranslate"><span class="pre">Plotter.set_x_label()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_title"><code class="docutils literal notranslate"><span class="pre">Plotter.set_title()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_legend"><code class="docutils literal notranslate"><span class="pre">Plotter.set_legend()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.add_subplot"><code class="docutils literal notranslate"><span class="pre">Plotter.add_subplot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.set_active_subplot"><code class="docutils literal notranslate"><span class="pre">Plotter.set_active_subplot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.resize_linked_subplots"><code class="docutils literal notranslate"><span class="pre">Plotter.resize_linked_subplots()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.add_linked_subplot"><code class="docutils literal notranslate"><span class="pre">Plotter.add_linked_subplot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.candlestick_from_df"><code class="docutils literal notranslate"><span class="pre">Plotter.candlestick_from_df()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.candlestick"><code class="docutils literal notranslate"><span class="pre">Plotter.candlestick()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.line"><code class="docutils literal notranslate"><span class="pre">Plotter.line()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.bar"><code class="docutils literal notranslate"><span class="pre">Plotter.bar()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.scatter"><code class="docutils literal notranslate"><span class="pre">Plotter.scatter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rallyplot.Plotter.is_number"><code class="docutils literal notranslate"><span class="pre">Plotter.is_number()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, rallyplot.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

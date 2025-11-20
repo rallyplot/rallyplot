@@ -1,0 +1,1679 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="auto">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rallyplot.plotter &#8212; rallyplot 0.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "auto";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=7026087e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/rallyplot/plotter';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="auto">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">rallyplot</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_reference.html">
+    API Docs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/rallyplot/rallyplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_reference.html">
+    API Docs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/rallyplot/rallyplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">rallyplot.plotter</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for rallyplot.plotter</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timezone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numbers</span>
+
+<span class="c1"># -------------------------------------------------------------------------------------</span>
+<span class="c1"># Argument Types</span>
+<span class="c1"># -------------------------------------------------------------------------------------</span>
+
+<span class="n">FontType</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;consola&quot;</span><span class="p">,</span> <span class="s2">&quot;arial&quot;</span><span class="p">]</span>
+
+<span class="n">Array</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="p">]</span>
+
+<span class="n">Dates</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">datetime</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span>
+<span class="p">]</span>
+
+<span class="n">FontWeightType</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
+    <span class="s2">&quot;thin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;extralight&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;light&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;regular&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;medium&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;demibold&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;extrabold&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;black&quot;</span>
+<span class="p">]</span>
+<span class="n">CandlestickMode</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
+    <span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;no_caps&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;body_only&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;line_open&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;line_closed&quot;</span>
+<span class="p">]</span>
+<span class="n">ScatterShapeType</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
+    <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;triangle_up&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;triangle_down&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cross&quot;</span>
+<span class="p">]</span>
+<span class="n">HoverValueDisplayMode</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
+    <span class="s2">&quot;always_show&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;only_under_mouse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;off&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># -------------------------------------------------------------------------------------</span>
+<span class="c1"># Plotter</span>
+<span class="c1"># -------------------------------------------------------------------------------------</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_toy_candlestick_data</span><span class="p">(</span><span class="n">N</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100_000</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">get_toy_candlestick_data</span><span class="p">(</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span>
+    <span class="p">)</span>
+
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;volume&quot;</span><span class="p">)</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dates&quot;</span><span class="p">)</span>
+
+    <span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data_df</span><span class="p">,</span> <span class="n">volume</span><span class="p">,</span> <span class="n">dates</span>
+
+
+<div class="viewcode-block" id="Plotter">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Plotter</span><span class="p">:</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">600</span><span class="p">,</span>
+        <span class="n">color_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;light&quot;</span><span class="p">,</span> <span class="s2">&quot;dark&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;light&quot;</span><span class="p">,</span>
+        <span class="n">anti_aliasing_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">axis_tick_label_font</span><span class="p">:</span> <span class="n">FontType</span> <span class="o">=</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+        <span class="n">axis_tick_label_font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">axis_right</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">width_margin_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">height_margin_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; The Plotter class controls all plotting.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        width</span>
+<span class="sd">            Width of the figure window.</span>
+<span class="sd">        height</span>
+<span class="sd">            Height of the figure window.</span>
+<span class="sd">        color_mode</span>
+<span class="sd">            &quot;light&quot; or &quot;dark&quot; mode.</span>
+<span class="sd">        anti_aliasing_samples</span>
+<span class="sd">            Number of samples used in antialiasing smoothing. Zero is off, gives best performance.</span>
+<span class="sd">            Higher looks smoother but is slower. Flickering of thin-line plots may occur when less than 4.*/</span>
+<span class="sd">        axis_tick_label_font</span>
+<span class="sd">            Font to use for axis tick labels.</span>
+<span class="sd">        axis_tick_label_font_size</span>
+<span class="sd">            Font size for the axis tick labels.</span>
+<span class="sd">        axis_right</span>
+<span class="sd">            If `true`, y-axis is located on the right of the plot. Otherwise, left of the plot.</span>
+<span class="sd">        width_margin_size</span>
+<span class="sd">            Size of margin between y-axis and the edge of the figure.</span>
+<span class="sd">        height_margin_size</span>
+<span class="sd">            Size of the margin between the x-axis and the bottom edge of the figure.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Import here so we can build docs without compiling a wheel,</span>
+        <span class="c1"># by importing plotter directly from file.</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">pythonBindings</span>
+
+
+        <span class="c1"># Patch the QT_PLUGIN_PATH to use our vendored plugins. This only needs to</span>
+        <span class="c1"># be set while the pythonBindings are initialised, then the path is</span>
+        <span class="c1"># held on the cpp side. Return the path to its original state to not</span>
+        <span class="c1"># interfere with other packages.</span>
+        <span class="n">orig_paths</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QT_PLUGIN_PATH&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">qt_build_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;QT_PLUGIN_PATH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">qt_build_dir</span><span class="p">,</span> <span class="s2">&quot;plugins&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span> <span class="o">=</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">color_mode</span><span class="o">=</span><span class="n">color_mode</span><span class="p">,</span>
+            <span class="n">anti_aliasing_samples</span><span class="o">=</span><span class="n">anti_aliasing_samples</span><span class="p">,</span>
+            <span class="n">axis_tick_label_font</span><span class="o">=</span><span class="n">axis_tick_label_font</span><span class="p">,</span>
+            <span class="n">axis_tick_label_font_size</span><span class="o">=</span><span class="n">axis_tick_label_font_size</span><span class="p">,</span>
+            <span class="n">axis_right</span><span class="o">=</span><span class="n">axis_right</span><span class="p">,</span>
+            <span class="n">width_margin_size</span><span class="o">=</span><span class="n">width_margin_size</span><span class="p">,</span>
+            <span class="n">height_margin_size</span><span class="o">=</span><span class="n">height_margin_size</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">orig_paths</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;QT_PLUGIN_PATH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_paths</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;QT_PLUGIN_PATH&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_grab_frame_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">_grab_frame_buffer</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Plotter.start">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.start">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the event loop to display and interact with plots. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Plotter.finish">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.finish">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure c++ side is completely cleared.</span>
+
+<span class="sd">        This ensures you can the below and avoid seg faults.:</span>
+<span class="sd">        plotter = Plotter()</span>
+<span class="sd">        plotter.finish()</span>
+<span class="sd">        plotter = Plotter()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_background_color">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_background_color">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_background_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Array</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the background color for the subplot.</span>
+
+<span class="sd">        color</span>
+<span class="sd">            Array of length 1 to 4 setting RGBA color values.</span>
+<span class="sd">            Missing values are set to 0.0f for color and 1.0f for alpha.</span>
+<span class="sd">            e.g. {0.1f, 0.2f} sets {0.1f, 0.2f, 0.0f, 1.0f}.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_background_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_camera_settings">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_camera_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_camera_settings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">key_zoom_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+        <span class="n">mouse_zoom_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.004</span><span class="p">,</span>
+        <span class="n">key_pan_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.35</span><span class="p">,</span>
+        <span class="n">mouse_pan_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.70</span><span class="p">,</span>
+        <span class="n">wheel_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.002</span><span class="p">,</span>
+        <span class="n">lock_most_recent_date</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fix_zoom_at_edge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the camera settings that control pan and zooming.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key_zoom_speed</span>
+<span class="sd">            Controls the speed of zoom by key-press (Q, E, Z, C).</span>
+<span class="sd">        mouse_zoom_speed</span>
+<span class="sd">            Controls the speed of zoom by mouse move (right-click).</span>
+<span class="sd">        key_pan_speed</span>
+<span class="sd">            Controls the speed of panning by key-press (A, D, W, X).</span>
+<span class="sd">        mouse_pan_speed</span>
+<span class="sd">            Controls the speed of panning by mouse move (left-click).</span>
+<span class="sd">        wheel_speed</span>
+<span class="sd">            Controls the speed of zoom by the mouse wheel.</span>
+<span class="sd">        lock_most_recent_date</span>
+<span class="sd">            If `true`, the axis zoom / pan is locked to the largest x-axis position.</span>
+<span class="sd">        fix_zoom_at_edge</span>
+<span class="sd">            All zooming will be fixed to the y-axis (right or left depending on PlotterArgs.axisRight).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_camera_settings</span><span class="p">(</span>
+            <span class="n">key_zoom_speed</span><span class="o">=</span><span class="n">key_zoom_speed</span><span class="p">,</span>
+            <span class="n">mouse_zoom_speed</span><span class="o">=</span><span class="n">mouse_zoom_speed</span><span class="p">,</span>
+            <span class="n">key_pan_speed</span><span class="o">=</span><span class="n">key_pan_speed</span><span class="p">,</span>
+            <span class="n">mouse_pan_speed</span><span class="o">=</span><span class="n">mouse_pan_speed</span><span class="p">,</span>
+            <span class="n">wheel_speed</span><span class="o">=</span><span class="n">wheel_speed</span><span class="p">,</span>
+            <span class="n">lock_most_recent_date</span><span class="o">=</span><span class="n">lock_most_recent_date</span><span class="p">,</span>
+            <span class="n">fix_zoom_at_edge</span><span class="o">=</span><span class="n">fix_zoom_at_edge</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_crosshair_settings">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_crosshair_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_crosshair_settings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">on</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">font</span><span class="p">:</span> <span class="n">FontType</span> <span class="o">=</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">line_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">background_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">font_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Settings for the crosshair that follows the mouse over the plot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        on</span>
+<span class="sd">            If `False`, the crosshair is turned off.</span>
+<span class="sd">        font</span>
+<span class="sd">            Font of the label that appears in the axis.</span>
+<span class="sd">        font_size</span>
+<span class="sd">            Font size of the label that appears in the axis.</span>
+<span class="sd">        linewidth</span>
+<span class="sd">            Crosshair line width.</span>
+<span class="sd">        line_color</span>
+<span class="sd">            Crosshair line color (array-like, length 1-4, RGBA). Default is based on ColorMode.</span>
+<span class="sd">        background_color</span>
+<span class="sd">            Background color (array-like, length 1-4, RGBA) of the label that appears in the axis. Default is based on ColorMode.</span>
+<span class="sd">        font_color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the font that appears in the axis. Default is based on ColorMode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_crosshair_settings</span><span class="p">(</span>
+            <span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">,</span>
+            <span class="n">line_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">line_color</span><span class="p">),</span>
+            <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">background_color</span><span class="p">),</span>
+            <span class="n">font_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">font_color</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_draw_line_settings">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_draw_line_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_draw_line_settings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Control how lines drawn on the plot are displayed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        linewidth</span>
+<span class="sd">            Width of the drawn line.</span>
+<span class="sd">        color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the drawn line. Default blue.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_draw_line_settings</span><span class="p">(</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_hover_value_settings">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_hover_value_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_hover_value_settings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">display_mode</span><span class="p">:</span> <span class="n">HoverValueDisplayMode</span> <span class="o">=</span> <span class="s2">&quot;always_show&quot;</span><span class="p">,</span>
+        <span class="n">font</span><span class="p">:</span> <span class="n">FontType</span> <span class="o">=</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">font_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">background_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">border_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Control how the pop-up label that appears on mouse hover over plot is displayed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        display_mode</span>
+<span class="sd">            &quot;always_show&quot; will always display the pop-up. &quot;only_under_mouse&quot; will show only when mouse</span>
+<span class="sd">            is hovered over the plot. Otherwise, &quot;off&quot;.</span>
+<span class="sd">        font</span>
+<span class="sd">            Font of the hover label.</span>
+<span class="sd">        font_size</span>
+<span class="sd">            Font size of the hover label.</span>
+<span class="sd">        font_color</span>
+<span class="sd">            Font color (array-like, length 1-4, RGBA) of the hover label. Default is based on ColorMode.</span>
+<span class="sd">        background_color</span>
+<span class="sd">            Background color (array-like, length 1-4, RGBA) of the hover label. Default is based on ColorMode.</span>
+<span class="sd">        border_color</span>
+<span class="sd">            Border color (array-like, length 1-4, RGBA) of the hover label. Default is based on ColorMode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_hover_value_settings</span><span class="p">(</span>
+            <span class="n">display_mode</span><span class="o">=</span><span class="n">display_mode</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">font_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">font_color</span><span class="p">),</span>
+            <span class="n">background_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">background_color</span><span class="p">),</span>
+            <span class="n">border_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">border_color</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_x_axis_settings">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_x_axis_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_x_axis_settings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">min_num_ticks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="n">max_num_ticks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">init_num_ticks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="n">show_ticks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">tick_linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tick_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.025</span><span class="p">,</span>
+        <span class="n">show_gridline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">gridline_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span>
+        <span class="n">axis_linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">gridline_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">axis_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">font_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">linked_subplot_idx</span><span class="p">:</span>  <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Control how the x-axis is displayed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        min_num_ticks</span>
+<span class="sd">            Minimum number of ticks that should be displayed. Should be a multiple of 2.</span>
+<span class="sd">            If too close to max_num_ticks, a flickering artifact may be observed.</span>
+<span class="sd">        max_num_ticks</span>
+<span class="sd">            Maximum number of ticks that should be displayed. Should be a multiple of 2.</span>
+<span class="sd">            If too close to min_num_ticks, a flickering artifact may be observed.</span>
+<span class="sd">        init_num_ticks</span>
+<span class="sd">            Initial number of ticks, must be a multiple of two and between min / max num ticks.</span>
+<span class="sd">        show_ticks</span>
+<span class="sd">            If `true`, small tick-lines will be displayed.</span>
+<span class="sd">        tick_linewidth</span>
+<span class="sd">            Width of the tick line. May have no effect on some GPUs.</span>
+<span class="sd">        tick_size</span>
+<span class="sd">            Length of the tick line.</span>
+<span class="sd">        show_gridline</span>
+<span class="sd">            If `true`, grid lines (that extend the tick line across the plot) are displayed.</span>
+<span class="sd">        gridline_width</span>
+<span class="sd">            Width of the grid line. May have no effect on some GPUs.</span>
+<span class="sd">        axis_linewidth</span>
+<span class="sd">            Width of the axis line. May have no effect on some GPUs.</span>
+<span class="sd">        gridline_color</span>
+<span class="sd">            Grid line (array-like, length 1-4, RGBA) color, if `None` uses the default according to ColorMode.</span>
+<span class="sd">        axis_color</span>
+<span class="sd">            Axis color (array-like, length 1-4, RGBA) , if `None` uses the default according to ColorMode.</span>
+<span class="sd">        font_color</span>
+<span class="sd">            Axis tick label color(array-like, length 1-4, RGBA), if `None` uses the default according to ColorMode.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            The linked subplot on which to set the settings. If `None`, will be applied to all linked subplots.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_x_axis_settings</span><span class="p">(</span>
+            <span class="n">min_num_ticks</span><span class="o">=</span><span class="n">min_num_ticks</span><span class="p">,</span>
+            <span class="n">max_num_ticks</span><span class="o">=</span><span class="n">max_num_ticks</span><span class="p">,</span>
+            <span class="n">init_num_ticks</span><span class="o">=</span><span class="n">init_num_ticks</span><span class="p">,</span>
+            <span class="n">show_ticks</span><span class="o">=</span><span class="n">show_ticks</span><span class="p">,</span>
+            <span class="n">tick_linewidth</span><span class="o">=</span><span class="n">tick_linewidth</span><span class="p">,</span>
+            <span class="n">tick_size</span><span class="o">=</span><span class="n">tick_size</span><span class="p">,</span>
+            <span class="n">show_gridline</span><span class="o">=</span><span class="n">show_gridline</span><span class="p">,</span>
+            <span class="n">gridline_width</span><span class="o">=</span><span class="n">gridline_width</span><span class="p">,</span>
+            <span class="n">axis_linewidth</span><span class="o">=</span><span class="n">axis_linewidth</span><span class="p">,</span>
+            <span class="n">gridline_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">gridline_color</span><span class="p">),</span>
+            <span class="n">axis_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">axis_color</span><span class="p">),</span>
+            <span class="n">font_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">font_color</span><span class="p">),</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_y_axis_settings">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_y_axis_settings">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_y_axis_settings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">min_num_ticks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="n">max_num_ticks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">init_num_ticks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">show_ticks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">tick_linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tick_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.025</span><span class="p">,</span>
+        <span class="n">show_gridline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">gridline_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span>
+        <span class="n">axis_linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tick_label_decimal_places</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">gridline_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">axis_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">font_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">linked_subplot_idx</span><span class="p">:</span>  <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Control how the y-axis is displayed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        min_num_ticks</span>
+<span class="sd">            Minimum number of ticks that should be displayed. Should be a multiple of 2.</span>
+<span class="sd">            If too close to max_num_ticks, a flickering artifact may be observed.</span>
+<span class="sd">        max_num_ticks</span>
+<span class="sd">            Maximum number of ticks that should be displayed. Should be a multiple of 2.</span>
+<span class="sd">            If too close to min_num_ticks, a flickering artifact may be observed.</span>
+<span class="sd">        init_num_ticks</span>
+<span class="sd">            Initial number of ticks, must be a multiple of two and between min / max num ticks.</span>
+<span class="sd">        show_ticks</span>
+<span class="sd">            If `true`, small tick-lines will be displayed.</span>
+<span class="sd">        tick_linewidth</span>
+<span class="sd">            Width of the tick line. May have no effect on some GPUs.</span>
+<span class="sd">        tick_size</span>
+<span class="sd">            Length of the tick line.</span>
+<span class="sd">        show_gridline</span>
+<span class="sd">            If `true`, grid lines (that extend the tick line across the plot) are displayed.</span>
+<span class="sd">        gridline_width</span>
+<span class="sd">            Width of the grid line. May have no effect on some GPUs.</span>
+<span class="sd">        axis_linewidth</span>
+<span class="sd">            Width of the axis line. May have no effect on some GPUs.</span>
+<span class="sd">        tick_label_decimal_places</span>
+<span class="sd">            Controls the number of decimal places for the y-axis tick labels.</span>
+<span class="sd">        gridline_color</span>
+<span class="sd">            Grid line color, if `None` uses the default according to ColorMode.</span>
+<span class="sd">        axis_color</span>
+<span class="sd">            Axis color (array-like, length 1-4, RGBA) , if `None` uses the default according to ColorMode.</span>
+<span class="sd">        font_color</span>
+<span class="sd">            Axis tick label color (array-like, length 1-4, RGBA) , if `None` uses the default according to ColorMode.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            The linked subplot on which to set the settings. If `None`, will be applied to all linked subplots.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_y_axis_settings</span><span class="p">(</span>
+            <span class="n">min_num_ticks</span><span class="o">=</span><span class="n">min_num_ticks</span><span class="p">,</span>
+            <span class="n">max_num_ticks</span><span class="o">=</span><span class="n">max_num_ticks</span><span class="p">,</span>
+            <span class="n">init_num_ticks</span><span class="o">=</span><span class="n">init_num_ticks</span><span class="p">,</span>
+            <span class="n">show_ticks</span><span class="o">=</span><span class="n">show_ticks</span><span class="p">,</span>
+            <span class="n">tick_linewidth</span><span class="o">=</span><span class="n">tick_linewidth</span><span class="p">,</span>
+            <span class="n">tick_size</span><span class="o">=</span><span class="n">tick_size</span><span class="p">,</span>
+            <span class="n">show_gridline</span><span class="o">=</span><span class="n">show_gridline</span><span class="p">,</span>
+            <span class="n">gridline_width</span><span class="o">=</span><span class="n">gridline_width</span><span class="p">,</span>
+            <span class="n">axis_linewidth</span><span class="o">=</span><span class="n">axis_linewidth</span><span class="p">,</span>
+            <span class="n">tick_label_decimal_places</span><span class="o">=</span><span class="n">tick_label_decimal_places</span><span class="p">,</span>
+            <span class="n">gridline_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">gridline_color</span><span class="p">),</span>
+            <span class="n">axis_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">axis_color</span><span class="p">),</span>
+            <span class="n">font_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">font_color</span><span class="p">),</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.pin_y_axis">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.pin_y_axis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pin_y_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fix the y-axis zoom to the minimum and maximum values of the plot currently in view.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        on</span>
+<span class="sd">            If `False`, y-axis is unpinned and can be zoomed freely.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            The linked subplot to pin. If `None`, will be applied to all linked subplots.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">pin_y_axis</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">,</span> <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_y_limits">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_y_limits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_y_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set minimum and / or maximum values for the y-axis.</span>
+
+<span class="sd">        Only has an effect if pin_y_axis() is set to `False`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        min</span>
+<span class="sd">            Minimum value for the y-axis, if `None` is set to -inf.</span>
+<span class="sd">        max</span>
+<span class="sd">            Maximum value for the y-axis, if `None` is set to inf.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            The linked subplot on which to limit the y-axis view. If `None`, will be applied to all linked subplots.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_y_limits</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_x_limits">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_x_limits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_x_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the minimum and maximum values for the x-axis.</span>
+
+<span class="sd">        Must be the same type as the x-axis data. x-axis values should be unique.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        min</span>
+<span class="sd">            Minimum value for the x-axis, if `None` is set to the minimum x value.</span>
+<span class="sd">            Must be the same type as `dates` used for the plot.</span>
+<span class="sd">        max</span>
+<span class="sd">            Maximum value for the x-axis, if `None` is set to the maximum x value.</span>
+<span class="sd">            Must be the same type as `dates` used for the plot.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_x_limits</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="nb">max</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.link_y_axes">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.link_y_axes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">link_y_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Link the y-axis across all linked subplots.</span>
+
+<span class="sd">        on</span>
+<span class="sd">            If `true`, zooming on one plot will zoom on all linked subplots.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">link_y_axes</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_y_label">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_y_label">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_y_label</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">font</span><span class="p">:</span> <span class="n">FontType</span> <span class="o">=</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+        <span class="n">weight</span><span class="p">:</span> <span class="n">FontWeightType</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set a label on the y-axis for the subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        text</span>
+<span class="sd">            Text to set as the label.</span>
+<span class="sd">        font</span>
+<span class="sd">            Font of the label.</span>
+<span class="sd">        weight</span>
+<span class="sd">            Weight of the label font.</span>
+<span class="sd">        font_size</span>
+<span class="sd">            Point size of the label font.</span>
+<span class="sd">        color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the label text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_y_label</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+            <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_x_label">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_x_label">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_x_label</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">font</span><span class="p">:</span> <span class="n">FontType</span> <span class="o">=</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+        <span class="n">weight</span><span class="p">:</span> <span class="n">FontWeightType</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a label on the x-axis for the subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        text</span>
+<span class="sd">            Text to set as the label.</span>
+<span class="sd">        font</span>
+<span class="sd">            Font of the label.</span>
+<span class="sd">        weight</span>
+<span class="sd">            Weight of the label font.</span>
+<span class="sd">        font_size</span>
+<span class="sd">            Point size of the label font.</span>
+<span class="sd">        color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the label text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_x_label</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+            <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_title">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_title">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_title</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">font</span><span class="p">:</span> <span class="n">FontType</span> <span class="o">=</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+        <span class="n">weight</span><span class="p">:</span> <span class="n">FontWeightType</span> <span class="o">=</span> <span class="s2">&quot;extrabold&quot;</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set a title on the subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        text</span>
+<span class="sd">            Text to set as the title.</span>
+<span class="sd">        font</span>
+<span class="sd">            Font of the title.</span>
+<span class="sd">        weight</span>
+<span class="sd">            Weight of the title font.</span>
+<span class="sd">        font_size</span>
+<span class="sd">            Point size of the title font.</span>
+<span class="sd">        color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the title text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+            <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_legend">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_legend">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_legend</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">label_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+            <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">legend_size_scalar</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="n">x_box_pad</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="n">y_box_pad</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="n">line_width</span><span class="p">:</span>  <span class="nb">float</span> <span class="o">=</span> <span class="mf">35.0</span><span class="p">,</span>
+            <span class="n">line_height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">7.5</span><span class="p">,</span>
+            <span class="n">x_line_pad_left</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+            <span class="n">x_line_pad_right</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+            <span class="n">x_text_pad_right</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="n">y_inter_item_pad</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+            <span class="n">y_item_pad</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="n">font</span><span class="p">:</span> <span class="n">FontType</span> <span class="o">=</span> <span class="s2">&quot;arial&quot;</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+            <span class="n">font_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">box_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set a legend on a linked subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        label_names</span>
+<span class="sd">            A list of label names for the legend. Must be the same length</span>
+<span class="sd">            as the number of plots in the linked subplot.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            Linked subplot on which to add the legend.</span>
+<span class="sd">        legend_size_scalar</span>
+<span class="sd">            A convenient scalar by which to increase or decrease the legend size.</span>
+<span class="sd">            Other settings add further customization to the legend size.</span>
+<span class="sd">        x_box_pad</span>
+<span class="sd">            X position of the legend expressed as distance from the right of the plot.</span>
+<span class="sd">        y_box_pad</span>
+<span class="sd">            Y position of the legend expressed as distance from the top of the plot.</span>
+<span class="sd">        line_width</span>
+<span class="sd">            Width of the legend item colored lines.</span>
+<span class="sd">        line_height</span>
+<span class="sd">            Height of the legend items colored lines.</span>
+<span class="sd">        x_line_pad_left</span>
+<span class="sd">            Padding between the edge of the legend box and the text (left)</span>
+<span class="sd">        x_line_pad_right</span>
+<span class="sd">            Padding between the legend item colored line (left) i.e. between the line text.</span>
+<span class="sd">        x_text_pad_right</span>
+<span class="sd">            Padding between the text (right) i.e. the text and the item colored line.</span>
+<span class="sd">        y_inter_item_pad</span>
+<span class="sd">            Vertical padding between legend items.</span>
+<span class="sd">        y_item_pad</span>
+<span class="sd">            Padding between the legend items (top and bottom) and the legend box.</span>
+<span class="sd">        font</span>
+<span class="sd">            Font for the legend item text.</span>
+<span class="sd">        font_size</span>
+<span class="sd">            Font size for the legend item text.</span>
+<span class="sd">        font_color</span>
+<span class="sd">            Font color (array-like, length 1-4, RGBA) for the legend item text.</span>
+<span class="sd">        box_color</span>
+<span class="sd">            Background color (array-like, length 1-4, RGBA) for the legend box.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">string_vector_labels</span> <span class="o">=</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">StringVector</span><span class="p">(</span><span class="n">label_names</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_legend</span><span class="p">(</span>
+            <span class="n">label_names</span><span class="o">=</span><span class="n">string_vector_labels</span><span class="p">,</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">,</span>
+            <span class="n">legend_size_scalar</span><span class="o">=</span><span class="n">legend_size_scalar</span><span class="p">,</span>
+            <span class="n">x_box_pad</span><span class="o">=</span><span class="n">x_box_pad</span><span class="p">,</span>
+            <span class="n">y_box_pad</span><span class="o">=</span><span class="n">y_box_pad</span><span class="p">,</span>
+            <span class="n">line_width</span><span class="o">=</span><span class="n">line_width</span><span class="p">,</span>
+            <span class="n">line_height</span><span class="o">=</span><span class="n">line_height</span><span class="p">,</span>
+            <span class="n">x_line_pad_left</span><span class="o">=</span><span class="n">x_line_pad_left</span><span class="p">,</span>
+            <span class="n">x_line_pad_right</span><span class="o">=</span><span class="n">x_line_pad_right</span><span class="p">,</span>
+            <span class="n">x_text_pad_right</span><span class="o">=</span><span class="n">x_text_pad_right</span><span class="p">,</span>
+            <span class="n">y_inter_item_pad</span><span class="o">=</span><span class="n">y_inter_item_pad</span><span class="p">,</span>
+            <span class="n">y_item_pad</span><span class="o">=</span><span class="n">y_item_pad</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">font_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">font_color</span><span class="p">),</span>
+            <span class="n">box_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">box_color</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.add_subplot">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.add_subplot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_subplot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">col</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">row_span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">col_span</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a new subplot to the figure.</span>
+
+<span class="sd">        After adding, all calls on Plotter will operate on the added subplot.</span>
+<span class="sd">        To change, use set_active_subplot.</span>
+
+<span class="sd">        Specify the row and col index at which to add the subplot, as well as</span>
+<span class="sd">        how many rows and columns it spans. For example, to add a second subplot</span>
+<span class="sd">        when there is 1 existing plot:</span>
+<span class="sd">        (0, 1, 1, 1) will add a new subplot to the right of the existing plot.</span>
+<span class="sd">        (1, 0, 1, 1) will add the new subplot underneath the existing plot.</span>
+
+<span class="sd">        Note that a &#39;subplot&#39; is a different entity to a &#39;linked subplot&#39;.</span>
+<span class="sd">        All linked subplots share the x-axis, while a subplot is a completely</span>
+<span class="sd">        separate set of plots.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row</span>
+<span class="sd">            Index of the row in which to add the subplot.</span>
+<span class="sd">        col</span>
+<span class="sd">            Index of the column in which to add the subplot.</span>
+<span class="sd">        row_span</span>
+<span class="sd">            Number of rows the subplot will span.</span>
+<span class="sd">        col_span</span>
+<span class="sd">            Number of columns the subplot will span.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span>
+            <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span>
+            <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+            <span class="n">row_span</span><span class="o">=</span><span class="n">row_span</span><span class="p">,</span>
+            <span class="n">col_span</span><span class="o">=</span><span class="n">col_span</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.set_active_subplot">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.set_active_subplot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_active_subplot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">col</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the &#39;active&#39; subplot to the subplot at index row, col.</span>
+
+<span class="sd">        All calls to Plotter e.g. Plotter.candlestick() operate on the active subplot.</span>
+<span class="sd">        Row, Col should be the top-left corner of the subplot in the case it is spanned.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row</span>
+<span class="sd">            Row of the subplot to set active</span>
+<span class="sd">        col</span>
+<span class="sd">            Column of the subplot to set active</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">set_active_subplot</span><span class="p">(</span>
+            <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span>
+            <span class="n">col</span><span class="o">=</span><span class="n">col</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.resize_linked_subplots">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.resize_linked_subplots">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resize_linked_subplots</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_heights</span><span class="p">:</span> <span class="n">Array</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize the linked subplots.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        y_heights</span>
+<span class="sd">            A vector of height proportions. Length must equal the</span>
+<span class="sd">            number of linked subplots on the plot and must sum to 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">resize_linked_subplots</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">y_heights</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.add_linked_subplot">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.add_linked_subplot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_linked_subplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height_as_proportion</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a linked subplot to the subplot.</span>
+
+<span class="sd">        A &#39;linked subplot&#39; is a subplot that shares the x-axis with the current plot.</span>
+<span class="sd">        This is in contrast to a &#39;subplot&#39; which is an entirely separate plot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        height_as_proportion</span>
+<span class="sd">            The height of the new linked subplot as a proportion of the plot (in range [0, 1]).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">add_linked_subplot</span><span class="p">(</span><span class="n">height_as_proportion</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Plotting</span>
+    <span class="c1"># ---------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Plotter.candlestick_from_df">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.candlestick_from_df">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">candlestick_from_df</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">dates</span><span class="p">:</span> <span class="n">Dates</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">up_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0314</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.506</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">down_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.957</span><span class="p">,</span> <span class="mf">0.204</span><span class="p">,</span> <span class="mf">0.266</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="n">CandlestickMode</span> <span class="o">=</span> <span class="s2">&quot;no_caps&quot;</span><span class="p">,</span>
+        <span class="n">candle_width_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">,</span>
+        <span class="n">cap_width_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">line_mode_linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">line_mode_miter_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+        <span class="n">line_mode_basic_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a candlestick plot to the linked subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        df</span>
+<span class="sd">            A Pandas dataframe either columns &quot;Open&quot;, &quot;High&quot;, &quot;Low&quot;, &quot;Close&quot;  (all lowercase accepted e.g. &quot;open&quot;).</span>
+<span class="sd">        dates</span>
+<span class="sd">            A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If `None`, index will be displayed.</span>
+<span class="sd">            If pd.Series, it will be converted to a list internally.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">           The index of the linked subplot on which to plot the candlesticks. By default, it is the most recently added linked subplot.</span>
+<span class="sd">        up_color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) for candles when close price is higher than open price.</span>
+<span class="sd">        down_color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) for candles when open price is lower than close price.</span>
+<span class="sd">        mode</span>
+<span class="sd">            Control how candles are displayed (see CandlestickMode).</span>
+<span class="sd">        candle_width_ratio</span>
+<span class="sd">            Ratio between candle and gap width, a float between (0, 1] e.g. 1 is no space between candles.</span>
+<span class="sd">        cap_width_ratio</span>
+<span class="sd">            Ratio between candle and cap width, a double between (0, 1] e.g. 1 the cap is the width of the candle.</span>
+<span class="sd">        line_mode_linewidth</span>
+<span class="sd">            Line width for open-line and close-line mode for the candlestick plot.</span>
+<span class="sd">        line_mode_miter_limit</span>
+<span class="sd">            Miter limit controls the maximum line-segment connection length, for open-line and close-line mode.</span>
+<span class="sd">        line_mode_basic_line</span>
+<span class="sd">            If `true`, a simple line plot with fixd width is used (`width` and `miterLimit` have no effect). This is much faster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Existence check</span>
+        <span class="n">lower_cols</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">accepted_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;close&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">accepted_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lower_cols</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">accepted_name</span><span class="si">}</span><span class="s2"> (or </span><span class="si">{</span><span class="n">accepted_name</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">) not found in the passed dataframe.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Map lowercase -&gt; Series</span>
+        <span class="n">col_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">candlestick</span><span class="p">(</span>
+            <span class="nb">open</span><span class="o">=</span><span class="n">col_map</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+            <span class="n">high</span><span class="o">=</span><span class="n">col_map</span><span class="p">[</span><span class="s2">&quot;high&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+            <span class="n">low</span><span class="o">=</span><span class="n">col_map</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+            <span class="n">close</span><span class="o">=</span><span class="n">col_map</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+            <span class="n">dates</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">,</span>
+            <span class="n">up_color</span><span class="o">=</span><span class="n">up_color</span><span class="p">,</span>
+            <span class="n">down_color</span><span class="o">=</span><span class="n">down_color</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+            <span class="n">candle_width_ratio</span><span class="o">=</span><span class="n">candle_width_ratio</span><span class="p">,</span>
+            <span class="n">cap_width_ratio</span><span class="o">=</span><span class="n">cap_width_ratio</span><span class="p">,</span>
+            <span class="n">line_mode_linewidth</span><span class="o">=</span><span class="n">line_mode_linewidth</span><span class="p">,</span>
+            <span class="n">line_mode_miter_limit</span><span class="o">=</span><span class="n">line_mode_miter_limit</span><span class="p">,</span>
+            <span class="n">line_mode_basic_line</span><span class="o">=</span><span class="n">line_mode_basic_line</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Plotter.candlestick">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.candlestick">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">candlestick</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">open</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">high</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">low</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">close</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">dates</span><span class="p">:</span> <span class="n">Dates</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">up_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0314</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.506</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">down_color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.957</span><span class="p">,</span> <span class="mf">0.204</span><span class="p">,</span> <span class="mf">0.266</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="n">CandlestickMode</span> <span class="o">=</span> <span class="s2">&quot;no_caps&quot;</span><span class="p">,</span>
+        <span class="n">candle_width_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">,</span>
+        <span class="n">cap_width_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">line_mode_linewidth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">line_mode_miter_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+        <span class="n">line_mode_basic_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a candlestick plot to the linked subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        open</span>
+<span class="sd">           Vector of candle open prices.</span>
+<span class="sd">        high</span>
+<span class="sd">           Vector of candle high prices.</span>
+<span class="sd">        low</span>
+<span class="sd">           Vector of candle low prices.</span>
+<span class="sd">        close</span>
+<span class="sd">           Vector of candle close prices.</span>
+<span class="sd">        dates</span>
+<span class="sd">            A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If `None`, index will be displayed.</span>
+<span class="sd">            If pd.Series, it will be converted to a list internally.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">           The index of the linked subplot on which to plot the candlesticks. By default, it is the most recently added linked subplot.</span>
+<span class="sd">        up_color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) for candles when close price is higher than open price.</span>
+<span class="sd">        down_color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) for candles when open price is lower than close price.</span>
+<span class="sd">        mode</span>
+<span class="sd">            Control how candles are displayed (see CandlestickMode).</span>
+<span class="sd">        candle_width_ratio</span>
+<span class="sd">            Ratio between candle and gap width, a float between (0, 1] e.g. 1 is no space between candles.</span>
+<span class="sd">        cap_width_ratio</span>
+<span class="sd">            Ratio between candle and cap width, a double between (0, 1] e.g. 1 the cap is the width of the candle.</span>
+<span class="sd">        line_mode_linewidth</span>
+<span class="sd">            Line width for open-line and close-line mode for the candlestick plot.</span>
+<span class="sd">        line_mode_miter_limit</span>
+<span class="sd">            Miter limit controls the maximum line-segment connection length, for open-line and close-line mode.</span>
+<span class="sd">        line_mode_basic_line</span>
+<span class="sd">            If `true`, a simple line plot with fixd width is used (`width` and `miterLimit` have no effect). This is much faster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">open</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Use `candlestick_from_df` to pass a Pandas DataFrame.&quot;</span><span class="p">)</span>
+
+        <span class="nb">open</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_data_array</span><span class="p">(</span><span class="nb">open</span><span class="p">)</span>
+        <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_data_array</span><span class="p">(</span><span class="n">high</span><span class="p">)</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_data_array</span><span class="p">(</span><span class="n">low</span><span class="p">)</span>
+        <span class="n">close</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_data_array</span><span class="p">(</span><span class="n">close</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dates</span> <span class="p">:</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">DatetimeVector</span> <span class="o">|</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">StringVector</span>
+            <span class="n">dates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_and_process_dates</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">candlestick</span><span class="p">(</span>
+            <span class="nb">open</span><span class="o">=</span><span class="nb">open</span><span class="p">,</span>
+            <span class="n">high</span><span class="o">=</span><span class="n">high</span><span class="p">,</span>
+            <span class="n">low</span><span class="o">=</span><span class="n">low</span><span class="p">,</span>
+            <span class="n">close</span><span class="o">=</span><span class="n">close</span><span class="p">,</span>
+            <span class="n">dates</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">,</span>
+            <span class="n">up_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">up_color</span><span class="p">),</span>
+            <span class="n">down_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">down_color</span><span class="p">),</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+            <span class="n">candle_width_ratio</span><span class="o">=</span><span class="n">candle_width_ratio</span><span class="p">,</span>
+            <span class="n">cap_width_ratio</span><span class="o">=</span><span class="n">cap_width_ratio</span><span class="p">,</span>
+            <span class="n">line_mode_linewidth</span><span class="o">=</span><span class="n">line_mode_linewidth</span><span class="p">,</span>
+            <span class="n">line_mode_miter_limit</span><span class="o">=</span><span class="n">line_mode_miter_limit</span><span class="p">,</span>
+            <span class="n">line_mode_basic_line</span><span class="o">=</span><span class="n">line_mode_basic_line</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.line">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.line">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">line</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+        <span class="n">dates</span><span class="p">:</span> <span class="n">Dates</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">miter_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span>
+        <span class="n">basic_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a line plot to the linked subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        y</span>
+<span class="sd">            Numpy array of float datapoints to plot.</span>
+<span class="sd">        dates</span>
+<span class="sd">            A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If `None`, index will be displayed.</span>
+<span class="sd">            If pd.Series, it will be converted to a list internally.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            The index of the linked subplot on which to plot the line plot. By default, it is the most recently added linked subplot.</span>
+<span class="sd">        color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the line plot.</span>
+<span class="sd">        width</span>
+<span class="sd">            Line width for the plot.</span>
+<span class="sd">        miter_limit</span>
+<span class="sd">            Miter limit controls the maximum line-segment connection length, for open-line and close-line mode.</span>
+<span class="sd">        basic_line</span>
+<span class="sd">            If `true`, a simple line plot with fixd width is used (`width` and `miterLimit` have no effect). This is much faster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_data_array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dates</span> <span class="p">:</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">DatetimeVector</span> <span class="o">|</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">StringVector</span>
+            <span class="n">dates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_and_process_dates</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">dates</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">miter_limit</span><span class="o">=</span><span class="n">miter_limit</span><span class="p">,</span>
+            <span class="n">basic_line</span><span class="o">=</span><span class="n">basic_line</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.bar">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.bar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+        <span class="n">dates</span><span class="p">:</span> <span class="n">Dates</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.03137</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.50588</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">),</span>
+        <span class="n">width_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">min_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a bar plot to the linked subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        y</span>
+<span class="sd">            Vector of float datapoints to plot.</span>
+<span class="sd">        dates</span>
+<span class="sd">            A list of string (labels) or datetime (must be UTC) to use as x-axis labels. If `None`, index will be displayed.</span>
+<span class="sd">            If pd.Series, it will be converted to a list internally.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            The index of the linked subplot on which to plot the bar plot. By default, it is the most  recently added linked subplot.</span>
+<span class="sd">        color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the bar plot.</span>
+<span class="sd">        width_ratio</span>
+<span class="sd">            Ratio between the bar width and inter-bar gap, a float between (0, 1] e.g. 1 is no space between bars.</span>
+<span class="sd">        min_value</span>
+<span class="sd">            Minimum value of the bar plot. By default, the minimum number in `y` minus 1% of max y - min y as padding.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_data_array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dates</span> <span class="p">:</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">DatetimeVector</span> <span class="o">|</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">StringVector</span>
+            <span class="n">dates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_and_process_dates</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">dates</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+            <span class="n">width_ratio</span><span class="o">=</span><span class="n">width_ratio</span><span class="p">,</span>
+            <span class="n">min_value</span><span class="o">=</span><span class="n">min_value</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plotter.scatter">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.scatter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scatter</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">Dates</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+        <span class="n">linked_subplot_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="n">ScatterShapeType</span> <span class="o">=</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">Array</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.46</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">fixed_size</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">marker_size_fixed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.025</span><span class="p">,</span>
+        <span class="n">marker_size_free</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a scatter plot to the linked subplot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x</span>
+<span class="sd">            A numpy array of indexes, or list of string or datetimes (UTC) of x-axis position of the scatter points.</span>
+<span class="sd">            The type must match the current x tick label type.</span>
+<span class="sd">        y</span>
+<span class="sd">            Vector of floats containing y-axis data. Must match x in length.</span>
+<span class="sd">        linked_subplot_idx</span>
+<span class="sd">            The index of the linked subplot on which to plot the scatter plot. By default, it is the most recently added linked subplot.</span>
+<span class="sd">        shape</span>
+<span class="sd">            Shape of the scatter marker (see ScatterShapeType)</span>
+<span class="sd">        color</span>
+<span class="sd">            Color (array-like, length 1-4, RGBA) of the scatter marker.</span>
+<span class="sd">        fixed_size</span>
+<span class="sd">            If `true`, size of the scatter marker is the same at all zooms.</span>
+<span class="sd">            If `False`, the size of the marker will decrease when zoomed out.</span>
+<span class="sd">        marker_size_fixed</span>
+<span class="sd">            Size of the scatter marker when `fixed_size` is `true`.</span>
+<span class="sd">        marker_size_free</span>
+<span class="sd">            Size of the scatter marker when `fixed_size` if `False`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_data_array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
+            <span class="n">x_processed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_and_process_dates</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x_processed</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_numpy_arrays</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_numpy_arrays</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotter</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x_processed</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">linked_subplot_idx</span><span class="o">=</span><span class="n">linked_subplot_idx</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_list</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+            <span class="n">fixed_size</span><span class="o">=</span><span class="n">fixed_size</span><span class="p">,</span>
+            <span class="n">marker_size_fixed</span><span class="o">=</span><span class="n">marker_size_fixed</span><span class="p">,</span>
+            <span class="n">marker_size_free</span><span class="o">=</span><span class="n">marker_size_free</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># Helpers</span>
+    <span class="c1"># ---------------------------------------------------------------------------------</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_and_process_dates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dates</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">datetime</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a list of dates.</span>
+
+<span class="sd">        Return a processed list of dates. Under the hood these are transferred to the C++</span>
+<span class="sd">        side with Pybind11, so must be converted to special C++-side vectors. This</span>
+<span class="sd">        requires a copy operation (numpy arrays used for actual data are not copied).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">dates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">dates</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_datetime64_any_dtype</span><span class="p">(</span><span class="n">dates</span><span class="p">):</span>
+                <span class="n">dates</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dates</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">datetime</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tzinfo</span> <span class="o">!=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`dates` must be UTC datetime.&quot;</span><span class="p">)</span>
+
+            <span class="c1"># this is a copy operation</span>
+            <span class="n">dates_formatted</span> <span class="o">=</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">DatetimeVector</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dates_formatted</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># this is a copy operation</span>
+            <span class="n">dates_formatted</span> <span class="o">=</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">StringVector</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dates_formatted</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`dates` must be list of string labels or UTC datetimes.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optional_array</span><span class="p">:</span> <span class="n">Array</span> <span class="o">|</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert an array-like object to list or return `None` if `None`</span>
+
+<span class="sd">        While an array-like object is assumed, the edge-case where a single</span>
+<span class="sd">        numeric value is passed, as in `color` is handled.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">optional_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">list_array</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">optional_array</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_number</span><span class="p">(</span><span class="n">optional_array</span><span class="p">),</span> <span class="s2">&quot;Value to convert to list must be iterative or numeric.&quot;</span>
+                <span class="n">list_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">optional_array</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">list_array</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">list_array</span>
+
+<div class="viewcode-block" id="Plotter.is_number">
+<a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter.is_number">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_numpy_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">array</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;C_CONTIGUOUS&#39;</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;All passed numpy arrays must be contiguous in memory.&quot;</span>
+                    <span class="s2">&quot;Run np.ascontiguousarray() on the array before passing.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Only one-dimensional data can be displayed on the plot.&quot;</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_data_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_numpy_arrays</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">y</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, rallyplot.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
