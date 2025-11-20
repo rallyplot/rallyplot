@@ -23,6 +23,8 @@ version = ".".join(release.split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
 
+html_baseurl = "https://rallyplot.com"
+
 autodoc_mock_imports = [
     "numpy", "pandas"
 ]
