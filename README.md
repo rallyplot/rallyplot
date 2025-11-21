@@ -1,6 +1,6 @@
 # `rallyplot`
 
-`rallyplot` uses the GPU for accelerated financial plots.
+`rallyplot` uses the GPU for very fast financial plots.
 
 
 Go to [rallyplot.com](www.rallyplot.com) for installation
@@ -17,7 +17,9 @@ instructions, getting stared guides and more.
 ### Subplots
 
 <img width="788" height="293" alt="_subplots-closeup600" src="https://github.com/user-attachments/assets/345f8572-39c3-438e-b1e5-7f3a67dcad3d" />
-<img width="800" height="600" alt="subplots600" src="https://github.com/user-attachments/assets/252e9ba7-6480-4802-8994-7ca5abdf8f54" />
+
+<img width="800" height="600" alt="linked-subplots600" src="https://github.com/user-attachments/assets/85e5cd22-ab65-47b4-b7eb-5eccedfc8eeb" />
+
 
 ### Plot entry and exist points
 
