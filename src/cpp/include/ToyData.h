@@ -61,18 +61,13 @@ inline CandleData getToyCandlestickData(
     }
     auto resolution = seconds(1);
 
-    for (int i = 0; i < N; i++)
+    open[0] = cfg.startValue;
+    close[0] = open[0] * cfg.phi + norm_dist(generator);
+
+    for (int i = 1; i < N; i++)
     {
-        if (i == 0)
-        {
-            open[0] = cfg.startValue;
-            close[0] = open[0] * cfg.phi + norm_dist(generator);
-        }
-        else
-        {
-            open[i] = close[i - 1];
-            close[i] = close[i - 1] * cfg.phi + norm_dist(generator);
-        }
+        open[i] = close[i - 1];
+        close[i] = close[i - 1] * cfg.phi + norm_dist(generator);
 
         high[i] = std::max(close[i], open[i]) + std::abs(highLowDist(generator));
         low[i] = std::min(close[i], open[i]) - std::abs(highLowDist(generator));
