@@ -391,6 +391,13 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numbers</span>
 
+<span class="c1"># Do not import pythonBindings if we are building docs.</span>
+<span class="c1"># This way we don&#39;t have to build the whole lib just to build the docs.</span>
+<span class="n">BUILDING_DOCS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RALLYPLOT_BUILDING_DOCS&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">BUILDING_DOCS</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">pythonBindings</span>
+
 <span class="c1"># -------------------------------------------------------------------------------------</span>
 <span class="c1"># Argument Types</span>
 <span class="c1"># -------------------------------------------------------------------------------------</span>
@@ -436,12 +443,9 @@
     <span class="s2">&quot;off&quot;</span>
 <span class="p">]</span>
 
-<span class="c1"># -------------------------------------------------------------------------------------</span>
-<span class="c1"># Plotter</span>
-<span class="c1"># -------------------------------------------------------------------------------------</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_toy_candlestick_data</span><span class="p">(</span><span class="n">N</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100_000</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pythonBindings</span><span class="o">.</span><span class="n">get_toy_candlestick_data</span><span class="p">(</span>
         <span class="n">N</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span>
     <span class="p">)</span>
@@ -453,6 +457,10 @@
 
     <span class="k">return</span> <span class="n">data_df</span><span class="p">,</span> <span class="n">volume</span><span class="p">,</span> <span class="n">dates</span>
 
+
+<span class="c1"># -------------------------------------------------------------------------------------</span>
+<span class="c1"># Plotter</span>
+<span class="c1"># -------------------------------------------------------------------------------------</span>
 
 <div class="viewcode-block" id="Plotter">
 <a class="viewcode-back" href="../../python_api.html#rallyplot.Plotter">[docs]</a>
@@ -496,11 +504,6 @@
 <span class="sd">            Size of the margin between the x-axis and the bottom edge of the figure.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Import here so we can build docs without compiling a wheel,</span>
-        <span class="c1"># by importing plotter directly from file.</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">pythonBindings</span>
-
-
         <span class="c1"># Patch the QT_PLUGIN_PATH to use our vendored plugins. This only needs to</span>
         <span class="c1"># be set while the pythonBindings are initialised, then the path is</span>
         <span class="c1"># held on the cpp side. Return the path to its original state to not</span>
