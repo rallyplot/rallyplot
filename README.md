@@ -16,7 +16,9 @@ instructions, getting stared guides and more.
 
 ### Subplots
 
-<img width="788" height="293" alt="_subplots-closeup600" src="https://github.com/user-attachments/assets/345f8572-39c3-438e-b1e5-7f3a67dcad3d" />
+<img width="800" height="600" alt="subplots-closeup600" src="https://github.com/user-attachments/assets/1d7af3b6-4202-4fbb-9797-38ac5a01e50a" />
+
+<br>
 
 <img width="800" height="600" alt="linked-subplots600" src="https://github.com/user-attachments/assets/85e5cd22-ab65-47b4-b7eb-5eccedfc8eeb" />
 
