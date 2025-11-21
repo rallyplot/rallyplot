@@ -1,39 +1,21 @@
 # `rallyplot`
 
-For now, dll are all copied to `lib` and user must copy these
-directly to their exe path.
-
-Not sure how best to handle  this...
+`rallyplot` uses the GPU for accelerated financial plots.
 
 
-Should probably ask...
+Go to [rallyplot.com](www.rallyplot.com) for installation
+instructions, getting stared guides and more.
 
+## Examples
 
-IMPORTANT pybind11 was rewritten to force UTC
+_Candlesticks with indicators_
+<img width="800" height="600" alt="front-page-dark600" src="https://github.com/user-attachments/assets/cdbb6b06-32ad-40c9-9cff-2bcbf2ab8053" />
 
-# Building and distribution
+<img width="800" height="600" alt="example-indicators600" src="https://github.com/user-attachments/assets/5299c4da-049b-4e17-81f6-9c7ab3cacbfe" />
 
-First, download qt with `./donwload_qt.py`
+_Subplots_
+<img width="788" height="293" alt="_subplots-closeup600" src="https://github.com/user-attachments/assets/345f8572-39c3-438e-b1e5-7f3a67dcad3d" />
+<img width="800" height="600" alt="subplots600" src="https://github.com/user-attachments/assets/252e9ba7-6480-4802-8994-7ca5abdf8f54" />
 
-For a quick build, set the environment variables to the qt libs e.g.:
-
-```
-
-```
-
-Then build with cmake as normal
-
-`mkdir build; cd build; cmake ..; cm`
-
-This will create the build file (you can test with `testLib`) and `dist` that
-contains the cpp and python libs and all dependencies (including Qt plugins).
-
-For proper distribution through python, we use cibuildwheels. See `.github/workflows`
-
-TODO
-----
-# Since 2015, MSVC (and I think GCC) ensure ABI compatability
-# across versions. So in theory I should only need one build per OS
-# (MSVC, use and document /md rather than /mt). For Linux, must document
-# that the libstc++ is used as STL not libc++. For macOS should all be okay.
-# Only for macOS build for AMD and ARM. For Windows use x86 only. For Linux AMD only.
+_Plot entry and exist points
+<img width="800" height="600" alt="example-scatter-closeup600" src="https://github.com/user-attachments/assets/88d4b0a8-ea5a-4d30-9641-797c86304e13" />
