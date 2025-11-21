@@ -15,6 +15,13 @@ import platform
 import copy
 import numbers
 
+# Do not import pythonBindings if we are building docs.
+# This way we don't have to build the whole lib just to build the docs.
+BUILDING_DOCS = os.getenv("RALLYPLOT_BUILDING_DOCS", False)
+
+if not BUILDING_DOCS:
+    from . import pythonBindings
+
 # -------------------------------------------------------------------------------------
 # Argument Types
 # -------------------------------------------------------------------------------------
@@ -60,12 +67,9 @@ HoverValueDisplayMode = Literal[
     "off"
 ]
 
-# -------------------------------------------------------------------------------------
-# Plotter
-# -------------------------------------------------------------------------------------
 
 def get_toy_candlestick_data(N: int = 100_000, seed: int = None):
-
+    """"""
     data = pythonBindings.get_toy_candlestick_data(
         N=N, seed=seed
     )
@@ -77,6 +81,10 @@ def get_toy_candlestick_data(N: int = 100_000, seed: int = None):
 
     return data_df, volume, dates
 
+
+# -------------------------------------------------------------------------------------
+# Plotter
+# -------------------------------------------------------------------------------------
 
 class Plotter:
 
@@ -118,11 +126,6 @@ class Plotter:
             Size of the margin between the x-axis and the bottom edge of the figure.
 
         """
-        # Import here so we can build docs without compiling a wheel,
-        # by importing plotter directly from file.
-        from . import pythonBindings
-
-
         # Patch the QT_PLUGIN_PATH to use our vendored plugins. This only needs to
         # be set while the pythonBindings are initialised, then the path is
         # held on the cpp side. Return the path to its original state to not

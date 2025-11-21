@@ -7,6 +7,8 @@ from pathlib import Path
 root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(root / "src"))
 
+os.environ["RALLYPLOT_BUILDING_DOCS"] = "true"
+
 # -- Project information -----------------------------------------------------
 
 project = "rallyplot"
