@@ -141,7 +141,7 @@ jobs:
 
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
             delocate-wheel --require-archs {delocate_archs} 
-            --executable-path ${{ github.workspace }}/dist/rallyplot
+            --executable-path ${{ github.workspace }}/distribution/qt/6.8.2/macos/lib
             -w {dest_dir} -v {wheel}
             
 
