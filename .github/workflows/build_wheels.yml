@@ -100,8 +100,8 @@ jobs:
           CIBW_ENVIRONMENT_MACOS: >
             QT_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
             Qt6_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
-            MACOSX_DEPLOYMENT_TARGET="12.0"  
-            CMAKE_OSX_DEPLOYMENT_TARGET="12.0"
+            MACOSX_DEPLOYMENT_TARGET="10.15"  
+            CMAKE_OSX_DEPLOYMENT_TARGET="10.15"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           CIBW_ENVIRONMENT_LINUX: >
