@@ -272,51 +272,51 @@ if(RALLYPLOT_BUILD_DEV)
     # which is very useful on Windows.
 
     # Build a tiny Qt exe just for windeployqt scanning
-    add_dependencies(dist stubFileForDeploy)
+    #add_dependencies(dist stubFileForDeploy)
 
-    set(WINDEPLOYQT_EXE "${QT_INSTALL_DIR}/bin/windeployqt.exe")
+    #set(WINDEPLOYQT_EXE "${QT_INSTALL_DIR}/bin/windeployqt.exe")
 
-    add_executable(stubFileForDeploy distribution/stubFileForDeploy.cpp)
+    #add_executable(stubFileForDeploy distribution/stubFileForDeploy.cpp)
 
-    set_target_properties(stubFileForDeploy PROPERTIES
-        MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_BUNDLE_NAME "StubFile"
-    )
+    #set_target_properties(stubFileForDeploy PROPERTIES
+    #    MACOSX_BUNDLE TRUE
+    #    MACOSX_BUNDLE_BUNDLE_NAME "StubFile"
+    #)
 
-    target_include_directories(stubFileForDeploy PRIVATE
-        "${PROJECT_SOURCE_DIR}/src/cpp/include"
-    )
+    #target_include_directories(stubFileForDeploy PRIVATE
+    #    "${PROJECT_SOURCE_DIR}/src/cpp/include"
+    #)
 
-    target_link_libraries(stubFileForDeploy PRIVATE
-        rallyplot
-        Qt${QT_VERSION_MAJOR}::Core
-        Qt${QT_VERSION_MAJOR}::Gui
-        Qt${QT_VERSION_MAJOR}::Widgets
-        Qt${QT_VERSION_MAJOR}::OpenGL
-        Qt${QT_VERSION_MAJOR}::OpenGLWidgets
-    )
+    #target_link_libraries(stubFileForDeploy PRIVATE
+    #    rallyplot
+    #    Qt${QT_VERSION_MAJOR}::Core
+    #    Qt${QT_VERSION_MAJOR}::Gui
+    #    Qt${QT_VERSION_MAJOR}::Widgets
+    #    Qt${QT_VERSION_MAJOR}::OpenGL
+    #    Qt${QT_VERSION_MAJOR}::OpenGLWidgets
+    #)
 
     # Copy library dependencies to CPP distribution
-    add_custom_command(TARGET stubFileForDeploy POST_BUILD
-      COMMAND "${WINDEPLOYQT_EXE}"
-              --dir "$<TARGET_FILE_DIR:testLib>"
-              --plugindir "$<TARGET_FILE_DIR:testLib>/plugins"
-              --no-quick-import --compiler-runtime --no-translations --verbose 2
-              -openglwidgets -opengl -core -gui -widgets
-              "$<TARGET_FILE:stubFileForDeploy>"
-      VERBATIM
-      )
+    #add_custom_command(TARGET stubFileForDeploy POST_BUILD
+    #  COMMAND "${WINDEPLOYQT_EXE}"
+    #          --dir "$<TARGET_FILE_DIR:testLib>"
+    #          --plugindir "$<TARGET_FILE_DIR:testLib>/plugins"
+    #          --no-quick-import --compiler-runtime --no-translations --verbose 2
+    #          -openglwidgets -opengl -core -gui -widgets
+    #          "$<TARGET_FILE:stubFileForDeploy>"
+    #  VERBATIM
+    #  )
 
     # For Python, just copy the plugins
-    add_custom_command(TARGET stubFileForDeploy POST_BUILD
-      COMMAND "${WINDEPLOYQT_EXE}"
-              --dir "${DIST_TARGETS_PY}"
-              --plugindir "${DIST_TARGETS_PY}/plugins"
-              --no-quick-import --compiler-runtime --no-translations --verbose 2
-              --no-libraries
-              "$<TARGET_FILE:stubFileForDeploy>"
-      VERBATIM
-    )
+    #add_custom_command(TARGET stubFileForDeploy POST_BUILD
+    #  COMMAND "${WINDEPLOYQT_EXE}"
+    #          --dir "${DIST_TARGETS_PY}"
+    #          --plugindir "${DIST_TARGETS_PY}/plugins"
+    #          --no-quick-import --compiler-runtime --no-translations --verbose 2
+    #          --no-libraries
+    #          "$<TARGET_FILE:stubFileForDeploy>"
+    #  VERBATIM
+    #)
 
 
 

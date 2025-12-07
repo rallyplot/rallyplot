@@ -15,6 +15,14 @@ import platform
 import copy
 import numbers
 
+from PySide6 import (
+ QtWidgets,
+ QtOpenGLWidgets,
+ QtOpenGL,
+ QtGui,
+ QtCore
+)
+
 # Do not import pythonBindings if we are building docs.
 # This way we don't have to build the whole lib just to build the docs.
 BUILDING_DOCS = os.getenv("RALLYPLOT_BUILDING_DOCS", False)
