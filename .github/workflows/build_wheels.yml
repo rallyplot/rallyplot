@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest, macos-15-intel]
+        os: [ubuntu-latest, windows-latest, macos-14, macos-14-intel]
 
     steps:
       - uses: actions/checkout@v5
@@ -112,9 +112,9 @@ jobs:
           # Repair Wheels
           # -------------------------------------------------------------------
 
-          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
-            python -m pip install delvewheel && 
-            python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: ""
+            # python -m pip install delvewheel &&
+            # python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
 
           # For linux, there are many core libs we do not want to vendor, because of incompatibilities.
           # We want to use the system wayland / x11 as much as possible (and users install core dependency
