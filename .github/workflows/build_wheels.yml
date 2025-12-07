@@ -141,9 +141,10 @@ jobs:
 
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
             delocate-wheel --require-archs {delocate_archs} 
-#            --ignore-missing-dependencies
             -w {dest_dir} -v {wheel}
 
+          # Test Wheels#            --ignore-missing-dependencies
+          
           # Test Wheels
           # -------------------------------------------------------------------
 
