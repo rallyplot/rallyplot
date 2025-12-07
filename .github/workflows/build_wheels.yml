@@ -139,12 +139,10 @@ jobs:
             --exclude libvulkan.so.1 \
             {wheel}
 
-          CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""
-          # Could not get this to work, could not find the vendored frameworks. If not vendoring, it did not
-          # pull in the frameworks and just pulled in the libs (not useful)
-          #    CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
-          #      sh -c 'DYLD_LIBRARY_PATH=$(dirname $(find "$(dirname "$0")" -name libqoffscreen.dylib | head -n 1))/../
-          #      delocate-wheel --require-archs x86_64 -w "$1" "$0"' {wheel} {dest_dir}
+          CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
+            delocate-wheel --require-archs {delocate_archs} 
+            --ignore-missing-dependencies 
+            -w {dest_dir} -v {wheel}
 
           # Test Wheels
           # -------------------------------------------------------------------
