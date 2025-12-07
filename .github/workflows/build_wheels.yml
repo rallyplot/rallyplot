@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-14, macos-14-intel]
+        os: [ubuntu-latest, windows-latest, macos-13, macos-13-intel]
 
     steps:
       - uses: actions/checkout@v5
@@ -100,8 +100,8 @@ jobs:
           CIBW_ENVIRONMENT_MACOS: >
             QT_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
             Qt6_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
-            MACOSX_DEPLOYMENT_TARGET="14.0"  
-            CMAKE_OSX_DEPLOYMENT_TARGET="14.0"
+            MACOSX_DEPLOYMENT_TARGET="13.0"  
+            CMAKE_OSX_DEPLOYMENT_TARGET="13.0"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           CIBW_ENVIRONMENT_LINUX: >
