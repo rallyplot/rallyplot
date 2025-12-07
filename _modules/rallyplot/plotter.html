@@ -391,15 +391,6 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numbers</span>
 
-<span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-     <span class="n">QtWidgets</span><span class="p">,</span>
-     <span class="n">QtOpenGLWidgets</span><span class="p">,</span>
-     <span class="n">QtOpenGL</span><span class="p">,</span>
-     <span class="n">QtGui</span><span class="p">,</span>
-     <span class="n">QtCore</span>
-    <span class="p">)</span>
-
 <span class="c1"># Do not import pythonBindings if we are building docs.</span>
 <span class="c1"># This way we don&#39;t have to build the whole lib just to build the docs.</span>
 <span class="n">BUILDING_DOCS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RALLYPLOT_BUILDING_DOCS&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
