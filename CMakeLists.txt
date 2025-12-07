@@ -16,11 +16,11 @@ project(rallyplot LANGUAGES CXX)
 # If we're building the Python dist, force use of vendored Qt
 if(RALLYPLOT_BUILD_DEV)
   if(WIN32)
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.4.3/msvc2022_64")
+    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/msvc2022_64")
   elseif(APPLE)
     set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.4.3/macos")
   else()
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.4.3/gcc_64")
+    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/gcc_64")
   endif()
 
   list(PREPEND CMAKE_PREFIX_PATH "${QT_INSTALL_DIR}")
