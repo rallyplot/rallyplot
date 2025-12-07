@@ -141,7 +141,9 @@ jobs:
 
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
             delocate-wheel --require-archs {delocate_archs} 
+            --dylib-path ${{ github.workspace }}/dist/rallyplot
             -w {dest_dir} -v {wheel}
+            
 
           # Test Wheels#            --ignore-missing-dependencies
           
