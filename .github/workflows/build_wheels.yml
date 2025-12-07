@@ -67,12 +67,12 @@ jobs:
               libXi \
               mesa-libwayland-egl \
               xorg-x11-server-Xvfb
-            aqt install-qt linux desktop 6.4.3 -O {package}/distribution/qt
+            aqt install-qt linux desktop 6.8.2 -O {package}/distribution/qt
 
           # For Windows and macOS, the required libraries are already found on the system.
           CIBW_BEFORE_ALL_WINDOWS: >
             python -m pip install -U cmake ninja aqtinstall &&
-            aqt install-qt windows desktop 6.4.3 win64_msvc2022_64 -O D:/a/rallyplot/rallyplot/distribution/qt
+            aqt install-qt windows desktop 6.8.2 win64_msvc2022_64 -O D:/a/rallyplot/rallyplot/distribution/qt
 
           # ---- macOS: install Qt ----
           CIBW_BEFORE_ALL_MACOS: >
@@ -91,8 +91,8 @@ jobs:
           # bit of boilerplate, so for now just hard code for windows.
 
           CIBW_ENVIRONMENT_WINDOWS: >
-            QT_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.4.3/msvc2022_64/lib/cmake/Qt6"
-            Qt6_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.4.3/msvc2022_64/lib/cmake/Qt6"
+            QT_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6"
+            Qt6_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6"
             CMAKE_GENERATOR_PLATFORM="x64"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
@@ -105,8 +105,8 @@ jobs:
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           CIBW_ENVIRONMENT_LINUX: >
-            QT_DIR="/project/distribution/qt/6.4.3/gcc_64/lib/cmake/Qt6"
-            Qt6_DIR="/project/distribution/qt/6.4.3/gcc_64/lib/cmake/Qt6"
+            QT_DIR="/project/distribution/qt/6.8.2/gcc_64/lib/cmake/Qt6"
+            Qt6_DIR="/project/distribution/qt/6.8.2/gcc_64/lib/cmake/Qt6"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           # Repair Wheels
@@ -114,13 +114,13 @@ jobs:
 
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: ""
             # python -m pip install delvewheel &&
-            # python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.4.3/msvc2022_64/bin" -vv
+            # python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
 
           # For linux, there are many core libs we do not want to vendor, because of incompatibilities.
           # We want to use the system wayland / x11 as much as possible (and users install core dependency
           # libs on their end) rather than try and inject wayland / x11 libs into peoples distros
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: |
-            LD_LIBRARY_PATH=/project/distribution/qt/6.4.3/gcc_64/lib:$LD_LIBRARY_PATH
+            LD_LIBRARY_PATH=/project/distribution/qt/6.8.2/gcc_64/lib:$LD_LIBRARY_PATH
             auditwheel repair -w {dest_dir} \
             --exclude libEGL.so.1 \
             --exclude libGLX.so.0 \
