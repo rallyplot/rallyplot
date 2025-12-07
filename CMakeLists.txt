@@ -261,6 +261,11 @@ if(RALLYPLOT_BUILD_DEV)
   file(MAKE_DIRECTORY ${DIST_TARGETS_PY})
   file(MAKE_DIRECTORY "${DIST_TARGETS_PY}/plugins/platforms")
 
+  add_custom_target(clean_dist
+  COMMAND ${CMAKE_COMMAND} -E remove_directory "${PROJECT_SOURCE_DIR}/dist"
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${PROJECT_SOURCE_DIR}/dist"
+  COMMENT "Cleaning and recreating dist directory"
+)
 
   if (WIN32)
     # In Windows, we use windeployqt because it works requiring
@@ -331,73 +336,72 @@ if(RALLYPLOT_BUILD_DEV)
     # run the quick shell script
 
     # First, copy the frameworks to all distribution folders
-    set(QT_FRAMEWORKS
-      QtCore
-      QtGui
-      QtWidgets
-      QtOpenGL
-      QtOpenGLWidgets
-      QtDBus
-    )
+    # set(QT_FRAMEWORKS
+    #  QtCore
+    #  QtGui
+    #  QtWidgets
+    #  QtOpenGL
+    #  QtOpenGLWidgets
+    #  QtDBus
+    # )
 
-    foreach(dst ${DIST_TARGETS})
-      foreach(framework ${QT_FRAMEWORKS})
-        add_custom_command(TARGET dist POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E copy_directory
-                  "${QT_INSTALL_DIR}/lib/${framework}.framework"
-                  "${dst}/${framework}.framework"
-          VERBATIM
-      )
-      endforeach()
-    endforeach()
+    #foreach(dst ${DIST_TARGETS})
+    #  foreach(framework ${QT_FRAMEWORKS})
+    #    add_custom_command(TARGET dist POST_BUILD
+    #      COMMAND ${CMAKE_COMMAND} -E copy_directory
+    #              "${QT_INSTALL_DIR}/lib/${framework}.framework"
+    #              "${dst}/${framework}.framework"
+    #      VERBATIM
+    #  )
+    #  endforeach()
+    #endforeach()
 
     # Copy the plugins to all distribution folders
-    set(QT_PLUGIN_DIRS
-        platforms
-        styles
-        iconengines
-        imageformats
-    )
+    #set(QT_PLUGIN_DIRS
+    #    platforms
+    #    styles
+    #    iconengines
+    #    imageformats
+    #)
 
-    set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
+    #set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
 
-    foreach(dst ${DIST_TARGETS})
-        foreach(dir ${QT_PLUGIN_DIRS})
-            add_custom_command(TARGET dist POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E make_directory "${dst}/plugins/${dir}"
-                COMMAND ${CMAKE_COMMAND} -E copy_directory
-                        "${QT_PLUGINS_DIR}/${dir}" "${dst}/plugins/${dir}"
-                VERBATIM
-            )
-        endforeach()
-    endforeach()
+    #foreach(dst ${DIST_TARGETS})
+    #    foreach(dir ${QT_PLUGIN_DIRS})
+    #        add_custom_command(TARGET dist POST_BUILD
+    #            COMMAND ${CMAKE_COMMAND} -E make_directory "${dst}/plugins/${dir}"
+    #            COMMAND ${CMAKE_COMMAND} -E copy_directory
+    #                    "${QT_PLUGINS_DIR}/${dir}" "${dst}/plugins/${dir}"
+    #            VERBATIM
+    #        )
+    #    endforeach()
+    #endforeach()
 
     # For macOS, because I could not get delvewheel to work, run
     # a script that sets the RPATH correctly for all plugin
     # and framework libs in the distrubable.
-    set(FIX_SCRIPT "${PROJECT_SOURCE_DIR}/distribution/fix_macos_paths.sh")
+    #set(FIX_SCRIPT "${PROJECT_SOURCE_DIR}/distribution/fix_macos_paths.sh")
 
-    foreach(dst ${DIST_TARGETS})
-
-      set(DEST_SCRIPT "${dst}/fix_macos_paths.sh")
+    #foreach(dst ${DIST_TARGETS})
+    #  set(DEST_SCRIPT "${dst}/fix_macos_paths.sh")
 
       # Copy the script into the destination directory
-      add_custom_command(
-        TARGET dist
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FIX_SCRIPT}" "${DEST_SCRIPT}"
-        COMMENT "Copying fix_macos_paths.sh to ${dst}"
-      )
+#      add_custom_command(
+ #       TARGET dist
+  #      POST_BUILD
+   #     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FIX_SCRIPT}" "${DEST_SCRIPT}"
+    #    COMMENT "Copying fix_macos_paths.sh to ${dst}"
+     # )
 
       # Make it executable and run it
-      add_custom_command(
-        TARGET dist
-        POST_BUILD
-        COMMAND chmod +x "${DEST_SCRIPT}"
-        COMMAND "${DEST_SCRIPT}"
-        COMMENT "Running fix_macos_paths.sh"
-      )
-    endforeach()
+      #add_custom_command(
+      #  TARGET dist
+      #  POST_BUILD
+      #  COMMAND chmod +x "${DEST_SCRIPT}"
+      #  COMMAND "${DEST_SCRIPT}"
+      #  COMMENT "Running fix_macos_paths.sh"
+      #)
+    #endforeach()
 
 
 
