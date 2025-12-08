@@ -18,7 +18,7 @@ if(RALLYPLOT_BUILD_DEV)
   if(WIN32)
     set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/msvc2022_64")
   elseif(APPLE)
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/macos")
+    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.4.3/macos")
   else()
     set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/gcc_64")
   endif()
@@ -131,6 +131,12 @@ add_library(rallyplot SHARED
   src/cpp/include/UserVector.h
   src/cpp/include/ToyData.h
 )
+
+set(FT_DISABLE_BZIP2 TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_PNG TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_ZLIB TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_HARFBUZZ TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_BROTLI TRUE CACHE BOOL "" FORCE)
 
 add_subdirectory(
   ${PROJECT_SOURCE_DIR}/src/vendor/freetype-2.13.3
@@ -261,6 +267,11 @@ if(RALLYPLOT_BUILD_DEV)
   file(MAKE_DIRECTORY ${DIST_TARGETS_PY})
   file(MAKE_DIRECTORY "${DIST_TARGETS_PY}/plugins/platforms")
 
+  add_custom_target(clean_dist
+  COMMAND ${CMAKE_COMMAND} -E remove_directory "${PROJECT_SOURCE_DIR}/dist"
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${PROJECT_SOURCE_DIR}/dist"
+  COMMENT "Cleaning and recreating dist directory"
+)
 
   if (WIN32)
     # In Windows, we use windeployqt because it works requiring
@@ -272,51 +283,51 @@ if(RALLYPLOT_BUILD_DEV)
     # which is very useful on Windows.
 
     # Build a tiny Qt exe just for windeployqt scanning
-    add_dependencies(dist stubFileForDeploy)
+    #add_dependencies(dist stubFileForDeploy)
 
-    set(WINDEPLOYQT_EXE "${QT_INSTALL_DIR}/bin/windeployqt.exe")
+    #set(WINDEPLOYQT_EXE "${QT_INSTALL_DIR}/bin/windeployqt.exe")
 
-    add_executable(stubFileForDeploy distribution/stubFileForDeploy.cpp)
+    #add_executable(stubFileForDeploy distribution/stubFileForDeploy.cpp)
 
-    set_target_properties(stubFileForDeploy PROPERTIES
-        MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_BUNDLE_NAME "StubFile"
-    )
+    #set_target_properties(stubFileForDeploy PROPERTIES
+    #    MACOSX_BUNDLE TRUE
+    #    MACOSX_BUNDLE_BUNDLE_NAME "StubFile"
+    #)
 
-    target_include_directories(stubFileForDeploy PRIVATE
-        "${PROJECT_SOURCE_DIR}/src/cpp/include"
-    )
+    #target_include_directories(stubFileForDeploy PRIVATE
+    #    "${PROJECT_SOURCE_DIR}/src/cpp/include"
+    #)
 
-    target_link_libraries(stubFileForDeploy PRIVATE
-        rallyplot
-        Qt${QT_VERSION_MAJOR}::Core
-        Qt${QT_VERSION_MAJOR}::Gui
-        Qt${QT_VERSION_MAJOR}::Widgets
-        Qt${QT_VERSION_MAJOR}::OpenGL
-        Qt${QT_VERSION_MAJOR}::OpenGLWidgets
-    )
+    #target_link_libraries(stubFileForDeploy PRIVATE
+    #    rallyplot
+    #    Qt${QT_VERSION_MAJOR}::Core
+    #    Qt${QT_VERSION_MAJOR}::Gui
+    #    Qt${QT_VERSION_MAJOR}::Widgets
+    #    Qt${QT_VERSION_MAJOR}::OpenGL
+    #    Qt${QT_VERSION_MAJOR}::OpenGLWidgets
+    #)
 
     # Copy library dependencies to CPP distribution
-    add_custom_command(TARGET stubFileForDeploy POST_BUILD
-      COMMAND "${WINDEPLOYQT_EXE}"
-              --dir "$<TARGET_FILE_DIR:testLib>"
-              --plugindir "$<TARGET_FILE_DIR:testLib>/plugins"
-              --no-quick-import --compiler-runtime --no-translations --verbose 2
-              -openglwidgets -opengl -core -gui -widgets
-              "$<TARGET_FILE:stubFileForDeploy>"
-      VERBATIM
-      )
+    #add_custom_command(TARGET stubFileForDeploy POST_BUILD
+    #  COMMAND "${WINDEPLOYQT_EXE}"
+    #          --dir "$<TARGET_FILE_DIR:testLib>"
+    #          --plugindir "$<TARGET_FILE_DIR:testLib>/plugins"
+    #          --no-quick-import --compiler-runtime --no-translations --verbose 2
+    #          -openglwidgets -opengl -core -gui -widgets
+    #          "$<TARGET_FILE:stubFileForDeploy>"
+    #  VERBATIM
+    #  )
 
     # For Python, just copy the plugins
-    add_custom_command(TARGET stubFileForDeploy POST_BUILD
-      COMMAND "${WINDEPLOYQT_EXE}"
-              --dir "${DIST_TARGETS_PY}"
-              --plugindir "${DIST_TARGETS_PY}/plugins"
-              --no-quick-import --compiler-runtime --no-translations --verbose 2
-              --no-libraries
-              "$<TARGET_FILE:stubFileForDeploy>"
-      VERBATIM
-    )
+    #add_custom_command(TARGET stubFileForDeploy POST_BUILD
+    #  COMMAND "${WINDEPLOYQT_EXE}"
+    #          --dir "${DIST_TARGETS_PY}"
+    #          --plugindir "${DIST_TARGETS_PY}/plugins"
+    #          --no-quick-import --compiler-runtime --no-translations --verbose 2
+    #          --no-libraries
+    #          "$<TARGET_FILE:stubFileForDeploy>"
+    #  VERBATIM
+    #)
 
 
 
@@ -331,73 +342,72 @@ if(RALLYPLOT_BUILD_DEV)
     # run the quick shell script
 
     # First, copy the frameworks to all distribution folders
-    set(QT_FRAMEWORKS
-      QtCore
-      QtGui
-      QtWidgets
-      QtOpenGL
-      QtOpenGLWidgets
-      QtDBus
-    )
+    # set(QT_FRAMEWORKS
+    #  QtCore
+    #  QtGui
+    #  QtWidgets
+    #  QtOpenGL
+    #  QtOpenGLWidgets
+    #  QtDBus
+    # )
 
-    foreach(dst ${DIST_TARGETS})
-      foreach(framework ${QT_FRAMEWORKS})
-        add_custom_command(TARGET dist POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E copy_directory
-                  "${QT_INSTALL_DIR}/lib/${framework}.framework"
-                  "${dst}/${framework}.framework"
-          VERBATIM
-      )
-      endforeach()
-    endforeach()
+    #foreach(dst ${DIST_TARGETS})
+    #  foreach(framework ${QT_FRAMEWORKS})
+    #    add_custom_command(TARGET dist POST_BUILD
+    #      COMMAND ${CMAKE_COMMAND} -E copy_directory
+    #              "${QT_INSTALL_DIR}/lib/${framework}.framework"
+    #              "${dst}/${framework}.framework"
+    #      VERBATIM
+    #  )
+    #  endforeach()
+    #endforeach()
 
     # Copy the plugins to all distribution folders
-    set(QT_PLUGIN_DIRS
-        platforms
-        styles
-        iconengines
-        imageformats
-    )
+    #set(QT_PLUGIN_DIRS
+    #    platforms
+    #    styles
+    #    iconengines
+    #    imageformats
+    #)
 
-    set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
+    #set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
 
-    foreach(dst ${DIST_TARGETS})
-        foreach(dir ${QT_PLUGIN_DIRS})
-            add_custom_command(TARGET dist POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E make_directory "${dst}/plugins/${dir}"
-                COMMAND ${CMAKE_COMMAND} -E copy_directory
-                        "${QT_PLUGINS_DIR}/${dir}" "${dst}/plugins/${dir}"
-                VERBATIM
-            )
-        endforeach()
-    endforeach()
+    #foreach(dst ${DIST_TARGETS})
+    #    foreach(dir ${QT_PLUGIN_DIRS})
+    #        add_custom_command(TARGET dist POST_BUILD
+    #            COMMAND ${CMAKE_COMMAND} -E make_directory "${dst}/plugins/${dir}"
+    #            COMMAND ${CMAKE_COMMAND} -E copy_directory
+    #                    "${QT_PLUGINS_DIR}/${dir}" "${dst}/plugins/${dir}"
+    #            VERBATIM
+    #        )
+    #    endforeach()
+    #endforeach()
 
     # For macOS, because I could not get delvewheel to work, run
     # a script that sets the RPATH correctly for all plugin
     # and framework libs in the distrubable.
-    set(FIX_SCRIPT "${PROJECT_SOURCE_DIR}/distribution/fix_macos_paths.sh")
+    #set(FIX_SCRIPT "${PROJECT_SOURCE_DIR}/distribution/fix_macos_paths.sh")
 
-    foreach(dst ${DIST_TARGETS})
-
-      set(DEST_SCRIPT "${dst}/fix_macos_paths.sh")
+    #foreach(dst ${DIST_TARGETS})
+    #  set(DEST_SCRIPT "${dst}/fix_macos_paths.sh")
 
       # Copy the script into the destination directory
-      add_custom_command(
-        TARGET dist
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FIX_SCRIPT}" "${DEST_SCRIPT}"
-        COMMENT "Copying fix_macos_paths.sh to ${dst}"
-      )
+#      add_custom_command(
+ #       TARGET dist
+  #      POST_BUILD
+   #     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${FIX_SCRIPT}" "${DEST_SCRIPT}"
+    #    COMMENT "Copying fix_macos_paths.sh to ${dst}"
+     # )
 
       # Make it executable and run it
-      add_custom_command(
-        TARGET dist
-        POST_BUILD
-        COMMAND chmod +x "${DEST_SCRIPT}"
-        COMMAND "${DEST_SCRIPT}"
-        COMMENT "Running fix_macos_paths.sh"
-      )
-    endforeach()
+      #add_custom_command(
+      #  TARGET dist
+      #  POST_BUILD
+      #  COMMAND chmod +x "${DEST_SCRIPT}"
+      #  COMMAND "${DEST_SCRIPT}"
+      #  COMMENT "Running fix_macos_paths.sh"
+      #)
+    #endforeach()
 
 
 

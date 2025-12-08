@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest, macos-15-intel]
+        os: [ubuntu-latest, windows-latest, macos-15, macos-15-intel]
 
     steps:
       - uses: actions/checkout@v5
@@ -29,7 +29,7 @@ jobs:
       - name: Build wheels
         env:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
-          CIBW_SKIP: "cp38-* cp39-* *-win32 pp* *-musllinux*"
+          CIBW_SKIP: "cp38-* cp39-* cp314t-* *-win32 pp* *-musllinux*"
 
           # Before build
           # -------------------------------------------------------------------
@@ -78,7 +78,7 @@ jobs:
           CIBW_BEFORE_ALL_MACOS: >
             set -eux;
             python -m pip install -U cmake ninja aqtinstall;
-            aqt install-qt mac desktop 6.8.2 -O {package}/distribution/qt;
+            aqt install-qt mac desktop 6.4.3 -O {package}/distribution/qt;
 
           # Dump a load of environment information for debugging purposes
           CIBW_BEFORE_BUILD: "echo '--- ENV DUMP START ---' && env | sort && echo '--- ENV DUMP END ---'"
@@ -96,12 +96,12 @@ jobs:
             CMAKE_GENERATOR_PLATFORM="x64"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
-          # macOS support 12 (Monterey) or newer because of python 3.10 / Qt 6.8.2 dependency
+          # macOS support 12 (Monterey) or newer because of python 3.10 / Qt 6.4.3 dependency
           CIBW_ENVIRONMENT_MACOS: >
-            QT_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
-            Qt6_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
-            MACOSX_DEPLOYMENT_TARGET="12.0"  
-            CMAKE_OSX_DEPLOYMENT_TARGET="12.0"
+            QT_DIR="${{ github.workspace }}/distribution/qt/6.4.3/macos/lib/cmake/Qt6"
+            Qt6_DIR="${{ github.workspace }}/distribution/qt/6.4.3/macos/lib/cmake/Qt6"
+            MACOSX_DEPLOYMENT_TARGET="10.15"  
+            CMAKE_OSX_DEPLOYMENT_TARGET="10.15"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           CIBW_ENVIRONMENT_LINUX: >
@@ -112,9 +112,9 @@ jobs:
           # Repair Wheels
           # -------------------------------------------------------------------
 
-          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
-            python -m pip install delvewheel && 
-            python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: ""
+            # python -m pip install delvewheel &&
+            # python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
 
           # For linux, there are many core libs we do not want to vendor, because of incompatibilities.
           # We want to use the system wayland / x11 as much as possible (and users install core dependency
