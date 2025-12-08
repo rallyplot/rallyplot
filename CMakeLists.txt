@@ -18,7 +18,7 @@ if(RALLYPLOT_BUILD_DEV)
   if(WIN32)
     set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/msvc2022_64")
   elseif(APPLE)
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/macos")
+    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.7.3/macos")
   else()
     set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/gcc_64")
   endif()
@@ -132,15 +132,29 @@ add_library(rallyplot SHARED
   src/cpp/include/ToyData.h
 )
 
+# We do not need these, and they are annoying dependencies
+set(FT_DISABLE_BZIP2 TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_PNG TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_ZLIB TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_HARFBUZZ TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_BROTLI TRUE CACHE BOOL "" FORCE)
+
 add_subdirectory(
   ${PROJECT_SOURCE_DIR}/src/vendor/freetype-2.13.3
   EXCLUDE_FROM_ALL
 )
 
+set(FT_DISABLE_BZIP2 TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_PNG TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_ZLIB TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_HARFBUZZ TRUE CACHE BOOL "" FORCE)
+set(FT_DISABLE_BROTLI TRUE CACHE BOOL "" FORCE)
+
 if (UNIX AND NOT APPLE)
     # Linux only
     set_target_properties(freetype PROPERTIES POSITION_INDEPENDENT_CODE ON)
 endif()
+
 
 target_link_libraries(rallyplot PRIVATE
     Qt${QT_VERSION_MAJOR}::Core

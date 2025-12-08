@@ -19,7 +19,7 @@ if not qt_install_path.is_dir():
         )
     elif os_name == "Darwin":
         subprocess.run(
-            "aqt install-qt mac desktop 6.8.2 -O qt",
+            "aqt install-qt mac desktop 6.7.3 -O qt",  # to target macos-11
             shell=True, env=env, check=True
         )
     elif os_name == "Linux":

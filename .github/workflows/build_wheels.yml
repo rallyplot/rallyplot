@@ -75,10 +75,12 @@ jobs:
             aqt install-qt windows desktop 6.8.2 win64_msvc2022_64 -O D:/a/rallyplot/rallyplot/distribution/qt
 
           # ---- macOS: install Qt ----
+          # For macOS, we use 6.7.3 because it targets macos-11. We do not use it universally
+          # because MSVC22 earliest is 6.8.2, and all testing was done on 6.8.2
           CIBW_BEFORE_ALL_MACOS: >
             set -eux;
             python -m pip install -U cmake ninja aqtinstall;
-            aqt install-qt mac desktop 6.8.2 -O {package}/distribution/qt;
+            aqt install-qt mac desktop 6.7.3 -O {package}/distribution/qt;
 
           # Dump a load of environment information for debugging purposes
           CIBW_BEFORE_BUILD: "echo '--- ENV DUMP START ---' && env | sort && echo '--- ENV DUMP END ---'"
@@ -98,10 +100,10 @@ jobs:
 
           # macOS support 12 (Monterey) or newer because of python 3.10 / Qt 6.8.2 dependency
           CIBW_ENVIRONMENT_MACOS: >
-            QT_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
-            Qt6_DIR="${{ github.workspace }}/distribution/qt/6.8.2/macos/lib/cmake/Qt6"
-            MACOSX_DEPLOYMENT_TARGET="12.0"  
-            CMAKE_OSX_DEPLOYMENT_TARGET="12.0"
+            QT_DIR="${{ github.workspace }}/distribution/qt/6.7.3/macos/lib/cmake/Qt6"
+            Qt6_DIR="${{ github.workspace }}/distribution/qt/6.7.3/macos/lib/cmake/Qt6"
+            MACOSX_DEPLOYMENT_TARGET="11.0"  
+            CMAKE_OSX_DEPLOYMENT_TARGET="11.0"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           CIBW_ENVIRONMENT_LINUX: >
@@ -112,6 +114,9 @@ jobs:
           # Repair Wheels
           # -------------------------------------------------------------------
 
+          # This is slightly strange, because we vendor most things but then let delvewheel also
+          # add anything else that was not vendored. Either vendor everything, or use delvewheel for
+          # everything.
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
             python -m pip install delvewheel && 
             python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
@@ -140,11 +145,8 @@ jobs:
             {wheel}
 
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""
-          # Could not get this to work, could not find the vendored frameworks. If not vendoring, it did not
-          # pull in the frameworks and just pulled in the libs (not useful)
-          #    CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
-          #      sh -c 'DYLD_LIBRARY_PATH=$(dirname $(find "$(dirname "$0")" -name libqoffscreen.dylib | head -n 1))/../
-          #      delocate-wheel --require-archs x86_64 -w "$1" "$0"' {wheel} {dest_dir}
+          # Could not get this to work, could not find the vendored frameworks. Had seg faults, and it did not
+          # vendor plugins. It did not pull in the frameworks and just pulled in the libs (not useful)
 
           # Test Wheels
           # -------------------------------------------------------------------
