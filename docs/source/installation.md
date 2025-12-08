@@ -42,8 +42,6 @@ CMake `find_package(Qt6 ...)` is used to locate Qt.
 If Qt is not found automatically, you can help CMake by setting `Qt6_DIR` / `Qt_DIR`
 (see the 'build directly...' example below).
 
-In the examples below, Qt 6.8.2 is used, but other Qt6 versions should work as well.
-
 :::{dropdown} **Use CMake subdirectory**
 
 This will use Cmake to build `rallyplot` as part of your application build.
@@ -113,7 +111,7 @@ Windows 10 or newer (64-bit x64 and ARM64) is supported.
 :::{tab-item} macOS
 :sync: macos
 
-**macOS 12 Monterey or newer** (Intel & Apple Silicon) are supported.
+**macOS 11 Big Sur or newer** (Intel & Apple Silicon) are supported.
 
 :::
 
