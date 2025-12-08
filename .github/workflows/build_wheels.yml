@@ -149,8 +149,8 @@ jobs:
           # Test Wheels
           # -------------------------------------------------------------------
 
-  #        CIBW_TEST_COMMAND_WINDOWS: >
-   #         python D:/a/rallyplot/rallyplot/tests/python/test_simple_plotter.py
+          CIBW_TEST_COMMAND_WINDOWS: >
+            python D:/a/rallyplot/rallyplot/tests/python/test_simple_plotter.py
 
           CIBW_TEST_COMMAND_MACOS: >
             python ${{ github.workspace }}/tests/python/test_simple_plotter.py
