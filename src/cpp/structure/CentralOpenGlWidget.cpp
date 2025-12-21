@@ -113,11 +113,11 @@ void CentralOpenGlWidget::paintGL()
             subplot->camera().processKeyboardPressX(m_keyStates);
         }
     }
-
-
-    m_rm->paint();
-
     QPainter painter(this);
+
+    painter.beginNativePainting();
+    m_rm->paint();                    // all OpenGL draws here
+    painter.endNativePainting();
 
    if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
     {
