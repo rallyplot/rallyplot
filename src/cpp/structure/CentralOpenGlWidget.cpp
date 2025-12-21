@@ -413,14 +413,14 @@ void CentralOpenGlWidget::mouseMoveEvent(QMouseEvent* event)
         m_mousePosInfo.xIdx = hoveredLinkedSubplot()->camera().tickIndexUnderMouse(xMouseProportion);
     }
 
-    if (m_keyStates.at(Qt::Key_M))
-    {
-        moveDrawLine();
-    };
+ //   if (m_keyStates.at(Qt::Key_M))
+ //   {
+ //       moveDrawLine();
+ //   };
 
     update();
 
-    QOpenGLWidget::mouseMoveEvent(event);
+   // QOpenGLWidget::mouseMoveEvent(event);
 }
 
 /* ------------------------------------------------------------------------------
