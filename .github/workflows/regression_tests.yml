@@ -27,6 +27,7 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install -U rallyplot --pre
+          pythom -m pip install -U numpy pytest matplotlib
 
       - name: Run test_plotter
         env:
