@@ -519,7 +519,7 @@ void AxesObject::drawTicksAndGridlines(
         m_axesTickProgram.setUniform4f("lineColor", axisSettings.gridlineColor);
         m_axesTickProgram.setUniform1i("isGridline", 1);
 
-        m_gl.glLineWidth(axisSettings.gridlineWidth);
+        // m_gl.glLineWidth(axisSettings.gridlineWidth);
         m_gl.glDrawArrays(GL_LINES, 0, maxPossibleTicks * 2);
     }
 
@@ -530,7 +530,7 @@ void AxesObject::drawTicksAndGridlines(
         m_axesTickProgram.setUniform4f("lineColor", axisSettings.axisColor);
         m_axesTickProgram.setUniform1i("isGridline", 0);
 
-        m_gl.glLineWidth(axisSettings.tickLinewidth);
+        // m_gl.glLineWidth(axisSettings.tickLinewidth);
         m_gl.glDrawArrays(GL_LINES, 0, maxPossibleTicks * 2);
     }
 
