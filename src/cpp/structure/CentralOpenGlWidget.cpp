@@ -119,10 +119,10 @@ void CentralOpenGlWidget::paintGL()
 
     QPainter painter(this);
 
-   // if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
-  //  {
-  //      showValuePopup(painter);
-  //  }
+   if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
+    {
+        showValuePopup(painter);
+    }
   //  if (m_showCrosshair && m_crosshairSettings.on)
   //  {
   //      showCrosshairs(painter);
@@ -548,6 +548,7 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
         double yPadding = viewHeight * 0.025;
 
         // First, cylce through all drawn lines (treat them as on top of plots) and get the plot data under the mouse
+        /*
         const std::vector<std::unique_ptr<DrawLine>>& drawnVector = hoveredLinkedSubplot()->drawLines();
 
 
@@ -566,9 +567,10 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
                 break;
             }
         }
-
+        */
         // Otherwise, cycle through all plots (on top plots first, so go backwards through the plots) and check for under-mouse data
 
+        bool useDrawn = false;
         if (!useDrawn)
         {
             const std::vector<std::unique_ptr<BasePlot>>& plotVector = hoveredLinkedSubplot()->jointPlotData().plotVector();
