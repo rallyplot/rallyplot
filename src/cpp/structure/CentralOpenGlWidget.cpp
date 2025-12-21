@@ -119,10 +119,10 @@ void CentralOpenGlWidget::paintGL()
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
-    {
-        showValuePopup();
-    }
+  //  if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
+ //   {
+//        showValuePopup();
+//    }
  //   if (m_showCrosshair && m_crosshairSettings.on)
  //   {
   //      showCrosshairs();
