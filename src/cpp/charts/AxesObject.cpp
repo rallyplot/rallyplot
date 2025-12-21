@@ -484,6 +484,11 @@ void AxesObject::drawTicksAndGridlines(
     Anything out of the view will be clipped anyways.
 */
 {
+    m_gl.glDisable(GL_LINE_SMOOTH);
+    m_gl.glDisable(GL_MULTISAMPLE);           // important
+    m_gl.glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+    m_gl.glDisable(GL_POLYGON_SMOOTH);
+
     // Setup buffers and uniforms
     bindTickVAO();
     m_axesTickProgram.bind();
@@ -528,6 +533,11 @@ void AxesObject::drawTicksAndGridlines(
         m_gl.glLineWidth(axisSettings.tickLinewidth);
         m_gl.glDrawArrays(GL_LINES, 0, maxPossibleTicks * 2);
     }
+
+    m_gl.glEnable(GL_LINE_SMOOTH);
+    m_gl.glEnable(GL_MULTISAMPLE);           // important
+    m_gl.glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+    m_gl.glEnable(GL_POLYGON_SMOOTH);
 }
 
 
