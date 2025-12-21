@@ -123,10 +123,10 @@ void CentralOpenGlWidget::paintGL()
     {
         showValuePopup();
     }
-    if (m_showCrosshair && m_crosshairSettings.on)
-    {
-        showCrosshairs();
-    }
+ //   if (m_showCrosshair && m_crosshairSettings.on)
+ //   {
+  //      showCrosshairs();
+   // }
     painter.end();
 }
 
