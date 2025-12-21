@@ -40,7 +40,7 @@ struct LightModeDefaults : public ColorModeDefaults
     {
         backgroundColor = glm::vec4(0.9999f, 0.9999f, 0.9999f, 1.0f);
         axisColor = glm::vec4(0.290f, 0.290f, 0.290f, 1.0f);
-        gridlineColor = glm::vec4(0.878f, 0.878f, 0.878f, 1.0f);
+        gridlineColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
         fontColor = glm::vec4(0.290f, 0.290f, 0.290f, 1.0f);
     }
 };
