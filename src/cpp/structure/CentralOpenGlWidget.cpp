@@ -116,18 +116,14 @@ void CentralOpenGlWidget::paintGL()
 
     m_rm->paint();
 
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-
   //  if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
- //   {
-//        showValuePopup();
-//    }
- //   if (m_showCrosshair && m_crosshairSettings.on)
- //   {
-  //      showCrosshairs();
-   // }
-    painter.end();
+  //  {
+  //      showValuePopup();
+  //  }
+    if (m_showCrosshair && m_crosshairSettings.on)
+    {
+        showCrosshairs();
+    }
 }
 
 
@@ -413,14 +409,14 @@ void CentralOpenGlWidget::mouseMoveEvent(QMouseEvent* event)
         m_mousePosInfo.xIdx = hoveredLinkedSubplot()->camera().tickIndexUnderMouse(xMouseProportion);
     }
 
- //   if (m_keyStates.at(Qt::Key_M))
- //   {
- //       moveDrawLine();
- //   };
+    if (m_keyStates.at(Qt::Key_M))
+    {
+        moveDrawLine();
+    };
 
     update();
 
-   // QOpenGLWidget::mouseMoveEvent(event);
+    QOpenGLWidget::mouseMoveEvent(event);
 }
 
 /* ------------------------------------------------------------------------------
