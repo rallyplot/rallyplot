@@ -142,6 +142,7 @@ jobs:
             --exclude libdbus-1.so.3 \
             --exclude libsystemd.so.0 \
             --exclude libvulkan.so.1 \
+            --exclude libzstd.so.1
             {wheel}
 
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""
