@@ -126,7 +126,7 @@ void CentralOpenGlWidget::paintGL()
     if (m_showCrosshair && m_crosshairSettings.on)
     {
         showCrosshairs(painter);
-
+    }
     painter.end();
 }
 
