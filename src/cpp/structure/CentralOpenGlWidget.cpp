@@ -663,7 +663,7 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
                 y += fm.height();
             }
 
-            painter.end();
+            // painter.end();
             m_showPopup = true;
         }
     }
