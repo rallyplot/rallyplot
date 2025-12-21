@@ -33,4 +33,4 @@ jobs:
           PYTHONFAULTHANDLER: "1"
           QT_QPA_PLATFORM: offscreen
         run: |
-          python tests/python/test_plotter.py
+          python tests/python/test_full_plotter.py
