@@ -620,11 +620,11 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
             painter.setRenderHint(QPainter::TextAntialiasing);
 
             const glm::vec4 bk = m_hoverValueSettings.backgroundColor;
-       //     painter.setBrush(QColor(bk[0]*255, bk[1]*255, bk[2]*255, bk[3]*255));
+            painter.setBrush(QColor(bk[0]*255, bk[1]*255, bk[2]*255, bk[3]*255));
 
             QFont font = utils_getQtFont(m_hoverValueSettings.font);
             font.setPointSize(m_hoverValueSettings.fontSize);
-       //     painter.setFont(font);
+            painter.setFont(font);
 
             QFontMetrics fm(font);
 
@@ -653,7 +653,7 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
 
             // 5. Draw background & border
             const glm::vec4 bc = m_hoverValueSettings.borderColor;
-        //    painter.setPen(QColor(bc[0]*255, bc[1]*255, bc[2]*255, bc[3]*255));
+            painter.setPen(QColor(bc[0]*255, bc[1]*255, bc[2]*255, bc[3]*255));
         //    painter.drawRect(box);
 
             // 6. Draw each line (guaranteed to fit)
