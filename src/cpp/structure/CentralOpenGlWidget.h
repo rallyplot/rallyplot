@@ -96,8 +96,8 @@ private:
     void leaveEvent(QEvent *event) override;
     void enterEvent(QEnterEvent  *event) override;
 
-    void showValuePopup();
-    void showCrosshairs();
+    void showValuePopup(QPainter painter);
+    void showCrosshairs(QPainter painter);
 
     void startDrawLine();
     void endDrawLine();
