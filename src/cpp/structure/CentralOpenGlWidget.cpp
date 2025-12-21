@@ -114,11 +114,10 @@ void CentralOpenGlWidget::paintGL()
         }
     }
 
-    QPainter painter(this);
 
-    painter.beginNativePainting();
     m_rm->paint();
-    painter.endNativePainting();
+
+    QPainter painter(this);
 
     if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
     {
@@ -127,9 +126,8 @@ void CentralOpenGlWidget::paintGL()
     if (m_showCrosshair && m_crosshairSettings.on)
     {
         showCrosshairs(painter);
-    }
 
-    painter.end()
+    painter.end();
 }
 
 
@@ -481,7 +479,7 @@ void CentralOpenGlWidget::moveDrawLine()
     Paint crosshairs and hover-value over plot (Qt side)
  * --------------------------------------------------------------------------- */
 
-void CentralOpenGlWidget::showCrosshairs(QPainter painter)
+void CentralOpenGlWidget::showCrosshairs(QPainter& painter)
 /*
 
  */
@@ -533,7 +531,7 @@ void CentralOpenGlWidget::showCrosshairs(QPainter painter)
 }
 
 
-void CentralOpenGlWidget::showValuePopup(QPainter painter)
+void CentralOpenGlWidget::showValuePopup(QPainter& painter)
 /*
 
  */
