@@ -1,0 +1,36 @@
+name: Windows - test_plotter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test_plotter_windows:
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install build tooling
+        run: |
+          python -m pip install -U pip
+          python -m pip install -U rallyplot --pre
+
+      - name: Run test_plotter
+        env:
+          PYTHONFAULTHANDLER: "1"
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          python tests/python/test_plotter.py
