@@ -658,11 +658,11 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
 
             // 6. Draw each line (guaranteed to fit)
             const glm::vec4 fc = m_hoverValueSettings.fontColor;
-        //    painter.setPen(QColor(fc[0]*255, fc[1]*255, fc[2]*255, fc[3]*255));
+            painter.setPen(QColor(fc[0]*255, fc[1]*255, fc[2]*255, fc[3]*255));
 
             int y = box.top() + pad + fm.ascent();
             for (const QString& line : lines) {
-       //         painter.drawText(box.left() + pad, y, line);
+                painter.drawText(box.left() + pad, y, line);
                 y += fm.height();
             }
 
