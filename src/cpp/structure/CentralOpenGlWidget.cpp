@@ -416,7 +416,7 @@ void CentralOpenGlWidget::mouseMoveEvent(QMouseEvent* event)
 
     update();
 
-    QOpenGLWidget::mouseMoveEvent(event);
+    // QOpenGLWidget::mouseMoveEvent(event);
 }
 
 /* ------------------------------------------------------------------------------
