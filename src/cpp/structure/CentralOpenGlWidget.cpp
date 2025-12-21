@@ -616,8 +616,8 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
 
             // 2. Prepare painter
             // QPainter painter(this);
-       //     painter.setRenderHint(QPainter::Antialiasing);
-      //      painter.setRenderHint(QPainter::TextAntialiasing);
+            painter.setRenderHint(QPainter::Antialiasing);
+            painter.setRenderHint(QPainter::TextAntialiasing);
 
             const glm::vec4 bk = m_hoverValueSettings.backgroundColor;
        //     painter.setBrush(QColor(bk[0]*255, bk[1]*255, bk[2]*255, bk[3]*255));
