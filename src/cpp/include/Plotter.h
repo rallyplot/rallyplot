@@ -206,7 +206,7 @@ struct AxisSettings
     bool showGridline = true;
 
     /** Width of the grid line. May have no effect on some GPUs. */
-    float gridlineWidth = 1.0f;
+    float gridlineWidth = 0.4f;
 
     /** Width of the axis line. May have no effect on some GPUs. */
     float axisLinewidth = 1.0f;
