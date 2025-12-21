@@ -158,9 +158,27 @@ public:
     std::tuple<std::vector<std::uint8_t>, int, int> grabFrameBuffer(int row, int col)
     {
         checkActiveSubplotExists(row, col);
-        QImage frameBuffer = m_mainwindowSubplots[SubKey{m_activeRow, m_activeCol}]->m_centralOpenGlWidget->grabFramebuffer();
-        std::vector<std::uint8_t> asStdVector(frameBuffer.constBits(), frameBuffer.constBits() + frameBuffer.sizeInBytes());
-        return {asStdVector, frameBuffer.size().width(), frameBuffer.size().height() };
+        QImage rgba  = m_mainwindowSubplots[SubKey{m_activeRow, m_activeCol}]->m_centralOpenGlWidget->grabFramebuffer();
+
+        std::vector<uint8_t> tight(rgba.width() * rgba.height() * 4);
+
+        for (int y = 0; y < rgba.height(); ++y) {
+            const uint8_t* src = rgba.constScanLine(y);
+            uint8_t* dst = tight.data() + y * rgba.width() * 4;
+            std::memcpy(dst, src, rgba.width() * 4);
+        }
+        return {tight, rgba .size().width(), rgba .size().height()};
+    }
+
+    std::string formatToString(QImage::Format format)
+    {
+        switch (format) {
+        case QImage::Format_RGBA8888: return "Format_RGBA8888";
+        case QImage::Format_ARGB32: return "Format_ARGB32";
+        case QImage::Format_ARGB32_Premultiplied: return "Format_ARGB32_Premultiplied";
+        default:
+            return "Unknown format.";
+        }
     }
 
     /* -----------------------------------------------------------------------------------
