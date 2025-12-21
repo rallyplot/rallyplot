@@ -643,9 +643,9 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
             const int pad = 5;
 
             double boxWidth = maxWidth + 2*pad;
-        //    QSize popupSize(boxWidth, totalHeight + 2*pad);
-       //     QPoint basePos = m_mousePosInfo.cursorPos + QPoint(-10 - boxWidth, 10);
-      //      QRect  box(basePos, popupSize);
+            QSize popupSize(boxWidth, totalHeight + 2*pad);
+            QPoint basePos = m_mousePosInfo.cursorPos + QPoint(-10 - boxWidth, 10);
+            QRect  box(basePos, popupSize);
 
             // optional: clamp box so it never leaves the window
      //       if (box.left()  < 0.0)  box.moveRight(box.width() );
