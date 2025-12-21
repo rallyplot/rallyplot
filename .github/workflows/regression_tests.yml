@@ -32,8 +32,8 @@ jobs:
           python -m pip install -U numpy matplotlib
 
       - name: Run test_plotter
-      #  env:
-     #     PYTHONFAULTHANDLER: "1"
+        env:
+            PYTHONFAULTHANDLER: "1"
     #      QT_QPA_PLATFORM: offscreen
         run: |
           python tests/python/test_full_plotter.py
