@@ -648,8 +648,8 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
             QRect  box(basePos, popupSize);
 
             // optional: clamp box so it never leaves the window
-     //       if (box.left()  < 0.0)  box.moveRight(box.width() );
-       //     if (box.bottom() > height())  box.moveTop (height() - box.height());
+            if (box.left()  < 0.0)  box.moveRight(box.width() );
+            if (box.bottom() > height())  box.moveTop (height() - box.height());
 
             // 5. Draw background & border
             const glm::vec4 bc = m_hoverValueSettings.borderColor;
@@ -660,11 +660,11 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
             const glm::vec4 fc = m_hoverValueSettings.fontColor;
         //    painter.setPen(QColor(fc[0]*255, fc[1]*255, fc[2]*255, fc[3]*255));
 
-      //      int y = box.top() + pad + fm.ascent();
-       //     for (const QString& line : lines) {
+            int y = box.top() + pad + fm.ascent();
+            for (const QString& line : lines) {
        //         painter.drawText(box.left() + pad, y, line);
-       //         y += fm.height();
-         //   }
+                y += fm.height();
+            }
 
             // painter.end();
             m_showPopup = true;
