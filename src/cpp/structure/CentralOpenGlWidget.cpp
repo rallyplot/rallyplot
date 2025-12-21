@@ -547,10 +547,9 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
         double viewHeight = hoveredLinkedSubplot()->camera().getViewHeight();
         double yPadding = viewHeight * 0.025;
 
-        // First, cylce through all drawn lines (treat them as on top of plots) and get the plot data under the mouse
         /*
+        // First, cylce through all drawn lines (treat them as on top of plots) and get the plot data under the mouse
         const std::vector<std::unique_ptr<DrawLine>>& drawnVector = hoveredLinkedSubplot()->drawLines();
-
 
         bool alwaysShow = (m_hoverValueSettings.displayMode == HoverValueDisplayMode::alwaysShow);
 
@@ -571,6 +570,8 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
         // Otherwise, cycle through all plots (on top plots first, so go backwards through the plots) and check for under-mouse data
 
         bool useDrawn = false;
+        bool alwaysShow = true;
+        std::optional<UnderMouseData> info;
         if (!useDrawn)
         {
             const std::vector<std::unique_ptr<BasePlot>>& plotVector = hoveredLinkedSubplot()->jointPlotData().plotVector();
@@ -642,13 +643,13 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
             const int pad = 5;
 
             double boxWidth = maxWidth + 2*pad;
-            QSize popupSize(boxWidth, totalHeight + 2*pad);
-            QPoint basePos = m_mousePosInfo.cursorPos + QPoint(-10 - boxWidth, 10);
-            QRect  box(basePos, popupSize);
+        //    QSize popupSize(boxWidth, totalHeight + 2*pad);
+       //     QPoint basePos = m_mousePosInfo.cursorPos + QPoint(-10 - boxWidth, 10);
+      //      QRect  box(basePos, popupSize);
 
             // optional: clamp box so it never leaves the window
-            if (box.left()  < 0.0)  box.moveRight(box.width() );
-            if (box.bottom() > height())  box.moveTop (height() - box.height());
+     //       if (box.left()  < 0.0)  box.moveRight(box.width() );
+       //     if (box.bottom() > height())  box.moveTop (height() - box.height());
 
             // 5. Draw background & border
             const glm::vec4 bc = m_hoverValueSettings.borderColor;
