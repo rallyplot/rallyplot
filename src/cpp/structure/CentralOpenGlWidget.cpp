@@ -114,11 +114,10 @@ void CentralOpenGlWidget::paintGL()
         }
     }
 
-    m_rm->paint();
-
     QPainter painter(this);
 
     painter.beginNativePainting();
+    m_rm->paint();
     painter.endNativePainting();
 
     if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
