@@ -253,7 +253,7 @@ class TestPlotter:
 
         self._handle_check(plotter, "test_anti_aliasing_1")
         plotter.finish()
-
+        plotter = None
 
         print(
             "Anti-alias at 2. The next plot will be at 8 and should be improved."
@@ -264,6 +264,7 @@ class TestPlotter:
 
         self._handle_check(plotter, "test_anti_aliasing_2")
         plotter.finish()
+        plotter = None
 
         print(
             "Anti-alias at 4."
@@ -273,6 +274,7 @@ class TestPlotter:
 
         self._handle_check(plotter, "test_anti_aliasing_3")
         plotter.finish()
+        plotter = None
 
     def test_plot_args(self, candlestick_data):
         """anti-aliasing not tested here"""
