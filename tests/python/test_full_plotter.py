@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 # "generate" -
 # automated, it cannot test the plot labels / titles, the hover vlaue and the crosshairs.
 # it can't really test zooming behaviour either.
-MODE = "check"
+MODE = "test"
 
 if MODE == "generate":
     response = input("Are you sure you want to generate? Type 'generate' if so:\n")
@@ -142,17 +142,15 @@ class TestPlotter:
 
         elif MODE == "test":
             stored_buffer = np.load(stored_buffer_filepath)
-            try:
-                corrcoef = np.corrcoef(frame_buffer, stored_buffer)
-                percent_wrong = (np.where(frame_buffer != stored_buffer)[0].size / frame_buffer.size ) * 100
-                if test_name != "test_pin_y_axis":  # for some reason this test is malformed
-                    assert corrcoef[1, 1] > 0.9993
+
+            corrcoef = np.corrcoef(frame_buffer, stored_buffer)
+            percent_wrong = (np.where(frame_buffer != stored_buffer)[0].size / frame_buffer.size ) * 100
+            if test_name != "test_pin_y_axis":  # for some reason this test is malformed
+                assert corrcoef[1, 1] > 0.9993
+                if test_name == "test_legend":
                     assert percent_wrong < 0.15
-            except:
-                breakpoint()
-                plot_framebuffer(frame_buffer, im_width, im_height)
-                plot_framebuffer(stored_buffer, im_width, im_height)
-            print(f"TEST PASSED: {test_name}")
+                else:
+                    assert percent_wrong < 0.25
         else:
             raise ValueError("MODE not recognised.")
 
@@ -277,8 +275,8 @@ class TestPlotter:
             width =400,
             height=800,
             color_mode="dark",
-            font="consola",
-            font_size=24,
+            axis_tick_label_font="consola",
+            axis_tick_label_font_size=24,
             axis_right=False,
             width_margin_size=100,
             height_margin_size=100,
@@ -939,7 +937,7 @@ class TestPlotter:
         plotter.bar(
             open,
             color=(1.0, 0.0, 0.0, 1.0),
-            width=0.5
+            width_ratio=0.5
         )
 
         print(

@@ -7,7 +7,7 @@ qt
 docs/source/cpp/html
 docs/source/cpp/latex
 docs/source/cpp/xml
-tests/python/regression_data
+
 __pycache__
 .DS_Store
 CMakeLists.txt.user
