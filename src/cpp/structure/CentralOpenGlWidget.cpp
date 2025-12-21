@@ -654,7 +654,7 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
             // 5. Draw background & border
             const glm::vec4 bc = m_hoverValueSettings.borderColor;
             painter.setPen(QColor(bc[0]*255, bc[1]*255, bc[2]*255, bc[3]*255));
-        //    painter.drawRect(box);
+            painter.drawRect(box);
 
             // 6. Draw each line (guaranteed to fit)
             const glm::vec4 fc = m_hoverValueSettings.fontColor;
