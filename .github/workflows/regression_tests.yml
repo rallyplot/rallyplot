@@ -7,10 +7,9 @@ on:
 
 jobs:
 
-  timeout-minutes: 10
-
   test_plotter_windows:
     runs-on: windows-latest
+    timeout-minutes: 10
 
     strategy:
       fail-fast: false
