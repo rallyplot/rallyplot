@@ -114,16 +114,25 @@ void CentralOpenGlWidget::paintGL()
         }
     }
 
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::TextAntialiasing);
+
+    painter.beginNativePainting();
     m_rm->paint();
+    painter.endNativePainting();
 
     if (m_showPopup && m_hoverValueSettings.displayMode != HoverValueDisplayMode::off)
     {
-        showValuePopup();
+        showValuePopup(painter);
     }
     if (m_showCrosshair && m_crosshairSettings.on)
     {
-        showCrosshairs();
+        showCrosshairs(painter);
     }
+
+    painter.end();
+
 }
 
 
@@ -475,15 +484,11 @@ void CentralOpenGlWidget::moveDrawLine()
     Paint crosshairs and hover-value over plot (Qt side)
  * --------------------------------------------------------------------------- */
 
-void CentralOpenGlWidget::showCrosshairs()
+void CentralOpenGlWidget::showCrosshairs(QPainter& painter)
 /*
 
  */
 {
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::TextAntialiasing);
-
     // Draw crosshair lines
     glm::vec4 lcol = m_crosshairSettings.lineColor;
     QColor lineColor = QColor(lcol[0] * 255, lcol[1] * 255, lcol[2] * 255, lcol[3] * 255);  // TODO: GLM TO QT COLOR!
@@ -525,7 +530,7 @@ void CentralOpenGlWidget::showCrosshairs()
 }
 
 
-void CentralOpenGlWidget::showValuePopup()
+void CentralOpenGlWidget::showValuePopup(QPainter& painter)
 /*
 
  */
@@ -606,15 +611,12 @@ void CentralOpenGlWidget::showValuePopup()
             }
 
             // 2. Prepare painter
-            QPainter p(this);
-            p.setRenderHint(QPainter::Antialiasing);
-
             const glm::vec4 bk = m_hoverValueSettings.backgroundColor;
-            p.setBrush(QColor(bk[0]*255, bk[1]*255, bk[2]*255, bk[3]*255));
+            painter.setBrush(QColor(bk[0]*255, bk[1]*255, bk[2]*255, bk[3]*255));
 
             QFont font = utils_getQtFont(m_hoverValueSettings.font);
             font.setPointSize(m_hoverValueSettings.fontSize);
-            p.setFont(font);
+            painter.setFont(font);
 
             QFontMetrics fm(font);
 
@@ -643,20 +645,19 @@ void CentralOpenGlWidget::showValuePopup()
 
             // 5. Draw background & border
             const glm::vec4 bc = m_hoverValueSettings.borderColor;
-            p.setPen(QColor(bc[0]*255, bc[1]*255, bc[2]*255, bc[3]*255));
-            p.drawRect(box);
+            painter.setPen(QColor(bc[0]*255, bc[1]*255, bc[2]*255, bc[3]*255));
+            painter.drawRect(box);
 
             // 6. Draw each line (guaranteed to fit)
             const glm::vec4 fc = m_hoverValueSettings.fontColor;
-            p.setPen(QColor(fc[0]*255, fc[1]*255, fc[2]*255, fc[3]*255));
+            painter.setPen(QColor(fc[0]*255, fc[1]*255, fc[2]*255, fc[3]*255));
 
             int y = box.top() + pad + fm.ascent();
             for (const QString& line : lines) {
-                p.drawText(box.left() + pad, y, line);
+                painter.drawText(box.left() + pad, y, line);
                 y += fm.height();
             }
 
-            p.end();
             m_showPopup = true;
         }
     }
