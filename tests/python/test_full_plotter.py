@@ -44,7 +44,9 @@ if MODE == "generate":
     if response != "generate":
         raise ValueError("You do not want to generate.")
 
-    shutil.rmtree(OUTPUT_PATH)
+    if OUTPUT_PATH.is_dir():
+        shutil.rmtree(OUTPUT_PATH)
+
     OUTPUT_PATH.mkdir(exist_ok=True, parents=True)
 
     # Write datetime to log file
