@@ -15,6 +15,7 @@ import platform
 import numpy as np
 import matplotlib.pyplot as plt
 from rallyplot import Plotter
+import shutil
 
 np.random.seed(100)
 
@@ -35,7 +36,6 @@ print(f"Running in MODE={MODE}")
 
 
 # Set up the folder if generating
-# -------------------------------------------------------------------------------------
 
 OUTPUT_PATH = Path(__file__).parent / "regression_data" / platform.system()
 
