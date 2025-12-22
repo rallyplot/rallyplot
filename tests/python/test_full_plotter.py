@@ -9,18 +9,16 @@ import matplotlib.pyplot as plt
 from rallyplot import Plotter
 
 
-MODE = "test"
+MODE = "test"  # TODO: make this more robust, pass as argument so can never generate on CI.
 
 OUTPUT_PATH = Path(__file__).parent / "regression_data" / platform.system()
-OUTPUT_PATH.mkdir(exist_ok=True, parents=True)
-
 
 if MODE == "generate":
     response = input("Are you sure you want to generate? Type 'generate' if so:\n")
     if response != "generate":
         raise ValueError("You do not want to generate.")
     shutil.rmtree(OUTPUT_PATH)
-
+    OUTPUT_PATH.mkdir(exist_ok=True, parents=True)
 
 def plot_framebuffer(frame_buffer, width, height):
     as_mat = np.reshape(frame_buffer, (height, width, 4))
