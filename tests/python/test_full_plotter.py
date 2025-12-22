@@ -1,3 +1,11 @@
+"""
+Regression Testing
+------------------
+
+
+
+
+"""
 import sys
 import os
 from datetime import datetime, timedelta, timezone
@@ -8,28 +16,47 @@ import numpy as np
 import matplotlib.pyplot as plt
 from rallyplot import Plotter
 
+np.random.seed(100)
 
-MODE = "test"  # TODO: make this more robust, pass as argument so can never generate on CI.
+# Get the running mode
+# -------------------------------------------------------------------------------------
+
+if len(sys.argv) > 1:
+    MODE = sys.argv[1]
+else:
+    user_input = input("Enter MODE (check/test/generate): ").strip()
+    if user_input:
+        MODE = user_input
+
+if MODE not in (modes := ["test", "check" "generate"]):
+    raise ValueError(f"MODE must be one of {modes}")
+
+print(f"Running in MODE={MODE}")
+
+
+# Set up the folder if generating
+# -------------------------------------------------------------------------------------
 
 OUTPUT_PATH = Path(__file__).parent / "regression_data" / platform.system()
 
 if MODE == "generate":
-    response = input("Are you sure you want to generate? Type 'generate' if so:\n")
+    response = input("Are you sure you want to generate? Type 'generate' to confirm:\n")
     if response != "generate":
         raise ValueError("You do not want to generate.")
+
     shutil.rmtree(OUTPUT_PATH)
     OUTPUT_PATH.mkdir(exist_ok=True, parents=True)
 
-def plot_framebuffer(frame_buffer, width, height):
-    as_mat = np.reshape(frame_buffer, (height, width, 4))
-    plt.imshow(as_mat)
-    plt.show()
-
-
-np.random.seed(100)
+    # Write datetime to log file
+    with ( OUTPUT_PATH / "info.txt").open("a", encoding="utf-8") as f:
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"Log entry at {now}\n")
 
 
 class TestPlotter:
+
+    # Data
+    # ---------------------------------------------------------------------------------
 
     def candlestick_data(self):
         """"""
@@ -62,6 +89,9 @@ class TestPlotter:
         # don't change this now stuff is hard coded based on it :(
         return 150
 
+    # Main Checking Function
+    # ---------------------------------------------------------------------------------
+
     def _handle_check(self, plotter, test_name):
         """
         """
@@ -90,57 +120,6 @@ class TestPlotter:
 
         else:
             raise ValueError("MODE not recognised.")
-
-    def plot_test_plots(self, plotter, open, high, low, close):
-        """"""
-        plotter.candlestick(open, high, low, close)
-
-        plotter.add_linked_subplot(0.25)
-
-        plotter.line(open, linked_subplot_idx=1)
-
-        # TODO: add checked linekd subplot is empty!
-        # make blending a little more green, also slightly thicker?
-        # If zooming with wheel and wheel is outside plot, then it is weird. need to fix.
-        # if axis=left, then the axis label is on the wrong side!
-        # fix_zoom_at_edge does not work for wheel scroll
-        plotter.add_linked_subplot(0.25)
-        plotter.bar(open, linked_subplot_idx=2)
-
-        plotter.scatter(np.ascontiguousarray(np.arange(open.size)[::100]), np.ascontiguousarray(open[::100]), marker_size_fixed=0.01)
-
-    def plot_multiple_subplots(self, plotter, open, high, low, close):
-        """"""
-        self.plot_test_plots(plotter, open, high, low, close)
-        plotter.set_y_label("hello")
-        plotter.set_x_label("Whats going on?")
-        plotter.set_title("Hey hey hey hey")
-        plotter.pin_y_axis(False)
-
-        plotter.add_subplot(0, 1, 1, 1)
-
-        self.plot_test_plots(plotter, open, high, low, close)
-        plotter.set_y_label("delta dawn")
-        plotter.set_x_label("What's that flower you have on?")
-        plotter.pin_y_axis(False)
-
-        plotter.add_subplot(1, 0, 1, 2)
-        plotter.set_y_label("Under surveillance")
-        plotter.set_x_label("This morning, US treasuries catching a bid.")
-        plotter.set_title("Hey hey hey hey")
-        plotter.pin_y_axis(False)
-
-        self.plot_test_plots(plotter, open, high, low, close)
-        plotter.set_y_label("caspa")
-        plotter.set_x_label("and rusko")
-        plotter.pin_y_axis(False)
-
-        plotter.add_subplot(0, 2, 2, 1)
-
-        self.plot_test_plots(plotter, open, high, low, close)
-        plotter.set_y_label("mamma mia")
-        plotter.set_y_label("Here I go Again")
-        plotter.pin_y_axis(False)
 
     # Tests
     # --------------------------------------------------------------------------------------------
@@ -1168,7 +1147,64 @@ class TestPlotter:
             "ySize: 100 does not match the number of datapoints on the plot 149."
         )
 
-    def check_error_raised(self, func, error, command):
+    # Helpers
+    # ---------------------------------------------------------------------------------
+
+    @staticmethod
+    def plot_test_plots(plotter, open, high, low, close):
+        """"""
+        plotter.candlestick(open, high, low, close)
+
+        plotter.add_linked_subplot(0.25)
+
+        plotter.line(open, linked_subplot_idx=1)
+
+        # TODO: add checked linekd subplot is empty!
+        # make blending a little more green, also slightly thicker?
+        # If zooming with wheel and wheel is outside plot, then it is weird. need to fix.
+        # if axis=left, then the axis label is on the wrong side!
+        # fix_zoom_at_edge does not work for wheel scroll
+        plotter.add_linked_subplot(0.25)
+        plotter.bar(open, linked_subplot_idx=2)
+
+        plotter.scatter(np.ascontiguousarray(np.arange(open.size)[::100]), np.ascontiguousarray(open[::100]), marker_size_fixed=0.01)
+
+    @staticmethod
+    def plot_multiple_subplots(plotter, open, high, low, close):
+        """"""
+        self.plot_test_plots(plotter, open, high, low, close)
+        plotter.set_y_label("hello")
+        plotter.set_x_label("Whats going on?")
+        plotter.set_title("Hey hey hey hey")
+        plotter.pin_y_axis(False)
+
+        plotter.add_subplot(0, 1, 1, 1)
+
+        self.plot_test_plots(plotter, open, high, low, close)
+        plotter.set_y_label("delta dawn")
+        plotter.set_x_label("What's that flower you have on?")
+        plotter.pin_y_axis(False)
+
+        plotter.add_subplot(1, 0, 1, 2)
+        plotter.set_y_label("Under surveillance")
+        plotter.set_x_label("This morning, US treasuries catching a bid.")
+        plotter.set_title("Hey hey hey hey")
+        plotter.pin_y_axis(False)
+
+        self.plot_test_plots(plotter, open, high, low, close)
+        plotter.set_y_label("caspa")
+        plotter.set_x_label("and rusko")
+        plotter.pin_y_axis(False)
+
+        plotter.add_subplot(0, 2, 2, 1)
+
+        self.plot_test_plots(plotter, open, high, low, close)
+        plotter.set_y_label("mamma mia")
+        plotter.set_y_label("Here I go Again")
+        plotter.pin_y_axis(False)
+
+    @staticmethod
+    def check_error_raised(func, error, command):
         """
         This is needed
         """
@@ -1178,6 +1214,11 @@ class TestPlotter:
         except error as e:
             assert command in str(e), f"'{command}' not found in '{str(e)}'."
 
+    @staticmethod
+    def plot_framebuffer(frame_buffer, width, height):
+        as_mat = np.reshape(frame_buffer, (height, width, 4))
+        plt.imshow(as_mat)
+        plt.show()
 
 test_plotter = TestPlotter()
 
