@@ -1,9 +1,16 @@
+import shutil
 import subprocess
 from pathlib import Path
 import os
 import platform
 
-qt_install_path = Path(__file__).parent / "qt"
+def find_wheel(path_):
+    search_wheels = list(path_.glob("rallyplot-*.whl"))
+    assert len(search_wheels) == 1
+    return search_wheels[0]
+
+distribution_dir = Path(__file__).parent
+qt_install_path = distribution_dir / "qt"
 
 env = os.environ.copy()
 
@@ -28,3 +35,27 @@ subprocess.run(
     env=env,
     check=True
 )
+
+# TODO: 1) make a globber function
+# 2) do the same on ubuntu
+# 3) make a central function for these commands.
+# 4) merge this
+# 5) leverage this to build not from pypi in tests
+
+
+if platform.system() == "Windows":
+
+    out_path = Path(__file__).parent / "out"
+    out_path.mkdir(parents=True)
+    wheel_path = find_wheel(distribution_dir)
+
+    subprocess.run(f"python -m delvewheel repair -w {out_path} {wheel_path} --ignore-existing --add-path {qt_install_path}/6.8.2/msvc2022_64/bin -vv")
+
+    wheel_path.unlink()
+    shutil.move(find_wheel(out_path), distribution_dir)
+    out_path.rmdir()
+
+elif platform.system() == "Linux":
+    raise NotImplementedError()
+
+
