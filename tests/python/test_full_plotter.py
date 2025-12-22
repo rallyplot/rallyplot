@@ -82,7 +82,7 @@ class TestPlotter:
             open[i] = close[i - 1]
             close[i] = open[i] + diffs[i]
 
-        low = close - np.random.uniform(0, 0.5) * 10
+        low = close - np.random.uniform(0, 0.5)
         high = open + np.random.uniform(0, 0.5)
 
         return (open, high, low, close)
