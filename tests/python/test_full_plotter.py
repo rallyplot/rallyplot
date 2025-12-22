@@ -2,28 +2,24 @@ import sys
 import os
 from datetime import datetime, timedelta, timezone
 import random
-
+from pathlib import Path
+import platform
 import numpy as np
-
-from rallyplot import Plotter
 import matplotlib.pyplot as plt
+from rallyplot import Plotter
 
-# one more go at rounding error. Understand the mantiassa!
 
-# somehow
-# "check" -
-# "test" -
-# "generate" -
-# automated, it cannot test the plot labels / titles, the hover vlaue and the crosshairs.
-# it can't really test zooming behaviour either.
 MODE = "test"
+
+OUTPUT_PATH = Path(__file__).parent / "regression_data" / platform.system()
+OUTPUT_PATH.mkdir(exist_ok=True, parents=True)
+
 
 if MODE == "generate":
     response = input("Are you sure you want to generate? Type 'generate' if so:\n")
     if response != "generate":
         raise ValueError("You do not want to generate.")
-
-    # TODO: delete existing folder
+    shutil.rmtree(OUTPUT_PATH)
 
 
 def plot_framebuffer(frame_buffer, width, height):
@@ -32,29 +28,15 @@ def plot_framebuffer(frame_buffer, width, height):
     plt.show()
 
 
-def smooth_framebuffer(frame_buffer, width, height, sigma=1.5):
-    from scipy.ndimage import gaussian_filter
-
-
-    img = np.reshape(frame_buffer, (height, width, 4)).astype(np.float32)
-
-    smoothed = np.zeros_like(img)
-    for c in range(4):  # RGBA
-        smoothed[:, :, c] = gaussian_filter(img[:, :, c], sigma=sigma)
-
-    return smoothed.astype(np.uint8)
-
-
 np.random.seed(100)
+
 
 class TestPlotter:
 
-    def N(self):
-        # don't change this now stuff is hard coded based on it :(
-        return 150
-
-    def candlestick_data(self, N):
+    def candlestick_data(self):
         """"""
+        N = self.N()
+
         arr = np.empty(N)
         phi = 1.0001
         arr[0] = 1
@@ -73,10 +55,43 @@ class TestPlotter:
             open[i] = close[i - 1]
             close[i] = open[i] + diffs[i]
 
-        low = close - np.random.uniform(0, 0.5)
+        low = close - np.random.uniform(0, 0.5) * 10
         high = open + np.random.uniform(0, 0.5)
 
         return (open, high, low, close)
+
+    def N(self):
+        # don't change this now stuff is hard coded based on it :(
+        return 150
+
+    def _handle_check(self, plotter, test_name):
+        """
+        """
+        if MODE == "check":
+            plotter.start()
+            return
+
+        frame_buffer, im_width, im_height = plotter._grab_frame_buffer(0, 0)  # maybe just also return height and width
+
+        stored_buffer_filepath = OUTPUT_PATH / f"{test_name}.npy"
+
+        if MODE == "generate":
+            np.save(stored_buffer_filepath, frame_buffer)
+
+        elif MODE == "test":
+            stored_buffer = np.load(stored_buffer_filepath)
+
+            corrcoef = np.corrcoef(frame_buffer, stored_buffer)
+            percent_wrong = (np.where(frame_buffer != stored_buffer)[0].size / frame_buffer.size ) * 100
+
+            assert corrcoef[1, 1] > 0.999
+            assert percent_wrong < 1
+
+            print(f"Test {test_name} passed with corrcoef: {corrcoef} and percent_wrong: {percent_wrong}")
+
+
+        else:
+            raise ValueError("MODE not recognised.")
 
     def plot_test_plots(self, plotter, open, high, low, close):
         """"""
@@ -128,40 +143,6 @@ class TestPlotter:
         plotter.set_y_label("mamma mia")
         plotter.set_y_label("Here I go Again")
         plotter.pin_y_axis(False)
-
-    def _handle_check(self, plotter, test_name):
-        """
-        """
-        from pathlib import Path
-        import platform
-        # get width
-        # get height
-        # get num subplots (tuple)
-        if MODE == "check":
-            plotter.start()
-            return
-
-        frame_buffer, im_width, im_height = plotter._grab_frame_buffer(0, 0)  # maybe just also return height and width
-
-       # frame_buffer = np.reshape(frame_buffer, (im_width, im_height, 4))[1:-1, 1:-1, :]
-
-        output_path = Path(__file__).parent / "regression_data" / platform.system()
-        stored_buffer_filepath = output_path / f"{test_name}.npy"
-        output_path.mkdir(exist_ok=True, parents=True)
-
-        if MODE == "generate":
-            np.save(stored_buffer_filepath, frame_buffer)
-
-        elif MODE == "test":
-            stored_buffer = np.load(stored_buffer_filepath)
-
-            corrcoef = np.corrcoef(frame_buffer, stored_buffer)
-            percent_wrong = (np.where(frame_buffer != stored_buffer)[0].size / frame_buffer.size ) * 100
-            if test_name != "test_pin_y_axis":  # for some reason this test is malformed
-                assert corrcoef[1, 1] > 0.999
-                assert percent_wrong < 2
-        else:
-            raise ValueError("MODE not recognised.")
 
     # Tests
     # --------------------------------------------------------------------------------------------
@@ -254,26 +235,24 @@ class TestPlotter:
         self._handle_check(plotter, "test_anti_aliasing_1")
         plotter.finish()
 
-        if False:
+        print(
+            "Anti-alias at 2. The next plot will be at 8 and should be improved."
+        )
 
-            print(
-                "Anti-alias at 2. The next plot will be at 8 and should be improved."
-            )
+        plotter = Plotter(anti_aliasing_samples=2, color_mode="light")
+        plotter.line(open, width=5)
 
-            plotter = Plotter(anti_aliasing_samples=2, color_mode="light")
-            plotter.line(open, width=5)
+        self._handle_check(plotter, "test_anti_aliasing_2")
+        plotter.finish()
 
-            self._handle_check(plotter, "test_anti_aliasing_2")
-            plotter.finish()
+        print(
+            "Anti-alias at 4."
+        )
+        plotter = Plotter(anti_aliasing_samples=32, color_mode="light")
+        plotter.line(open, width=5)
 
-            print(
-                "Anti-alias at 4."
-            )
-            plotter = Plotter(anti_aliasing_samples=32, color_mode="light")
-            plotter.line(open, width=5)
-
-            self._handle_check(plotter, "test_anti_aliasing_3")
-            plotter.finish()
+        self._handle_check(plotter, "test_anti_aliasing_3")
+        plotter.finish()
 
 
     def test_plot_args(self, candlestick_data):
@@ -1202,13 +1181,13 @@ class TestPlotter:
             assert command in str(e), f"'{command}' not found in '{str(e)}'."
 
 
-t = TestPlotter()
-N = t.N()
-candlestick_data = t.candlestick_data(N)
+test_plotter = TestPlotter()
 
-funcs = dir(t)
+candlestick_data = test_plotter.candlestick_data()
+
+funcs = dir(test_plotter)
 for name in funcs:
     if name.startswith("test_"):
-        method = getattr(t, name)  # get the actual bound method
+        method = getattr(test_plotter, name)
         print(f"Running {name}...")
         method(candlestick_data)
