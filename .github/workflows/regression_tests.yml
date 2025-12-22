@@ -27,7 +27,12 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libopengl0
+          sudo apt-get install -y \
+            libopengl0 \
+            libgl1 \
+            libegl1 \
+            libxkbcommon-x11-0 \
+            libxcb-cursor0
 
       - name: Install Python dependencies
         run: |
