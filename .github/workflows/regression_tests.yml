@@ -1,4 +1,4 @@
-name: Windows - test_plotter
+name: Linux - test_plotter
 
 on:
   push:
@@ -6,9 +6,8 @@ on:
   pull_request:
 
 jobs:
-
-  test_plotter_windows:
-    runs-on: windows-latest
+  test_plotter_linux:
+    runs-on: ubuntu-latest
     timeout-minutes: 10
 
     strategy:
@@ -25,15 +24,22 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install build tooling
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
+      - name: Install Python dependencies
         run: |
           python -m pip install -U pip
           python -m pip install -U rallyplot --pre
-          python -m pip install -U numpy matplotlib
+          python -m pip install -U numpy matplotlib scipy
 
-      - name: Run test_plotter
+      - name: Run test_plotter (xvfb)
         env:
-            PYTHONFAULTHANDLER: "1"
-    #      QT_QPA_PLATFORM: offscreen
+          PYTHONFAULTHANDLER: "1"
+          PYTHONUNBUFFERED: "1"
+          MPLBACKEND: "Agg"
         run: |
-          python -u tests/python/test_full_plotter.py
+          xvfb-run -a python -u tests/python/test_full_plotter.py
+
