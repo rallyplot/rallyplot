@@ -115,6 +115,8 @@ void CentralOpenGlWidget::paintGL()
     }
 
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::TextAntialiasing);
 
     painter.beginNativePainting();
     m_rm->paint();
@@ -487,10 +489,6 @@ void CentralOpenGlWidget::showCrosshairs(QPainter& painter)
 
  */
 {
-    // QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::TextAntialiasing);
-
     // Draw crosshair lines
     glm::vec4 lcol = m_crosshairSettings.lineColor;
     QColor lineColor = QColor(lcol[0] * 255, lcol[1] * 255, lcol[2] * 255, lcol[3] * 255);  // TODO: GLM TO QT COLOR!
@@ -613,9 +611,6 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
             }
 
             // 2. Prepare painter
-            // QPainter p(this);
-            painter.setRenderHint(QPainter::Antialiasing);
-
             const glm::vec4 bk = m_hoverValueSettings.backgroundColor;
             painter.setBrush(QColor(bk[0]*255, bk[1]*255, bk[2]*255, bk[3]*255));
 
@@ -663,7 +658,6 @@ void CentralOpenGlWidget::showValuePopup(QPainter& painter)
                 y += fm.height();
             }
 
-            // painter.end();
             m_showPopup = true;
         }
     }
