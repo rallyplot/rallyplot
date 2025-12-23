@@ -51,11 +51,46 @@ if platform.system() == "Windows":
 
     subprocess.run(f"python -m delvewheel repair -w {out_path} {wheel_path} --ignore-existing --add-path {qt_install_path}/6.8.2/msvc2022_64/bin -vv")
 
+elif platform.system() == "Linux":
+    import os
+    import subprocess
+
+    out_path = Path(__file__).parent / "out"
+    out_path.mkdir(parents=True)
+    wheel_path = find_wheel(distribution_dir)
+
+    env = os.environ.copy()
+    env["LD_LIBRARY_PATH"] = f"{qt_install_path}/6.8.2/gcc_64/lib:" + env.get("LD_LIBRARY_PATH", "")
+
+
+    subprocess.run(
+        [
+            "auditwheel", "repair",
+            "-w", out_path,
+            "--exclude", "libEGL.so.1",
+            "--exclude", "libGLX.so.0",
+            "--exclude", "libOpenGL.so.0",
+            "--exclude", "libGLdispatch.so.0",
+            "--exclude", "libgbm.so.1",
+            "--exclude", "libdrm.so.2",
+            "--exclude", "libxcb.so.1",
+            "--exclude", "libXau.so.6",
+            "--exclude", "libXdmcp.so.6",
+            "--exclude", "libwayland-client.so.0",
+            "--exclude", "libwayland-egl.so.1",
+            "--exclude", "libwayland-cursor.so.0",
+            "--exclude", "libdbus-1.so.3",
+            "--exclude", "libsystemd.so.0",
+            "--exclude", "libvulkan.so.1",
+            "--exclude", "libzstd.so.1",
+            wheel_path,
+        ],
+        env=env,
+        check=True,
+    )
+
     wheel_path.unlink()
     shutil.move(find_wheel(out_path), distribution_dir)
     out_path.rmdir()
-
-elif platform.system() == "Linux":
-    raise NotImplementedError()
 
 
