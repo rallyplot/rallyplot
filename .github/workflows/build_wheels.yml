@@ -100,6 +100,7 @@ jobs:
           # macOS support 12 (Monterey) or newer because of python 3.10 / Qt 6.8.2 dependency
           CIBW_ENVIRONMENT_MACOS: >
             Qt6_DIR="${{ github.workspace }}/distribution/qt/6.7.3/macos/lib/cmake/Qt6"
+            CMAKE_PREFIX_PATH="${{ github.workspace }}/distribution/qt/6.7.3/macos"
             MACOSX_DEPLOYMENT_TARGET="11.0"  
             CMAKE_OSX_DEPLOYMENT_TARGET="11.0"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"

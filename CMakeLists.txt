@@ -246,7 +246,6 @@ if(RALLYPLOT_BUILD_DEV)
   file(MAKE_DIRECTORY ${DIST_TARGETS_PY})
   file(MAKE_DIRECTORY "${DIST_TARGETS_PY}/plugins/platforms")
 
-
   if (WIN32)
     # In Windows, we use windeployqt because it is easy to use,
     # onlying requiring an .exe stub. It copies some libraries

@@ -23,6 +23,8 @@ if os_name == "Windows":
     env["Qt6_DIR"] = f"{qt_install_path.as_posix()}/6.8.2/msvc2022_64/lib/cmake/Qt6"
 elif os_name == "Darwin":
     env["Qt6_DIR"] = f"{qt_install_path.as_posix()}/6.7.3/macos/lib/cmake/Qt6"
+    # Setting CMAKE_PREFIX_PATH seems to be required on macOS so cmake can find QtGuiTools
+    env["CMAKE_PREFIX_PATH"] = f"{qt_install_path.as_posix()}/6.7.3/macos"
 elif os_name == "Linux":
     env["Qt6_DIR"] = f"{qt_install_path.as_posix()}/6.8.2/gcc_64/lib/cmake/Qt6"
 
