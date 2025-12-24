@@ -19,7 +19,7 @@ wheel_path = args.wheel_path
 qt_lib_path = args.qt_lib_path
 
 if platform.system() == "Windows":
-    subprocess.run(f"python -m delvewheel repair -w {out_path} {wheel_path} --ignore-existing --add-path {qt_lib_path} -vv", env=env, check=True)
+    subprocess.run(f"delvewheel repair -w {out_path} {wheel_path} --ignore-existing --add-path {qt_lib_path} -vv", env=env, check=True)
 
 elif platform.system() == "Linux":
     env["LD_LIBRARY_PATH"] = f"{qt_lib_path}:" + env.get("LD_LIBRARY_PATH", "")
