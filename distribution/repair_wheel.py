@@ -12,20 +12,21 @@ p.add_argument("--qt_lib_path", type=Path, required=True, help="Path to Qt root 
 
 args = p.parse_args()
 
+env = os.environ.copy()
+
 out_path = args.out_path
 wheel_path = args.wheel_path
 qt_lib_path = args.qt_lib_path
 
 if platform.system() == "Windows":
-    subprocess.run(f"python -m delvewheel repair -w {out_path} {wheel_path} --ignore-existing --add-path {qt_lib_path} -vv")
+    subprocess.run(f"python -m delvewheel repair -w {out_path} {wheel_path} --ignore-existing --add-path {qt_lib_path} -vv", env=env, check=True)
 
 elif platform.system() == "Linux":
-    env = os.environ.copy()
     env["LD_LIBRARY_PATH"] = f"{qt_lib_path}:" + env.get("LD_LIBRARY_PATH", "")
 
     subprocess.run(
         [
-            "auditwheel", "repair",
+            "python -m auditwheel", "repair",
             "-w", out_path,
             "--exclude", "libEGL.so.1",
             "--exclude", "libGLX.so.0",
