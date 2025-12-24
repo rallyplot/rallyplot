@@ -189,9 +189,9 @@ if(RALLYPLOT_BUILD_DEV)
       rallyplot
   )
 
-# ---------------------------------------------------------------
-# Python Distribution
-# ---------------------------------------------------------------
+  # ---------------------------------------------------------------
+  # Python Distribution
+  # ---------------------------------------------------------------
 
   # Set the RPATH for the plotting library on mac and linux.
   # The convention on mac is for all Qt frameworks to be in the root
@@ -246,12 +246,10 @@ if(RALLYPLOT_BUILD_DEV)
 
   target_include_directories(pythonBindings PRIVATE ${PROJECT_SOURCE_DIR}/src/cpp/include)
 
-
-
   # Distribution
   # ---------------------------------------------------------------
   # Copy all files and dependencies for the full distribution.
-  # We cannot use windeployqt because we dont ship an executable.
+  # We cannot use windeployqt because we don't ship an executable.
   # A downside is that the development env is not exactly the distribution env.
 
   # Distribution target that always runs, but depends on rallyplot
@@ -273,7 +271,6 @@ if(RALLYPLOT_BUILD_DEV)
 
   file(MAKE_DIRECTORY ${DIST_TARGETS_PY})
   file(MAKE_DIRECTORY "${DIST_TARGETS_PY}/plugins/platforms")
-
 
   if (WIN32)
     # In Windows, we use windeployqt because it works requiring
