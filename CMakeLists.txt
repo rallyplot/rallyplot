@@ -6,7 +6,6 @@ message(STATUS "===============================")
 
 
 option(RALLYPLOT_BUILD_DEV "Enable dev build (tests, python dist, vendored Qt)" OFF)
-option(USE_VENDORED_QT "Use Qt downloaded by the script /distribution/download_qt.py" OFF)
 
 # --------------------------------------------------------------------------------------
 # Build PlottingLib Library
@@ -14,33 +13,6 @@ option(USE_VENDORED_QT "Use Qt downloaded by the script /distribution/download_q
 
 project(rallyplot LANGUAGES CXX)
 
-# If we're building the Python dist, force use of vendored Qt
-if(USE_VENDORED_QT)
-  if(WIN32)
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/msvc2022_64")
-  elseif(APPLE)
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.7.3/macos")
-  else()
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/gcc_64")
-  endif()
-
-  if(NOT EXISTS "${QT_INSTALL_DIR}/lib/cmake/Qt6/Qt6Config.cmake")
-    message(FATAL_ERROR
-      "USE_VENDORED_QT=ON but vendored Qt not found or incomplete at:\n"
-      "  ${QT_INSTALL_DIR}\n"
-      "Expected:\n"
-      "  ${QT_INSTALL_DIR}/lib/cmake/Qt6/Qt6Config.cmake\n"
-      "Run: python distribution/download_qt.py"
-    )
-  endif()
-
-  set(Qt6_DIR "${QT_INSTALL_DIR}/lib/cmake/Qt6" CACHE PATH "Qt6 config dir" FORCE)
-
-  list(PREPEND CMAKE_PREFIX_PATH "${QT_INSTALL_DIR}")
-
-  set(Qt6_DIR "${QT_INSTALL_DIR}/lib/cmake/Qt6" CACHE PATH "Qt6 config dir" FORCE)
-
-endif()
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -48,6 +20,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Set Qt6_DIR to force use of particular Qt installation
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets OpenGL OpenGLWidgets)
 
 add_library(rallyplot SHARED
@@ -190,6 +163,19 @@ target_include_directories(rallyplot
 )
 
 if(RALLYPLOT_BUILD_DEV)
+
+  if(NOT Qt6_DIR)
+    message(FATAL_ERROR
+      "RALLYPLOT_BUILD_DEV=ON requires Qt6_DIR to be set.\n"
+    )
+  endif()
+
+  # 2) Derive QT_INSTALL_DIR = 3 levels up from Qt6_DIR
+  get_filename_component(_qt6_dir_abs "${Qt6_DIR}" ABSOLUTE)
+  get_filename_component(QT_INSTALL_DIR "${_qt6_dir_abs}/../../.." ABSOLUTE)
+
+  message(STATUS "Qt6_DIR=${Qt6_DIR}")
+  message(STATUS "QT_INSTALL_DIR=${QT_INSTALL_DIR}")
 
   # ---------------------------------------------------------------
   # Test executable for development
