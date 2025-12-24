@@ -113,7 +113,7 @@ jobs:
           # everything.
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
             python -m pip install delvewheel && 
-            python "{package}/distribution/repair_wheel.py" --qt_lib_path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" --out_path "{dest_dir}" --wheel_path "{wheel}"
+            python "D:/a/rallyplot/rallyplot/distribution/repair_wheel.py" --qt_lib_path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" --out_path "{dest_dir}" --wheel_path "{wheel}"
 
           # For linux, there are many core libs we do not want to vendor, because of incompatibilities.
           # We want to use the system wayland / x11 as much as possible (and users install core dependency
