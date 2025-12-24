@@ -4,7 +4,6 @@ message(STATUS "==== ENVIRONMENT VARIABLES ====")
 execute_process(COMMAND ${CMAKE_COMMAND} -E environment)
 message(STATUS "===============================")
 
-
 option(RALLYPLOT_BUILD_DEV "Enable dev build (tests, python dist, vendored Qt)" OFF)
 
 # --------------------------------------------------------------------------------------
@@ -12,7 +11,6 @@ option(RALLYPLOT_BUILD_DEV "Enable dev build (tests, python dist, vendored Qt)" 
 # --------------------------------------------------------------------------------------
 
 project(rallyplot LANGUAGES CXX)
-
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)

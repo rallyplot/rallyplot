@@ -21,10 +21,13 @@ os_name = platform.system()
 
 if os_name == "Windows":
     env["Qt6_DIR"] = f"{qt_install_path.as_posix()}/6.8.2/msvc2022_64/lib/cmake/Qt6"
+    env["CMAKE_PREFIX_PATH"] = f"{qt_install_path.as_posix()}/6.8.2/msvc2022_64"
 elif os_name == "Darwin":
     env["Qt6_DIR"] = f"{qt_install_path.as_posix()}/6.7.3/macos/lib/cmake/Qt6"
+    env["CMAKE_PREFIX_PATH"] = f"{qt_install_path.as_posix()}/6.7.3/macos"
 elif os_name == "Linux":
     env["Qt6_DIR"] = f"{qt_install_path.as_posix()}/6.8.2/gcc_64/lib/cmake/Qt6"
+    env["CMAKE_PREFIX_PATH"] = f"{qt_install_path.as_posix()}/6.8.2/gcc_64"
 
 env["CMAKE_ARGS"] = "-DRALLYPLOT_BUILD_DEV=ON -DUSE_VENDORED_QT=ON"
 
