@@ -26,7 +26,7 @@ elif platform.system() == "Linux":
 
     subprocess.run(
         [
-            "python -m auditwheel", "repair",
+            "auditwheel", "repair",
             "-w", out_path,
             "--exclude", "libEGL.so.1",
             "--exclude", "libGLX.so.0",
