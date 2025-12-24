@@ -6,6 +6,7 @@ message(STATUS "===============================")
 
 
 option(RALLYPLOT_BUILD_DEV "Enable dev build (tests, python dist, vendored Qt)" OFF)
+option(USE_VENDORED_QT "Use Qt downloaded by the script /distribution/download_qt.py" OFF)
 
 # --------------------------------------------------------------------------------------
 # Build PlottingLib Library
@@ -14,7 +15,7 @@ option(RALLYPLOT_BUILD_DEV "Enable dev build (tests, python dist, vendored Qt)" 
 project(rallyplot LANGUAGES CXX)
 
 # If we're building the Python dist, force use of vendored Qt
-if(RALLYPLOT_BUILD_DEV)
+if(USE_VENDORED_QT)
   if(WIN32)
     set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/msvc2022_64")
   elseif(APPLE)
@@ -23,7 +24,19 @@ if(RALLYPLOT_BUILD_DEV)
     set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/gcc_64")
   endif()
 
+  if(NOT EXISTS "${QT_INSTALL_DIR}/lib/cmake/Qt6/Qt6Config.cmake")
+    message(FATAL_ERROR
+      "USE_VENDORED_QT=ON but vendored Qt not found or incomplete at:\n"
+      "  ${QT_INSTALL_DIR}\n"
+      "Expected:\n"
+      "  ${QT_INSTALL_DIR}/lib/cmake/Qt6/Qt6Config.cmake\n"
+      "Run: python distribution/download_qt.py"
+    )
+  endif()
+
   list(PREPEND CMAKE_PREFIX_PATH "${QT_INSTALL_DIR}")
+
+  set(Qt6_DIR "${QT_INSTALL_DIR}/lib/cmake/Qt6" CACHE PATH "Qt6 config dir" FORCE)
 
 endif()
 
