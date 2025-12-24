@@ -384,7 +384,6 @@ if(RALLYPLOT_BUILD_DEV)
         BUILD_RPATH "\$ORIGIN"
         INSTALL_RPATH "\$ORIGIN"
       )
-    endif()
 
     set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
 
