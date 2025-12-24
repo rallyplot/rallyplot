@@ -228,14 +228,12 @@ if(RALLYPLOT_BUILD_DEV)
 
   target_include_directories(pythonBindings PRIVATE ${PROJECT_SOURCE_DIR}/src/cpp/include)
 
-  # Copy dependencies
+  # Handle dependencies
   # ---------------------------------------------------------------
-  # Dependencies (plugins and libraries) are copied to the test build for convenience.
-  # Plugins are also copied to the python distribution (`dist/python`), because the wheel repair
-  # packages (e.g. auditwheel) usually cannot find them. We use auditwheel (linux)
-  # and delvewheel (windows) to handle the library dependencies for building python,
-  # but do this manually here for macOS due to issues with delocate.
-
+  # Handle the dependencies for the test build and python distribution.
+  # These are plugins (always copied, as they work on a relative path
+  # basis rather than RPATH) and libraries (handled by auditheel (linux),
+  # delvewheel (windows) or a custom solution (macOS, as delocate did not work).
   add_custom_target(dist ALL
     DEPENDS rallyplot pythonBindings
   )
@@ -249,12 +247,12 @@ if(RALLYPLOT_BUILD_DEV)
 
   if (WIN32)
     # In Windows, we use windeployqt because it is easy to use,
-    # onlying requiring an .exe stub. It copies some libraries
+    # onlyrequiring an .exe stub. It copies some libraries
     # that are not obvious dependencies.
 
-    # Build a tiny Qt exe just for windeployqt scanning
-    # Stub executable defines the canonical Qt dependency set for rallyplot
-    # This ensures consistent deployment regardless of test executable configuration
+    # Build a tiny Qt exe just for windeployqt scanning. This is preferable
+    # to using the testLib itself because the includes on that file might
+    # change depending on whatever is being tested.
     add_dependencies(dist stubFileForDeploy)
 
     set(WINDEPLOYQT_EXE "${QT_INSTALL_DIR}/bin/windeployqt.exe")
@@ -297,14 +295,12 @@ if(RALLYPLOT_BUILD_DEV)
     )
 
   elseif (APPLE)
-    # On macOS, macdeployqt requires a .bundle and doesn't really work for
-    # the lib distribution. It is useful during development to run it on the stub
-    # as above, and see what is copied. However, because the format is BUNDLE we can
-    # just use this for illustration, but manually copy the dependenices. For the live
-    # of me I could not get "delocate-wheel" to work. It did not copy the framework folder,
-    # only the libs. If I vendored the framework, it could not find them on the CI. In the end,
-    # it was easiest to manually vendor the dependencies (using macdeployqt as a guide) and
-    # run the quick shell script
+    # On macOS, macdeployqt requires a target .bundle and doesn't really work for
+    # the lib distribution (similar to how windeloy requires a .exe, but bundles are much
+    # more fiddly to create. Delocate did not properly handle the framework folders and only
+    # copied the libs. Even if the frameworks were vendored, it was unable to find them on CI.
+    # In the end, it was easiest to manually vendor the dependencies (using macdeployqt as a
+    # guide) run a quick shell script to change the RPATHs.
 
     set_target_properties(pythonBindings PROPERTIES
       INSTALL_RPATH "@loader_path"
@@ -312,7 +308,7 @@ if(RALLYPLOT_BUILD_DEV)
       MACOSX_RPATH ON
     )
 
-    # First, copy the frameworks to all distribution folders
+    # First, copy the frameworks to the test build and python distribution
     set(QT_FRAMEWORKS
       QtCore
       QtGui
@@ -333,7 +329,7 @@ if(RALLYPLOT_BUILD_DEV)
       endforeach()
     endforeach()
 
-    # Copy the plugins to all distribution folders
+    # Copy the plugins to the test build and python distribution
     set(QT_PLUGIN_DIRS
         platforms
         styles
@@ -354,9 +350,7 @@ if(RALLYPLOT_BUILD_DEV)
         endforeach()
     endforeach()
 
-    # For macOS, because I could not get delvewheel to work, run
-    # a script that sets the RPATH correctly for all plugin
-    # and framework libs in the distrubable.
+    # Run a script to fix all RPATHs
     set(FIX_SCRIPT "${PROJECT_SOURCE_DIR}/distribution/fix_macos_paths.sh")
 
     foreach(dst ${DIST_TARGETS})
@@ -382,9 +376,9 @@ if(RALLYPLOT_BUILD_DEV)
     endforeach()
 
   elseif (UNIX)
-    # For linux, we use a similar approach as for Windows (except without a deployqt exe).
-    # Copy all libarries and plugins to the ccp distribution / build, however let repairwheel
-    # find the dependencies for the python builds because it performs some nice additional functionality.
+    # For Linux, the test build has the RPATHs set during compilation
+    # so we don't need to copy the libs like in Windows. Here we just
+    # copy the plugins.
 
     set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
 
