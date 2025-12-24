@@ -34,6 +34,8 @@ if(USE_VENDORED_QT)
     )
   endif()
 
+  set(Qt6_DIR "${QT_INSTALL_DIR}/lib/cmake/Qt6" CACHE PATH "Qt6 config dir" FORCE)
+
   list(PREPEND CMAKE_PREFIX_PATH "${QT_INSTALL_DIR}")
 
   set(Qt6_DIR "${QT_INSTALL_DIR}/lib/cmake/Qt6" CACHE PATH "Qt6 config dir" FORCE)
