@@ -380,6 +380,12 @@ if(RALLYPLOT_BUILD_DEV)
     # so we don't need to copy the libs like in Windows. Here we just
     # copy the plugins.
 
+    set_target_properties(pythonBindings PROPERTIES
+        BUILD_RPATH "\$ORIGIN"
+        INSTALL_RPATH "\$ORIGIN"
+      )
+    endif()
+
     set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
 
     # Copy the plugins to both test build and python distribution
