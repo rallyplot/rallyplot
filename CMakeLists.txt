@@ -114,6 +114,29 @@ add_library(rallyplot SHARED
   src/cpp/include/ToyData.h
 )
 
+# Set the RPATH for rallyplot on macOS and linux.
+# The convention on macOS is for all Qt frameworks to be in the root
+# folder. Because I could not get "deploy-wheel" to work, and the RPATHS
+# of dependencies from aqtinstall are strange, we manually
+# re-write the RPATHs of all dependenices in `fix_macos_paths.sh`.
+
+# For Linux, the libs are placed in a lib folder so the RPATH
+# in the binaries downloaded from aqtinstall do not have to be
+# changed (they point to a lib folder).
+
+if(APPLE)
+  set_target_properties(rallyplot PROPERTIES
+    INSTALL_RPATH "@loader_path"
+    BUILD_WITH_INSTALL_RPATH ON
+    MACOSX_RPATH ON
+  )
+elseif(UNIX)
+  set_target_properties(rallyplot PROPERTIES
+    BUILD_RPATH "\$ORIGIN"
+    INSTALL_RPATH "\$ORIGIN"
+  )
+endif()
+
 # Build freetype
 # --------------------------------------------------------------
 
@@ -191,29 +214,6 @@ if(RALLYPLOT_BUILD_DEV)
   # Python Distribution
   # ---------------------------------------------------------------
 
-  # Set the RPATH for the plotting library on mac and linux.
-  # The convention on mac is for all Qt frameworks to be in the root
-  # folder. Because I could not get "deploy-wheel" to work, and the RPATHS
-  # of dependencies from aqtinstall are strange, we manually
-  # re-write the RPATHs of all dependenices in `fix_macos_paths.sh`.
-
-  # For Linux, the libs are placed in a lib folder so the RPATH
-  # in the binaries downloaded from aqtinstall do not have to be
-  # changed (they point to a lib folder).
-
-  if(APPLE)
-    set_target_properties(rallyplot PROPERTIES
-      INSTALL_RPATH "@loader_path"
-      BUILD_WITH_INSTALL_RPATH ON
-      MACOSX_RPATH ON
-    )
-  elseif(UNIX)
-    set_target_properties(rallyplot PROPERTIES
-      BUILD_RPATH "\$ORIGIN"
-      INSTALL_RPATH "\$ORIGIN"
-    )
-  endif()
-
   # Build Python Bindings
   # ---------------------------------------------------------------
 
@@ -245,6 +245,7 @@ if(RALLYPLOT_BUILD_DEV)
 
   file(MAKE_DIRECTORY ${DIST_TARGETS_PY})
   file(MAKE_DIRECTORY "${DIST_TARGETS_PY}/plugins/platforms")
+
 
   if (WIN32)
     # In Windows, we use windeployqt because it is easy to use,
@@ -385,38 +386,7 @@ if(RALLYPLOT_BUILD_DEV)
     # Copy all libarries and plugins to the ccp distribution / build, however let repairwheel
     # find the dependencies for the python builds because it performs some nice additional functionality.
 
-    set(QT_LIB_DIR     "${QT_INSTALL_DIR}/lib")
-
     set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
-
-    set_target_properties(pythonBindings PROPERTIES
-      BUILD_RPATH "\$ORIGIN"
-      INSTALL_RPATH "\$ORIGIN"
-    )
-
-    # First copy the libs to the test build directory.
-    # Don't copy to the python distribution, let auditwheel handle it.
-    file(GLOB _QT_LIBS
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}Core.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}Gui.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}Widgets.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}OpenGL.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}OpenGLWidgets.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}DBus.so*"
-      "${QT_LIB_DIR}/libicui18n.so*"
-      "${QT_LIB_DIR}/libicuuc.so*"
-      "${QT_LIB_DIR}/libicudata.so*"
-      # Wayland
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}WaylandClient.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}WaylandEglClientHwIntegration.so*"
-      # X11
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}XcbQpa.so*"
-    )
-
-    add_custom_command(TARGET dist
-      COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${_QT_LIBS} "$<TARGET_FILE_DIR:testLib>/"
-      VERBATIM
-    )
 
     # Copy the plugins to both test build and python distribution
     # Include all Wayland-related and x11 plugins for completion
