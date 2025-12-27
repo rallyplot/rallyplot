@@ -41,7 +41,7 @@ jobs:
           # and for testing.
           CIBW_BEFORE_ALL_LINUX: |
             set -euxo pipefail
-            python -m pip install -U cmake ninja aqtinstall
+            python -m pip install -U cmake ninja aqtinstall auditwheel
             yum install -y \
               mesa-libEGL \
               mesa-libGL \
@@ -71,7 +71,7 @@ jobs:
 
           # For Windows and macOS, the required libraries are already found on the system.
           CIBW_BEFORE_ALL_WINDOWS: >
-            python -m pip install -U cmake ninja aqtinstall &&
+            python -m pip install -U cmake ninja aqtinstall delvewheel &&
             aqt install-qt windows desktop 6.8.2 win64_msvc2022_64 -O D:/a/rallyplot/rallyplot/distribution/qt
 
           # ---- macOS: install Qt ----
@@ -89,25 +89,23 @@ jobs:
           # -------------------------------------------------------------------
           # The windows paths are hard-coded, which is obviously going to cause problems in future.
           # The problem is on Windows, ${{ github.workspace }} resolves with backward-slashes which
-          # then dissapear when read into cmake. It's a huge pain to debug and will require a fair
+          # then disappear when read into cmake. It's a huge pain to debug and will require a fair
           # bit of boilerplate, so for now just hard code for windows.
 
           CIBW_ENVIRONMENT_WINDOWS: >
-            QT_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6"
             Qt6_DIR="D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6"
             CMAKE_GENERATOR_PLATFORM="x64"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           # macOS support 12 (Monterey) or newer because of python 3.10 / Qt 6.8.2 dependency
           CIBW_ENVIRONMENT_MACOS: >
-            QT_DIR="${{ github.workspace }}/distribution/qt/6.7.3/macos/lib/cmake/Qt6"
             Qt6_DIR="${{ github.workspace }}/distribution/qt/6.7.3/macos/lib/cmake/Qt6"
+            CMAKE_PREFIX_PATH="${{ github.workspace }}/distribution/qt/6.7.3/macos"
             MACOSX_DEPLOYMENT_TARGET="11.0"  
             CMAKE_OSX_DEPLOYMENT_TARGET="11.0"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
           CIBW_ENVIRONMENT_LINUX: >
-            QT_DIR="/project/distribution/qt/6.8.2/gcc_64/lib/cmake/Qt6"
             Qt6_DIR="/project/distribution/qt/6.8.2/gcc_64/lib/cmake/Qt6"
             CMAKE_ARGS="-DRALLYPLOT_BUILD_DEV=ON"
 
@@ -118,32 +116,15 @@ jobs:
           # add anything else that was not vendored. Either vendor everything, or use delvewheel for
           # everything.
           CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
-            python -m pip install delvewheel && 
-            python -m delvewheel repair -w "{dest_dir}" "{wheel}" --ignore-existing --add-path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" -vv
+            python -m pip install delvewheel &&
+            python "D:/a/rallyplot/rallyplot/distribution/repair_wheel.py" --qt_lib_path "D:/a/rallyplot/rallyplot/distribution/qt/6.8.2/msvc2022_64/bin" --out_path "{dest_dir}" --wheel_path "{wheel}"
 
           # For linux, there are many core libs we do not want to vendor, because of incompatibilities.
           # We want to use the system wayland / x11 as much as possible (and users install core dependency
           # libs on their end) rather than try and inject wayland / x11 libs into peoples distros
-          CIBW_REPAIR_WHEEL_COMMAND_LINUX: |
-            LD_LIBRARY_PATH=/project/distribution/qt/6.8.2/gcc_64/lib:$LD_LIBRARY_PATH
-            auditwheel repair -w {dest_dir} \
-            --exclude libEGL.so.1 \
-            --exclude libGLX.so.0 \
-            --exclude libOpenGL.so.0 \
-            --exclude libGLdispatch.so.0 \
-            --exclude libgbm.so.1 \
-            --exclude libdrm.so.2 \
-            --exclude libxcb.so.1 \
-            --exclude libXau.so.6 \
-            --exclude libXdmcp.so.6 \
-            --exclude libwayland-client.so.0 \
-            --exclude libwayland-egl.so.1 \
-            --exclude libwayland-cursor.so.0 \
-            --exclude libdbus-1.so.3 \
-            --exclude libsystemd.so.0 \
-            --exclude libvulkan.so.1 \
-            --exclude libzstd.so.1 \
-            {wheel}
+          CIBW_REPAIR_WHEEL_COMMAND_LINUX: >
+            python -m pip install auditwheel && 
+            python "/project/distribution/repair_wheel.py" --qt_lib_path "/project/distribution/qt/6.8.2/gcc_64/lib" --out_path "{dest_dir}" --wheel_path "{wheel}"
 
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""
           # Could not get this to work, could not find the vendored frameworks. Had seg faults, and it did not

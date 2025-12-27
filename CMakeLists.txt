@@ -1,10 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
 
-message(STATUS "==== ENVIRONMENT VARIABLES ====")
-execute_process(COMMAND ${CMAKE_COMMAND} -E environment)
-message(STATUS "===============================")
-
-
 option(RALLYPLOT_BUILD_DEV "Enable dev build (tests, python dist, vendored Qt)" OFF)
 
 # --------------------------------------------------------------------------------------
@@ -13,26 +8,13 @@ option(RALLYPLOT_BUILD_DEV "Enable dev build (tests, python dist, vendored Qt)" 
 
 project(rallyplot LANGUAGES CXX)
 
-# If we're building the Python dist, force use of vendored Qt
-if(RALLYPLOT_BUILD_DEV)
-  if(WIN32)
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/msvc2022_64")
-  elseif(APPLE)
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.7.3/macos")
-  else()
-    set(QT_INSTALL_DIR "${PROJECT_SOURCE_DIR}/distribution/qt/6.8.2/gcc_64")
-  endif()
-
-  list(PREPEND CMAKE_PREFIX_PATH "${QT_INSTALL_DIR}")
-
-endif()
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Set Qt6_DIR to force use of particular Qt installation
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets OpenGL OpenGLWidgets)
 
 add_library(rallyplot SHARED
@@ -132,7 +114,34 @@ add_library(rallyplot SHARED
   src/cpp/include/ToyData.h
 )
 
-# We do not need these, and they are annoying dependencies
+# Set the RPATH for rallyplot on macOS and linux.
+# The convention on macOS is for all Qt frameworks to be in the root
+# folder. Because I could not get "deploy-wheel" to work, and the RPATHS
+# of dependencies from aqtinstall are strange, we manually
+# re-write the RPATHs of all dependenices in `fix_macos_paths.sh`.
+
+# For Linux, the libs are placed in a lib folder so the RPATH
+# in the binaries downloaded from aqtinstall do not have to be
+# changed (they point to a lib folder).
+
+if(APPLE)
+  set_target_properties(rallyplot PROPERTIES
+    INSTALL_RPATH "@loader_path"
+    BUILD_WITH_INSTALL_RPATH ON
+    MACOSX_RPATH ON
+  )
+elseif(UNIX)
+  set_target_properties(rallyplot PROPERTIES
+    BUILD_RPATH "\$ORIGIN"
+    INSTALL_RPATH "\$ORIGIN"
+  )
+endif()
+
+# Build freetype
+# --------------------------------------------------------------
+
+# We do not require these freetype dependencies
+# to build freetype for our needs.
 set(FT_DISABLE_BZIP2 TRUE CACHE BOOL "" FORCE)
 set(FT_DISABLE_PNG TRUE CACHE BOOL "" FORCE)
 set(FT_DISABLE_ZLIB TRUE CACHE BOOL "" FORCE)
@@ -144,17 +153,13 @@ add_subdirectory(
   EXCLUDE_FROM_ALL
 )
 
-set(FT_DISABLE_BZIP2 TRUE CACHE BOOL "" FORCE)
-set(FT_DISABLE_PNG TRUE CACHE BOOL "" FORCE)
-set(FT_DISABLE_ZLIB TRUE CACHE BOOL "" FORCE)
-set(FT_DISABLE_HARFBUZZ TRUE CACHE BOOL "" FORCE)
-set(FT_DISABLE_BROTLI TRUE CACHE BOOL "" FORCE)
-
 if (UNIX AND NOT APPLE)
-    # Linux only
+    # Position-independent code for building freetype as shared library on Linux
     set_target_properties(freetype PROPERTIES POSITION_INDEPENDENT_CODE ON)
 endif()
 
+# Build rallyplot
+# --------------------------------------------------------------
 
 target_link_libraries(rallyplot PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
@@ -174,10 +179,26 @@ target_include_directories(rallyplot
         ${PROJECT_SOURCE_DIR}/src/vendor/fmt/include
 )
 
+# Rallyplot tests and python build
+# --------------------------------------------------------------
+
 if(RALLYPLOT_BUILD_DEV)
 
-  # ---------------------------------------------------------------
-  # Test executable for development
+  # Get the Qt base path from the Qt6_DIR environment variable.
+
+  if(NOT Qt6_DIR)
+    message(FATAL_ERROR
+      "RALLYPLOT_BUILD_DEV=ON requires Qt6_DIR to be set.\n"
+    )
+  endif()
+
+  get_filename_component(_qt6_dir_abs "${Qt6_DIR}" ABSOLUTE)
+  get_filename_component(QT_INSTALL_DIR "${_qt6_dir_abs}/../../.." ABSOLUTE)
+
+  message(STATUS "Qt6_DIR=${Qt6_DIR}")
+  message(STATUS "QT_INSTALL_DIR=${QT_INSTALL_DIR}")
+
+  # Test executable
   # ---------------------------------------------------------------
 
   add_executable(testLib tests/cpp/main.cpp)
@@ -190,33 +211,8 @@ if(RALLYPLOT_BUILD_DEV)
       rallyplot
   )
 
-# ---------------------------------------------------------------
-# Python Distribution
-# ---------------------------------------------------------------
-
-  # Set the RPATH for the plotting library on mac and linux.
-  # The convention on mac is for all Qt frameworks to be in the root
-  # folder. Because I could not get "deploy-wheel" to work, and the RPATHS
-  # of dependencies from aqtinstall are strange, we manually
-  # re-write the RPATHs of all dependenices in `fix_macos_paths.sh`.
-
-  # For UNIX, we use the RPATHS The RPATHs are manually rewritten with
-  # For Linux, the libs are placed in a lib folder so the RPATH
-  # in the binaries downloaded from aqtinstall do not have to be
-  # changed (they point to a lib folder).
-
-  if(APPLE)
-    set_target_properties(rallyplot PROPERTIES
-      INSTALL_RPATH "@loader_path"
-      BUILD_WITH_INSTALL_RPATH ON
-      MACOSX_RPATH ON
-    )
-  elseif(UNIX)
-    set_target_properties(rallyplot PROPERTIES
-      BUILD_RPATH "\$ORIGIN/lib"
-      INSTALL_RPATH "\$ORIGIN/lib"
-    )
-  endif()
+  # Python Distribution
+  # ---------------------------------------------------------------
 
   # Build Python Bindings
   # ---------------------------------------------------------------
@@ -228,47 +224,20 @@ if(RALLYPLOT_BUILD_DEV)
 
   pybind11_add_module(pythonBindings src/cpp/bindings/bindings.cpp)
 
-  if(UNIX)
-    if(APPLE)
-      set_target_properties(pythonBindings PROPERTIES
-        INSTALL_RPATH "@loader_path"
-        BUILD_WITH_INSTALL_RPATH ON
-        MACOSX_RPATH ON
-      )
-    else()
-      set_target_properties(pythonBindings PROPERTIES
-        BUILD_RPATH "\$ORIGIN;\$ORIGIN/lib"
-        INSTALL_RPATH "\$ORIGIN;\$ORIGIN/lib"
-      )
-    endif()
-  endif()
-
   target_link_libraries(pythonBindings PRIVATE rallyplot)
 
   target_include_directories(pythonBindings PRIVATE ${PROJECT_SOURCE_DIR}/src/cpp/include)
 
-
-
-  # Distribution
+  # Handle dependencies
   # ---------------------------------------------------------------
-  # Copy all files and dependencies for the full distribution.
-  # We cannot use windeployqt because we dont ship an executable.
-  # A downside is that the development env is not exactly the distribution env.
-
-  # Distribution target that always runs, but depends on rallyplot
-  # ---------------------------------------------------------------
-  # We copy all dependencies to the dist folder (for distribution) and
-  # build folder (for easy testing). The exact stratergy for locating
-  # and copying the dependencies depends on the system (see more below).
-
-  # Qt should be installed in the root folder during building, using
-  # aqtinstall. See `download_qt.py` in the root folder for details.
-
+  # Handle the dependencies for the test build and python distribution.
+  # These are plugins (always copied, as they work on a relative path
+  # basis rather than RPATH) and libraries (handled by auditheel (linux),
+  # delvewheel (windows) or a custom solution (macOS, as delocate did not work).
   add_custom_target(dist ALL
     DEPENDS rallyplot pythonBindings
   )
 
-  set(DIST_TARGETS_CPP_INCLUDE "${PROJECT_SOURCE_DIR}/dist/cpp/include")
   set(DIST_TARGETS_PY  "${PROJECT_SOURCE_DIR}/dist/rallyplot")
   set(DIST_TARGETS     ${DIST_TARGETS_PY} $<TARGET_FILE_DIR:testLib>)
 
@@ -277,25 +246,18 @@ if(RALLYPLOT_BUILD_DEV)
 
 
   if (WIN32)
-    # In Windows, we use windeployqt because it works requiring
-    # only a .exe stub, and copied some directories I was suprised
-    # to see added. It is also useful to have this stub for testing
-    # deployment on Windows and macOS. We use it for plugins and libaries
-    # for the CCP build. However, for python we rely on delvewheel for
-    # the libraries, because it finds all dependencies andperforms name manging,
-    # which is very useful on Windows.
+    # In Windows, we use windeployqt because it is easy to use,
+    # onlyrequiring an .exe stub. It copies some libraries
+    # that are not obvious dependencies.
 
-    # Build a tiny Qt exe just for windeployqt scanning
+    # Build a tiny Qt exe just for windeployqt scanning. This is preferable
+    # to using the testLib itself because the includes on that file might
+    # change depending on whatever is being tested.
     add_dependencies(dist stubFileForDeploy)
 
     set(WINDEPLOYQT_EXE "${QT_INSTALL_DIR}/bin/windeployqt.exe")
 
     add_executable(stubFileForDeploy distribution/stubFileForDeploy.cpp)
-
-    set_target_properties(stubFileForDeploy PROPERTIES
-        MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_BUNDLE_NAME "StubFile"
-    )
 
     target_include_directories(stubFileForDeploy PRIVATE
         "${PROJECT_SOURCE_DIR}/src/cpp/include"
@@ -310,7 +272,7 @@ if(RALLYPLOT_BUILD_DEV)
         Qt${QT_VERSION_MAJOR}::OpenGLWidgets
     )
 
-    # Copy library dependencies to CPP distribution
+    # Copy library dependencies to test build
     add_custom_command(TARGET stubFileForDeploy POST_BUILD
       COMMAND "${WINDEPLOYQT_EXE}"
               --dir "$<TARGET_FILE_DIR:testLib>"
@@ -332,19 +294,21 @@ if(RALLYPLOT_BUILD_DEV)
       VERBATIM
     )
 
-
-
   elseif (APPLE)
-    # On macOS, macdeployqt requires a .bundle and doesn't really work for
-    # the lib distribution. It is useful during development to run it on the stub
-    # as above, and see what is copied. However, because the format is BUNDLE we can
-    # just use this for illustration, but manually copy the dependenices. For the live
-    # of me I could not get "delocate-wheel" to work. It did not copy the framework folder,
-    # only the libs. If I vendored the framework, it could not find them on the CI. In the end,
-    # it was easiest to manually vendor the dependencies (using macdeployqt as a guide) and
-    # run the quick shell script
+    # On macOS, macdeployqt requires a target .bundle and doesn't really work for
+    # the lib distribution (similar to how windeloy requires a .exe, but bundles are much
+    # more fiddly to create. Delocate did not properly handle the framework folders and only
+    # copied the libs. Even if the frameworks were vendored, it was unable to find them on CI.
+    # In the end, it was easiest to manually vendor the dependencies (using macdeployqt as a
+    # guide) run a quick shell script to change the RPATHs.
 
-    # First, copy the frameworks to all distribution folders
+    set_target_properties(pythonBindings PROPERTIES
+      INSTALL_RPATH "@loader_path"
+      BUILD_WITH_INSTALL_RPATH ON
+      MACOSX_RPATH ON
+    )
+
+    # First, copy the frameworks to the test build and python distribution
     set(QT_FRAMEWORKS
       QtCore
       QtGui
@@ -365,7 +329,7 @@ if(RALLYPLOT_BUILD_DEV)
       endforeach()
     endforeach()
 
-    # Copy the plugins to all distribution folders
+    # Copy the plugins to the test build and python distribution
     set(QT_PLUGIN_DIRS
         platforms
         styles
@@ -386,9 +350,7 @@ if(RALLYPLOT_BUILD_DEV)
         endforeach()
     endforeach()
 
-    # For macOS, because I could not get delvewheel to work, run
-    # a script that sets the RPATH correctly for all plugin
-    # and framework libs in the distrubable.
+    # Run a script to fix all RPATHs
     set(FIX_SCRIPT "${PROJECT_SOURCE_DIR}/distribution/fix_macos_paths.sh")
 
     foreach(dst ${DIST_TARGETS})
@@ -413,48 +375,20 @@ if(RALLYPLOT_BUILD_DEV)
       )
     endforeach()
 
-
-
   elseif (UNIX)
-    # For linux, we use a simmilar approach as for Windows (except without a deployqt exe).
-    # Copy all libarries and plugins to the ccp distribution / build, however let repairwheel
-    # find the dependencies for the python builds because it performs some nice additional functionality.
+    # For Linux, the test build has the RPATHs set during compilation
+    # so we don't need to copy the libs like in Windows. Here we just
+    # copy the plugins.
 
-    set(QT_LIB_DIR     "${QT_INSTALL_DIR}/lib")
+    set_target_properties(pythonBindings PROPERTIES
+        BUILD_RPATH "\$ORIGIN"
+        INSTALL_RPATH "\$ORIGIN"
+      )
 
     set(QT_PLUGINS_DIR "${QT_INSTALL_DIR}/plugins")
-    file(MAKE_DIRECTORY "${DIST_TARGETS_PY}/lib")
 
-
-    # First copy the libs. Only copy the lib dependencies
-    # to cpp, and let repairwheel handle the python depdendencies
-
-    file(GLOB _QT_LIBS
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}Core.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}Gui.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}Widgets.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}OpenGL.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}OpenGLWidgets.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}DBus.so*"
-      "${QT_LIB_DIR}/libicui18n.so*"
-      "${QT_LIB_DIR}/libicuuc.so*"
-      "${QT_LIB_DIR}/libicudata.so*"
-
-      # Wayland
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}WaylandClient.so*"
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}WaylandEglClientHwIntegration.so*"
-
-      # X11
-      "${QT_LIB_DIR}/libQt${QT_VERSION_MAJOR}XcbQpa.so*"
-
-    )
-    add_custom_command(TARGET dist
-      COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${_QT_LIBS} "$<TARGET_FILE_DIR:testLib>/"
-      VERBATIM
-    )
-
-    # Copy the plugins to all build / distributions
-    # List Wayland-related integration folders to include fully
+    # Copy the plugins to both test build and python distribution
+    # Include all Wayland-related and x11 plugins for completion
     set(QT_PLUGIN_DIRS
         platforms
         wayland-decoration-client
