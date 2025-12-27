@@ -48,7 +48,7 @@ jobs:
 
       - name: Install rallyplot wheel
         run: |
-          WHEEL_PATH=$(ls dist/*.whl)
+          WHEEL_PATH=$(ls distribution/*.whl)
           echo "Installing wheel: $WHEEL_PATH"
           python -m pip install "$WHEEL_PATH"          
 
