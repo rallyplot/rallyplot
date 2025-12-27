@@ -33,7 +33,7 @@ jobs:
             libegl1-mesa-dev \
             libxkbcommon-x11-0 \
             libxcb-cursor0 \
-            libxcb-keysyms
+            libxcb-keysyms1
 
       - name: Install Python dependencies
         run: |
