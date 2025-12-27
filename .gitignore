@@ -10,7 +10,7 @@ docs/source/cpp/xml
 tests/python/regression_data
 __pycache__
 .DS_Store
-
+CMakeLists.txt.user
 # Prerequisites
 *.d
 
