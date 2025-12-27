@@ -37,8 +37,17 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install -U rallyplot --pre
           python -m pip install -U numpy matplotlib scipy
+
+      - name: Build rallyplot wheel
+        run: |
+          python distribution/build_wheel.py
+
+      - name: Install rallyplot wheel
+        run: |
+          WHEEL_PATH=$(ls dist/*.whl)
+          echo "Installing wheel: $WHEEL_PATH"
+          python -m pip install "$WHEEL_PATH"          
 
       - name: Run test_plotter (xvfb)
         env:
