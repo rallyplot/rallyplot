@@ -37,7 +37,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install -U numpy matplotlib scipy
+          python -m pip install -U numpy matplotlib scipy aqtinstall
 
       - name: Build rallyplot wheel
         run: |
