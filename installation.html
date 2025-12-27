@@ -386,20 +386,18 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="installation">
 <span id="installation-page"></span><h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> can be used from either Python or C++.
-It runs on Windows, macOS and most Linux distributions (see <a class="reference internal" href="#supported-platforms"><span class="std std-ref">below</span></a> for details).</p>
-<p>A graphics card is required for the performance benefits of using <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code>.
-<code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> is written for OpenGL 3.3, which the majority of graphics cards from
-~2010 onwards should support. See the <a class="reference internal" href="#gpu-section"><span class="std std-ref">GPU compatability section</span></a>
+<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> runs with Python or C++ on Windows, macOS and most Linux distributions (see <a class="reference internal" href="#supported-platforms"><span class="std std-ref">below</span></a> for details).</p>
+<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> requires a graphics card for fast plotting. It is written for OpenGL 3.3, which the
+majority of graphics cards from ~2010 onwards should support. See the <a class="reference internal" href="#gpu-section"><span class="std std-ref">GPU compatibility section</span></a>
 for details.</p>
-<p>Once you have installed <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code>, you can check out the <a class="reference internal" href="tutorials/get_started.html#get-started-tutorial"><span class="std std-ref">Get Started</span></a> page.</p>
+<p>Once you have installed <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code>, check out the <a class="reference internal" href="tutorials/get_started.html#get-started-tutorial"><span class="std std-ref">Get Started</span></a> page.</p>
 <section id="install">
 <h2>Install<a class="headerlink" href="#install" title="Link to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="python" for="sd-tab-item-0">
 Python</label><div class="sd-tab-content docutils">
-<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> comes with pre-built wheels for Windows, macOS
+<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> provides wheels for Windows, macOS
 and Linux. Install with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>rallyplot
 </pre></div>
@@ -408,22 +406,44 @@ and Linux. Install with:</p>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="cpp" for="sd-tab-item-1">
 C++</label><div class="sd-tab-content docutils">
-<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> can be built from source using CMake. Header files to include are
-found in <code class="docutils literal notranslate"><span class="pre">src/cpp/include</span></code>. All header-only library dependencies are vendored
-in <code class="docutils literal notranslate"><span class="pre">src/vendored</span></code>, as well as <code class="docutils literal notranslate"><span class="pre">FreeType</span></code>, which is build alongside <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code>
-with the <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> CMake directive. <code class="docutils literal notranslate"><span class="pre">Qt</span></code> is also a depedency, as is
-not vendored:</p>
-<p><strong>Qt</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> can be built from source with CMake. Header files
+are located in <code class="docutils literal notranslate"><span class="pre">src/cpp/include</span></code>.</p>
+<p>All dependencies apart from Qt are vendored in the distribution. Header-only libraries
+are vendored in <code class="docutils literal notranslate"><span class="pre">src/vendored</span></code>; <code class="docutils literal notranslate"><span class="pre">FreeType</span></code> source code is vendored and automatically
+built alongside <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> when building with CMake.</p>
+<p><strong>Qt as a dependency</strong></p>
 <p>CMake <code class="docutils literal notranslate"><span class="pre">find_package(Qt6</span> <span class="pre">...)</span></code> is used to locate Qt.
-If Qt is not found automatically, you can help CMake by setting <code class="docutils literal notranslate"><span class="pre">Qt6_DIR</span></code> / <code class="docutils literal notranslate"><span class="pre">Qt_DIR</span></code>
-(see the ‘build directly…’ example below).</p>
+If Qt is not found automatically on your system,
+the environment variable <code class="docutils literal notranslate"><span class="pre">Qt6_DIR</span></code> must be set. For example, on Linux:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">Qt6_DIR</span><span class="o">=</span>/home/youruser/Qt/6.8.2/gcc_64/lib/cmake/Qt6
+</pre></div>
+</div>
+<p>or Windows (note: forward slash must be used as file separators):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">Qt6_DIR</span><span class="o">=</span><span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">Jzimi</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">repos</span><span class="o">/</span><span class="n">rallyplot</span><span class="o">/</span><span class="n">distribution</span><span class="o">/</span><span class="n">qt</span><span class="o">/</span><span class="mf">6.8.2</span><span class="o">/</span><span class="n">msvc2022_64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">cmake</span><span class="o">/</span><span class="n">Qt6</span>
+</pre></div>
+</div>
+<p>On macOS, you may need to <em>additionally</em> set <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> as below:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CMAKE_PREFIX_PATH</span><span class="o">=</span>/Users/youruser/Qt/6.8.2/macos
+</pre></div>
+</div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Use CMake subdirectory</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">This will use Cmake to build <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> as part of your application build.</p>
+<span class="sd-summary-text"><strong>CMake from the command line</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Build <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> with CMake from the command line:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>rallyplot
+mkdir<span class="w"> </span>build
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>CMake subdirectory in CMakeLists.txt</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Build and link <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> during your application build with CMake:</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.16</span><span class="p">)</span>
 
-<span class="nb">project</span><span class="p">(</span><span class="s">myPlayingProject</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">myProject</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
 
 <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
 <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
@@ -436,28 +456,10 @@ If Qt is not found automatically, you can help CMake by setting <code class="doc
 <span class="w">    </span><span class="s2">&quot;${CMAKE_BINARY_DIR}/rallyplot-build&quot;</span>
 <span class="p">)</span>
 
-<span class="c"># Build your exe</span>
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">myPlayingProject</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">myProject</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
 
 <span class="c"># Link to rallyplot</span>
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">myPlayingProject</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">rallyplot</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text"><strong>Build directly with CMake</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">This example builds <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> with CMake.</p>
-<p class="sd-card-text">Note on windows, forward slashes are <em>required</em> in the environment paths.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">QT_DIR</span><span class="o">=</span><span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">Jzimi</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">repos</span><span class="o">/</span><span class="n">rallyplot</span><span class="o">/</span><span class="n">distribution</span><span class="o">/</span><span class="n">qt</span><span class="o">/</span><span class="mf">6.8.2</span><span class="o">/</span><span class="n">msvc2022_64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">cmake</span><span class="o">/</span><span class="n">Qt6</span>
-<span class="nb">set</span> <span class="n">QT6_DIR</span><span class="o">=</span><span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">Jzimi</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">repos</span><span class="o">/</span><span class="n">rallyplot</span><span class="o">/</span><span class="n">distribution</span><span class="o">/</span><span class="n">qt</span><span class="o">/</span><span class="mf">6.8.2</span><span class="o">/</span><span class="n">msvc2022_64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">cmake</span><span class="o">/</span><span class="n">Qt6</span>
-
-<span class="n">cd</span> <span class="n">rallyplot</span>
-<span class="n">mkdir</span> <span class="n">build</span>
-<span class="n">cd</span> <span class="n">build</span>
-<span class="n">cmake</span> <span class="n">build</span>
-<span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="o">.</span> <span class="o">--</span><span class="n">config</span> <span class="n">Release</span>
-
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">myProject</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">rallyplot</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -470,19 +472,19 @@ If Qt is not found automatically, you can help CMake by setting <code class="doc
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="windows" for="sd-tab-item-2">
 Windows</label><div class="sd-tab-content docutils">
-<p>Windows 10 or newer (64-bit x64 and ARM64) is supported.</p>
+<p>Windows 10 or newer (64-bit x64 and ARM64).</p>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="macos" for="sd-tab-item-3">
 macOS</label><div class="sd-tab-content docutils">
-<p><strong>macOS 11 Big Sur or newer</strong> (Intel &amp; Apple Silicon) are supported.</p>
+<p><strong>macOS 11 Big Sur or newer</strong> (Intel &amp; Apple Silicon).</p>
 </div>
 <input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="linux" for="sd-tab-item-4">
 Linux</label><div class="sd-tab-content docutils">
 <p><strong>Wayland</strong> is recommended as a display protocol over x11. While <code class="docutils literal notranslate"><span class="pre">rallyplot</span></code>
 will run on x11, it is slow and displays with some rendering issues.</p>
-<p><strong>The below pertains to the available Python builds</strong>:</p>
+<p><strong>The below relates to the available Python builds</strong>:</p>
 <p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> is built on <code class="docutils literal notranslate"><span class="pre">manylinux_2_28</span></code>, working on</p>
 <ul class="simple">
 <li><p>Works on mainstream distros such as:</p>
@@ -494,9 +496,9 @@ will run on x11, it is slow and displays with some rendering issues.</p>
 </ul>
 <p>MUSL-based systems (e.g., Alpine Linux) are not supported.</p>
 <p class="rubric" id="library-dependencies">Library dependencies</p>
-<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> does <strong>not</strong> vendor low-level system graphics libraries.<br />
-While these should be included in your distro, please check they are
-installed when running into dependecy errors:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> does not vendor low-level system graphics libraries.<br />
+While these should be included in your Linux distro, please check they are
+installed if running into dependency errors:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">libEGL.so.1</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">libGLX.so.0</span></code></p></li>
@@ -513,36 +515,25 @@ installed when running into dependecy errors:</p>
 <span id="gpu-section"></span><h2>GPU Compatibility<a class="headerlink" href="#gpu-compatibility" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">rallyplot</span></code> requires a GPU for rendering. Since it is built on OpenGL 3.3.
 it should be compatible with nearly all in-use GPUs.</p>
-<p>Note performance of the plots is directly related to your GPU capabilities.</p>
+<p>Performance of the plotting library is directly related to your GPU capabilities.</p>
 <p>To check which GPU your system is running on, use the commands below:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="windows" for="sd-tab-item-5">
 Windows</label><div class="sd-tab-content docutils">
-<p>Open a <strong>Command Prompt</strong> or <strong>PowerShell</strong> and run:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Lists all GPUs</span>
-<span class="n">wmic</span> <span class="n">path</span> <span class="n">win32_VideoController</span> <span class="n">get</span> <span class="n">name</span>
-
-<span class="c"># Or using DirectX diagnostic tool</span>
-<span class="n">dxdiag</span> <span class="p">/</span><span class="n">t</span> <span class="n">dxdiag</span><span class="p">.</span><span class="n">txt</span>
-<span class="nb">type </span><span class="n">dxdiag</span><span class="p">.</span><span class="n">txt</span> <span class="p">|</span> <span class="n">findstr</span> <span class="p">/</span><span class="n">C</span><span class="p">:</span><span class="s2">&quot;Display&quot;</span>
+<p>Open Command Prompt or PowerShell and run:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">wmic</span> <span class="n">path</span> <span class="n">win32_VideoController</span> <span class="n">get</span> <span class="n">name</span>
 </pre></div>
 </div>
 <p>If you have an <strong>NVIDIA GPU</strong> and drivers installed:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">nvidia-smi</span>
 </pre></div>
 </div>
-<p><strong>Driver requirements</strong></p>
-<ul class="simple">
-<li><p>NVIDIA: driver <strong>390+</strong> (2018 or newer)</p></li>
-<li><p>AMD: Adrenalin drivers from <strong>2017+</strong></p></li>
-<li><p>Intel: bundled DCH drivers on Windows 10/11 already support OpenGL 3.3</p></li>
-</ul>
 </div>
 <input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="macos" for="sd-tab-item-6">
 macOS</label><div class="sd-tab-content docutils">
-<p>Open a <strong>Terminal</strong> and run:</p>
+<p>Open a terminal and run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lists GPU information</span>
 system_profiler<span class="w"> </span>SPDisplaysDataType
 </pre></div>
@@ -552,16 +543,11 @@ system_profiler<span class="w"> </span>SPDisplaysDataType
 </pre></div>
 </div>
 <p>Or use the GUI: <strong> → About This Mac → More Info</strong>.</p>
-<p><strong>Driver requirements</strong></p>
-<ul class="simple">
-<li><p>macOS provides system OpenGL drivers.</p></li>
-<li><p>Any <strong>macOS 12+</strong> system with Intel or Apple Silicon GPUs supports OpenGL 4.1, which is fully backward-compatible with OpenGL 3.3.</p></li>
-</ul>
 </div>
 <input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="linux" for="sd-tab-item-7">
 Linux</label><div class="sd-tab-content docutils">
-<p>Open a <strong>terminal</strong> and run:</p>
+<p>Open a terminal and run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show OpenGL renderer and version</span>
 glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;OpenGL&quot;</span>
 
@@ -573,12 +559,6 @@ lspci<span class="w"> </span><span class="p">|</span><span class="w"> </span>gre
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
 </pre></div>
 </div>
-<p><strong>Driver requirements</strong></p>
-<ul class="simple">
-<li><p>NVIDIA: driver <strong>390+</strong></p></li>
-<li><p>AMD: Mesa <strong>18.0+</strong></p></li>
-<li><p>Intel: Mesa <strong>18.0+</strong></p></li>
-</ul>
 </div>
 </div>
 </section>
