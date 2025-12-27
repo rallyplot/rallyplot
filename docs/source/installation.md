@@ -1,15 +1,13 @@
 (installation-page)=
 # Installation
 
-`rallyplot` can be used from either Python or C++. 
-It runs on Windows, macOS and most Linux distributions (see [below](supported-platforms) for details).
+`rallyplot` runs with Python or C++ on Windows, macOS and most Linux distributions (see [below](supported-platforms) for details).
 
-A graphics card is required for the performance benefits of using `rallyplot`. 
-`rallyplot` is written for OpenGL 3.3, which the majority of graphics cards from
-~2010 onwards should support. See the [GPU compatability section](gpu-section)
+`rallyplot` requires a graphics card for fast plotting. It is written for OpenGL 3.3, which the 
+majority of graphics cards from ~2010 onwards should support. See the [GPU compatibility section](gpu-section)
 for details.
 
-Once you have installed `rallyplot`, you can check out the [Get Started](get-started-tutorial) page.
+Once you have installed `rallyplot`, check out the [Get Started](get-started-tutorial) page.
 
 ## Install
 
@@ -18,7 +16,7 @@ Once you have installed `rallyplot`, you can check out the [Get Started](get-sta
 :::::{tab-item} Python
 :sync: python
 
-`rallyplot` comes with pre-built wheels for Windows, macOS 
+`rallyplot` provides wheels for Windows, macOS 
 and Linux. Install with:
 
 ```bash
@@ -30,27 +28,57 @@ pip install rallyplot
 :::::{tab-item} C++
 :sync: cpp
 
-`rallyplot` can be built from source using CMake. Header files to include are
-found in `src/cpp/include`. All header-only library dependencies are vendored 
-in `src/vendored`, as well as `FreeType`, which is build alongside `rallyplot`
-with the `add_subdirectory` CMake directive. `Qt` is also a depedency, as is 
-not vendored:
+`rallyplot` can be built from source with CMake. Header files 
+are located in `src/cpp/include`. 
 
-**Qt**
+All dependencies apart from Qt are vendored in the distribution. Header-only libraries 
+are vendored in `src/vendored`; `FreeType` source code is vendored and automatically
+built alongside `rallyplot` when building with CMake.
+
+**Qt as a dependency**
 
 CMake `find_package(Qt6 ...)` is used to locate Qt. 
-If Qt is not found automatically, you can help CMake by setting `Qt6_DIR` / `Qt_DIR`
-(see the 'build directly...' example below).
+If Qt is not found automatically on your system, 
+the environment variable `Qt6_DIR` must be set. For example, on Linux:
 
-:::{dropdown} **Use CMake subdirectory**
+```shell
+export Qt6_DIR=/home/youruser/Qt/6.8.2/gcc_64/lib/cmake/Qt6
+```
 
-This will use Cmake to build `rallyplot` as part of your application build.
+or Windows (note: forward slash must be used as file separators):
+
+```
+set Qt6_DIR=C:/Users/Jzimi/git-repos/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6
+```
+
+On macOS, you may need to *additionally* set `CMAKE_PREFIX_PATH` as below:
+
+```shell
+export CMAKE_PREFIX_PATH=/Users/youruser/Qt/6.8.2/macos
+```
+
+:::{dropdown} **CMake from the command line**
+
+Build `rallyplot` with CMake from the command line:
+
+```shell
+cd rallyplot
+mkdir build
+cmake -S . -B build
+cmake --build build --config Release
+```
+
+:::
+
+:::{dropdown} **CMake subdirectory in CMakeLists.txt**
+
+Build and link `rallyplot` during your application build with CMake:
 
 ```cmake
 
 cmake_minimum_required(VERSION 3.16)
 
-project(myPlayingProject LANGUAGES CXX)
+project(myProject LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -63,34 +91,15 @@ add_subdirectory(
     "${CMAKE_BINARY_DIR}/rallyplot-build"
 )
 
-# Build your exe
-add_executable(myPlayingProject main.cpp)
+add_executable(myProject main.cpp)
 
 # Link to rallyplot
-target_link_libraries(myPlayingProject PRIVATE rallyplot)
+target_link_libraries(myProject PRIVATE rallyplot)
 
 ```
 
 :::
 
-:::{dropdown} **Build directly with CMake**
-
-This example builds `rallyplot` with CMake.
-
-Note on windows, forward slashes are _required_ in the environment paths.
-```
-set QT_DIR=C:/Users/Jzimi/git-repos/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6
-set QT6_DIR=C:/Users/Jzimi/git-repos/rallyplot/distribution/qt/6.8.2/msvc2022_64/lib/cmake/Qt6
-
-cd rallyplot
-mkdir build
-cd build
-cmake build
-cmake --build . --config Release
-
-```
-
-:::
 
 :::::
 
@@ -104,14 +113,14 @@ cmake --build . --config Release
 :::{tab-item} Windows
 :sync: windows
 
-Windows 10 or newer (64-bit x64 and ARM64) is supported.
+Windows 10 or newer (64-bit x64 and ARM64).
 
 :::
 
 :::{tab-item} macOS
 :sync: macos
 
-**macOS 11 Big Sur or newer** (Intel & Apple Silicon) are supported.
+**macOS 11 Big Sur or newer** (Intel & Apple Silicon).
 
 :::
 
@@ -121,7 +130,7 @@ Windows 10 or newer (64-bit x64 and ARM64) is supported.
 **Wayland** is recommended as a display protocol over x11. While `rallyplot`
 will run on x11, it is slow and displays with some rendering issues.
 
-**The below pertains to the available Python builds**:
+**The below relates to the available Python builds**:
 
 `rallyplot` is built on `manylinux_2_28`, working on
 
@@ -133,9 +142,9 @@ MUSL-based systems (e.g., Alpine Linux) are not supported.
 
 ### Library dependencies
 
-`rallyplot` does **not** vendor low-level system graphics libraries.  
-While these should be included in your distro, please check they are
-installed when running into dependecy errors:
+`rallyplot` does not vendor low-level system graphics libraries.  
+While these should be included in your Linux distro, please check they are
+installed if running into dependency errors:
 
 - `libEGL.so.1`  
 - `libGLX.so.0`  
@@ -155,7 +164,7 @@ installed when running into dependecy errors:
 `rallyplot` requires a GPU for rendering. Since it is built on OpenGL 3.3.
 it should be compatible with nearly all in-use GPUs. 
 
-Note performance of the plots is directly related to your GPU capabilities. 
+Performance of the plotting library is directly related to your GPU capabilities. 
 
 To check which GPU your system is running on, use the commands below:
 
@@ -164,15 +173,10 @@ To check which GPU your system is running on, use the commands below:
 :::{tab-item} Windows
 :sync: windows
 
-Open a **Command Prompt** or **PowerShell** and run:
+Open Command Prompt or PowerShell and run:
 
 ```powershell
-# Lists all GPUs
 wmic path win32_VideoController get name
-
-# Or using DirectX diagnostic tool
-dxdiag /t dxdiag.txt
-type dxdiag.txt | findstr /C:"Display"
 ```
 
 If you have an **NVIDIA GPU** and drivers installed:
@@ -181,17 +185,12 @@ If you have an **NVIDIA GPU** and drivers installed:
 nvidia-smi
 ```
 
-**Driver requirements**  
-- NVIDIA: driver **390+** (2018 or newer)  
-- AMD: Adrenalin drivers from **2017+**  
-- Intel: bundled DCH drivers on Windows 10/11 already support OpenGL 3.3  
-
 :::
 
 :::{tab-item} macOS
 :sync: macos
 
-Open a **Terminal** and run:
+Open a terminal and run:
 
 ```bash
 # Lists GPU information
@@ -206,16 +205,12 @@ glxinfo | grep "OpenGL renderer"
 
 Or use the GUI: ** → About This Mac → More Info**.
 
-**Driver requirements**  
-- macOS provides system OpenGL drivers.  
-- Any **macOS 12+** system with Intel or Apple Silicon GPUs supports OpenGL 4.1, which is fully backward-compatible with OpenGL 3.3.  
-
 :::
 
 :::{tab-item} Linux
 :sync: linux
 
-Open a **terminal** and run:
+Open a terminal and run:
 
 ```bash
 # Show OpenGL renderer and version
@@ -230,11 +225,6 @@ If you have an **NVIDIA GPU** (drivers installed):
 ```bash
 nvidia-smi
 ```
-
-**Driver requirements**  
-- NVIDIA: driver **390+**  
-- AMD: Mesa **18.0+**  
-- Intel: Mesa **18.0+**  
 
 :::
 
