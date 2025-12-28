@@ -117,7 +117,7 @@ class TestPlotter:
         elif MODE == "test":
             stored_buffer = np.load(stored_buffer_filepath)
 
-            if frame_buffer.size() != stored_buffer.size():
+            if frame_buffer.size != stored_buffer.size:
                 print(
                     f"SIZE MISMATCH!!!: test name {test_name}\n frame buffer size: {frame_buffer.size()} stored buffer size: {stored_buffer.size()}"
                 )
