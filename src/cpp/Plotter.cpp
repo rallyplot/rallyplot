@@ -155,10 +155,22 @@ public:
         return m_mainwindowSubplots[SubKey{m_activeRow, m_activeCol}];
     }
 
-    std::tuple<std::vector<std::uint8_t>, int, int> grabFrameBuffer(int row, int col)
+    std::tuple<std::vector<std::uint8_t>, int, int> grabFrameBuffer(
+        std::optional<int> row = std::nullopt, std::optional<int> col = std::nullopt
+    )
     {
-        checkActiveSubplotExists(row, col);
-        QImage rgba  = m_mainwindowSubplots[SubKey{m_activeRow, m_activeCol}]->m_centralOpenGlWidget->grabFramebuffer();
+        if (!(row.has_value() == col.has_value()))
+        {
+            throw std::runtime_error("`row` and `col` must both be passed if one is.");
+        }
+        if (!row.has_value())
+        {
+            row = m_activeRow;
+            col = m_activeCol;
+        }
+        checkActiveSubplotExists(row.value(), col.value());
+
+        QImage rgba  = m_mainwindowSubplots[SubKey{row.value(), col.value()}]->m_centralOpenGlWidget->grabFramebuffer();
 
         std::vector<uint8_t> tight(rgba.width() * rgba.height() * 4);
 
@@ -167,6 +179,7 @@ public:
             uint8_t* dst = tight.data() + y * rgba.width() * 4;
             std::memcpy(dst, src, rgba.width() * 4);
         }
+        this->m_mainWidget->show();
         return {tight, rgba .size().width(), rgba .size().height()};
     }
 
@@ -1298,7 +1311,9 @@ void Plotter::addSubplot(int row, int col, int rowSpan, int colSpan)
 }
 
 
-std::tuple<std::vector<uint8_t>, int, int> Plotter::_grabFrameBuffer(int row, int col)
+std::tuple<std::vector<uint8_t>, int, int> Plotter::_grabFrameBuffer(
+    std::optional<int> row, std::optional<int> col
+)
 {
     return pImpl->grabFrameBuffer(row, col);
 }

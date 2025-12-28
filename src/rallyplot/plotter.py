@@ -151,7 +151,7 @@ class Plotter:
         else:
             os.environ.pop("QT_PLUGIN_PATH")
 
-    def _grab_frame_buffer(self, row, col):
+    def _grab_frame_buffer(self, row = None, col = None):
         return self._plotter._grab_frame_buffer(row, col)
 
     def start(self):

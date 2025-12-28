@@ -1062,7 +1062,9 @@ public:
      */
     CandleDataCSV _readDataFromCSV(const std::string& dataFilepath) const;
 
-    std::tuple<std::vector<std::uint8_t>, int, int> _grabFrameBuffer(int row, int col);
+    std::tuple<std::vector<std::uint8_t>, int, int> _grabFrameBuffer(
+        std::optional<int> row = std::nullopt, std::optional<int> col = std::nullopt
+    );
 
 private:
 

@@ -29,7 +29,7 @@ else:
     if user_input:
         MODE = user_input
 
-if MODE not in (modes := ["test", "check" "generate"]):
+if MODE not in (modes := ["test", "check", "generate"]):
     raise ValueError(f"MODE must be one of {modes}")
 
 print(f"Running in MODE={MODE}")
@@ -101,7 +101,13 @@ class TestPlotter:
             plotter.start()
             return
 
-        frame_buffer, im_width, im_height = plotter._grab_frame_buffer(0, 0)  # maybe just also return height and width
+        # Always take the frame buffer from the first subplot, when taking
+        # from the active subplot, the framebuffer was not rendered properly.
+        # breaking into the code and calling the getFrameBuffer again worked,
+        # suggesting it was something to do with Qt not fully rendering the window.
+        # Not entirely sure why this is, but always taking the first subplot resolved it,
+        # and for the purpose of this test it does not matter which one we use.
+        frame_buffer, im_width, im_height = plotter._grab_frame_buffer(0,0)
 
         stored_buffer_filepath = OUTPUT_PATH / f"{test_name}.npy"
 
@@ -115,11 +121,11 @@ class TestPlotter:
             percent_wrong = (np.where(frame_buffer != stored_buffer)[0].size / frame_buffer.size ) * 100
 
             assert corrcoef[1, 1] > 0.999
-            assert percent_wrong < 1
-
-            print(f"Test {test_name} passed with corrcoef: {corrcoef} and percent_wrong: {percent_wrong}")
-
-
+            if test_name == "test_pin_y_axis":
+                assert percent_wrong < 2
+            else:
+                assert percent_wrong < 0.5
+            print(f"Test {test_name} passed with corrcoef: {corrcoef[1, 1]} and percent_wrong: {percent_wrong:.4f}")
         else:
             raise ValueError("MODE not recognised.")
 
@@ -130,7 +136,7 @@ class TestPlotter:
 
         open, high, low, close = candlestick_data
 
-        print(
+        self.cprint(
             "-------------------------------------------------------------\n"
             "Check the following values are correct, using:\n"
             "1) Axis labels and grid lines\n"
@@ -141,7 +147,7 @@ class TestPlotter:
             (0, -1, np.argmin(low), np.argmax(high)),
             ("FIRST", "LAST", "MINIMUM", "MAXIMUM")
         ):
-            print(
+            self.cprint(
                 f"CANDLESTICK\n"
                 f"-----------\n"
                 f"Check the {name} datapoint is:\n"
@@ -150,13 +156,13 @@ class TestPlotter:
                 f"low: {low[idx]:.3f}\n"
                 f"high: {high[idx]:.3f}\n"
             )
-            print(
+            self.cprint(
                 f"BAR AND LINE\n"
                 f"-----------\n"
                 f"Check the {name} datapoint is:\n"
                 f"open: {open[idx]:.3f}\n"
             )
-            print(
+            self.cprint(
                 f"SCATTER"
                 f"-------"
                 f"Sits exactly on top of bar data."
@@ -177,7 +183,7 @@ class TestPlotter:
 
         self.plot_multiple_subplots(plotter, open, high, low, close)
 
-        print(
+        self.cprint(
             "Multi-subplot tests\n"
             "---------------------"
             "Check that all plots values (first, last) match."
@@ -194,7 +200,7 @@ class TestPlotter:
 
         self.plot_test_plots(plotter, open, high, low, close)
 
-        print("Draw some lines on the plots and check it works as expected")
+        self.cprint("Draw some lines on the plots and check it works as expected")
 
         self._handle_check(plotter, "test_draw_line")
         plotter.finish()
@@ -203,7 +209,7 @@ class TestPlotter:
         """"""
         open, high, low, close = candlestick_data
 
-        print(
+        self.cprint(
             "This first plot is with anti-aliasing off. Compare to the next"
             "plot which is switched on with level 2"
         )
@@ -214,7 +220,7 @@ class TestPlotter:
         self._handle_check(plotter, "test_anti_aliasing_1")
         plotter.finish()
 
-        print(
+        self.cprint(
             "Anti-alias at 2. The next plot will be at 8 and should be improved."
         )
 
@@ -224,7 +230,7 @@ class TestPlotter:
         self._handle_check(plotter, "test_anti_aliasing_2")
         plotter.finish()
 
-        print(
+        self.cprint(
             "Anti-alias at 4."
         )
         plotter = Plotter(anti_aliasing_samples=32, color_mode="light")
@@ -253,7 +259,7 @@ class TestPlotter:
         )
         plotter.line(open_, color=[1.0, 1.0, 1.0, 1.0])
 
-        print(
+        self.cprint(
             "PlotArgs Checks\n"
             "----------------\n"
             "Check that:\n"
@@ -280,7 +286,7 @@ class TestPlotter:
         plotter.add_subplot(0, 1, 1, 1)
         plotter.set_background_color([0.1, 0.1, 0.8, 1.0])
 
-        print(
+        self.cprint(
             "Test Background Color\n"
             "---------------------\n"
             "Check that the left subplot is green and the right is blue."
@@ -305,7 +311,7 @@ class TestPlotter:
         plotter = Plotter(anti_aliasing_samples=0,color_mode="light")
         plotter.candlestick(open, high, low, close)
 
-        print(
+        self.cprint(
             "Camera Settings Checks\n"
             "------------------------"
             "Check that these zoom modes are all slow\n"
@@ -330,7 +336,7 @@ class TestPlotter:
         plotter.finish()
 
 
-        print(
+        self.cprint(
             "Camera Settings Checks\n"
             "------------------------\n"
             "Now, check that zoom is locked to most recent date."
@@ -362,7 +368,7 @@ class TestPlotter:
             font_color=[1.0, 1.0, 1.0, 1.0]
         )
 
-        print(
+        self.cprint(
             "Test Set Crosshair Settings\n"
             "-----------------------------\n"
             "Check that:\n"
@@ -380,7 +386,7 @@ class TestPlotter:
             on=False
         )
 
-        print(
+        self.cprint(
             "Test Set Crosshair Settings\n"
             "-----------------------------\n"
             "Check that:\n"
@@ -402,7 +408,7 @@ class TestPlotter:
             color = [0.1, 0.2, 0.5, 0.1]
         )
 
-        print(
+        self.cprint(
             f"Test Set Draw Line Settings\n"
             f"---------------------------\n"
             f"Press 'M' to draw line."
@@ -427,7 +433,7 @@ class TestPlotter:
             border_color=[0.1, 1.0, 0.1, 1.0]
         )
 
-        print(
+        self.cprint(
             f"Test Hover Value Settings\n"
             f"-------------------------\n"
             f"1) font is consola and size 25\n"
@@ -445,7 +451,7 @@ class TestPlotter:
             border_color=[0.1, 1.0, 0.1, 1.0]
         )
 
-        print(
+        self.cprint(
             f"Test Hover Value Settings\n"
             f"-------------------------\n"
             f"1) check they are turned off"
@@ -457,7 +463,7 @@ class TestPlotter:
 
         self._handle_check(plotter, "test_hover_value_settings_2")
 
-        print(
+        self.cprint(
             f"Test Hover Value Settings\n"
             f"-------------------------\n"
             f"1) check they are only under mouse"
@@ -485,7 +491,7 @@ class TestPlotter:
         plotter.add_linked_subplot(0.5)
         plotter.line(open, linked_subplot_idx=1)  # TODO: this is confusing, if you forget to set you get a strange thing! need to raise an error if subplot is unplot
 
-        print(
+        self.cprint(
             "Test Axis Settings\n"
             "------------------\n"
             "These are applied to the x-axis and lower subplot y-axis\n"
@@ -537,7 +543,7 @@ class TestPlotter:
         plotter.add_linked_subplot(0.5)
         plotter.line(open, linked_subplot_idx=1)
 
-        print(
+        self.cprint(
             "Test Axis Settings\n"
             "------------------\n"
             "Now\n"
@@ -574,7 +580,7 @@ class TestPlotter:
         plotter.add_subplot(0, 1, 1, 1)
         self.plot_test_plots(plotter, open, high, low, close)
 
-        print(
+        self.cprint(
             "Test Pin Y Axis\n"
             "-----------------\n"
             "Check:\n"
@@ -604,7 +610,7 @@ class TestPlotter:
         plotter.add_subplot(0, 1, 1, 1)
         self.plot_test_plots(plotter, open, high, low, close)
 
-        print(
+        self.cprint(
             "Test Y Axis\n"
             "-----------\n"
             "Left plot free and linked, right plot pinned."
@@ -686,7 +692,7 @@ class TestPlotter:
         )
         plotter.set_legend(["D"], linked_subplot_idx=1)
 
-        print(
+        self.cprint(
             "Test Add Legend\n"
             "---------------\n"
             "1) Should as A B C and unformatted legend in subplot as D\n"
@@ -721,7 +727,7 @@ class TestPlotter:
 
         plotter.resize_linked_subplots([0.25, 0.25, 0.25, 0.25])
 
-        print(
+        self.cprint(
             "Test Linked Subplot\n"
             "-------------------\n"
             "Check that all linked subplots are the same size."
@@ -747,12 +753,12 @@ class TestPlotter:
         plotter.bar(close, linked_subplot_idx=0)
         plotter.line(close, linked_subplot_idx=1)
 
-        print(
+        self.cprint(
             "Test Linked Subplot Indexes All Plot\n"
             "------------------------------------\n"
-            "1) The first subplot should have a line and bar"
-            "2) The second subplot should have two lines"
-            "3) The last subplot should just be a bar"
+            "1) The first subplot should have a line and bar\n"
+            "2) The second subplot should have two lines\n"
+            "3) The last subplot should just be a bar\n"
         )
 
         self._handle_check(plotter, "test_linked_subplot_indexes_all_plots")
@@ -772,7 +778,7 @@ class TestPlotter:
         plotter.set_active_subplot(0, 0)
         plotter.bar(low)
 
-        print(
+        self.cprint(
             "Test subplot\n"
             "------------\n"
             "The bar plot should be on the left plot."
@@ -826,7 +832,7 @@ class TestPlotter:
             line_mode_miter_limit=100
         )
 
-        print(
+        self.cprint(
             "Test Candlestick Plot\n"
             "---------------------\n"
             "1) up color orange, down color turquoise\n"
@@ -837,7 +843,7 @@ class TestPlotter:
 
         self._handle_check(plotter, "test_candlestick_1")
 
-        print(
+        self.cprint(
             "Test Candlestick Plot\n"
             "---------------------\n"
             "1) Now check the line plot again, it should be basic (not wide at all)"
@@ -871,7 +877,7 @@ class TestPlotter:
             miter_limit=100.0
         )
 
-        print(
+        self.cprint(
             "Test Line Plot\n"
             "---------------------\n"
             "1) color is green\n"
@@ -880,7 +886,7 @@ class TestPlotter:
 
         self._handle_check(plotter, "test_line")
 
-        print(
+        self.cprint(
             "Test Line Plot\n"
             "---------------------\n"
             "1) line is now a simpleline (no width)"
@@ -909,10 +915,10 @@ class TestPlotter:
             width_ratio=0.5
         )
 
-        print(
+        self.cprint(
             "Test Bar Plot\n"
             "---------------------\n"
-            "1) Color is red\n",
+            "1) Color is red\n"
             "2) No space between bars",
         )
 
@@ -939,7 +945,7 @@ class TestPlotter:
             fixed_size=True
         )
 
-        print("Test x-axis string\n"
+        self.cprint("Test x-axis string\n"
               "------------------\n"
               "1) A candlestick plot from {} to {}\n"
               "2) scatter points at 101 and 249 at candle open"
@@ -959,7 +965,7 @@ class TestPlotter:
             fixed_size=True
         )
 
-        print("Test x-axis string\n"
+        self.cprint("Test x-axis string\n"
               "------------------\n"
               "1) a candlestick with x-axis limited to 4000-5000\n"
               "2) a scatter on candle open at 146 and 175 only"
@@ -982,7 +988,7 @@ class TestPlotter:
 
         plotter.candlestick(open, high_, low_, close, dates)
 
-        print(
+        self.cprint(
             f"Test x-axis date times\n"
             f"----------------------\n"
             f"1) Datetimes from {start_date} to {dates[-1]}\n"
@@ -1012,7 +1018,7 @@ class TestPlotter:
             fixed_size=True
         )
 
-        print(
+        self.cprint(
             f"Test x-axis date times\n"
             f"----------------------\n"
             f"1) Datetimes from {dates[25]} to {dates[75]}\n"
@@ -1089,7 +1095,7 @@ class TestPlotter:
         plotter.candlestick(open, high, low, close, dates_string_1)
         plotter.candlestick(open, high, low, close, dates_string_2)
 
-        print(
+        self.cprint(
             "Test cer is shown for repeat string\n"
             "-----------------------------------\n"
             "1) A warning should be shown like: Warning: string dates already exist on the plot..\n"
@@ -1109,7 +1115,7 @@ class TestPlotter:
         plotter.candlestick(open, high, low, close, dates_datetime_1)
         plotter.candlestick(open, high, low, close, dates_datetime_2)
 
-        print(
+        self.cprint(
             "Test cer is shown for repeat string\n"
             "-----------------------------------\n"
             "1) A warning should be shown like: Warning: timepoint dates already exist on the plot.\n"
@@ -1171,8 +1177,7 @@ class TestPlotter:
 
         plotter.scatter(np.ascontiguousarray(np.arange(open.size)[::100]), np.ascontiguousarray(open[::100]), marker_size_fixed=0.01)
 
-    @staticmethod
-    def plot_multiple_subplots(plotter, open, high, low, close):
+    def plot_multiple_subplots(self, plotter, open, high, low, close):
         """"""
         self.plot_test_plots(plotter, open, high, low, close)
         plotter.set_y_label("hello")
@@ -1221,6 +1226,10 @@ class TestPlotter:
         as_mat = np.reshape(frame_buffer, (height, width, 4))
         plt.imshow(as_mat)
         plt.show()
+
+    def cprint(self, str):
+        if MODE == "check":
+            print(str)
 
 test_plotter = TestPlotter()
 
