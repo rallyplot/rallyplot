@@ -119,7 +119,7 @@ class TestPlotter:
 
             if frame_buffer.size != stored_buffer.size:
                 print(
-                    f"SIZE MISMATCH!!!: test name {test_name}\n frame buffer size: {frame_buffer.size()} stored buffer size: {stored_buffer.size()}"
+                    f"SIZE MISMATCH!!!: test name {test_name}\n frame buffer size: {frame_buffer.size} stored buffer size: {stored_buffer.size}"
                 )
 
             corrcoef = np.corrcoef(frame_buffer, stored_buffer)
