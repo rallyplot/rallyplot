@@ -169,6 +169,9 @@ class Plotter:
         del self._plotter
         self._plotter = None
 
+    def resize(self, width: int, height: int):
+        self._plotter.resize(width, height)
+
     def set_background_color(self, color: Array):
         """Set the background color for the subplot.
 

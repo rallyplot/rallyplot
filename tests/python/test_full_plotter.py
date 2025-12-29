@@ -97,6 +97,7 @@ class TestPlotter:
     def _handle_check(self, plotter, test_name):
         """
         """
+        plotter.resize(1000, 1000)
         if MODE == "check":
             plotter.start()
             return
@@ -385,7 +386,6 @@ class TestPlotter:
         )
 
         self._handle_check(plotter, "test_set_crosshair_settings_1")
-       # plotter.finish()
 
         plotter.candlestick(open, high, low, close)
         plotter.set_crosshair_settings(

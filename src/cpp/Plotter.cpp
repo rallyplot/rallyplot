@@ -194,6 +194,11 @@ public:
         }
     }
 
+    void resize(int width, int height)
+    {
+        m_mainWidget->resize(width, height);
+    }
+
     /* -----------------------------------------------------------------------------------
      *  Settings
      * -----------------------------------------------------------------------------------
@@ -1011,6 +1016,13 @@ void Plotter::setYAxisSettings(YAxisSettings yAxisSettings, std::optional<int> l
         yAxisSettings, linkedSubplotIdx
     );
 }
+
+
+void Plotter::resize(int width, int height)
+{
+    pImpl->resize(width, height);
+}
+
 
 void Plotter::candlestick(
     const std::vector<float>& open,

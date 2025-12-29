@@ -146,14 +146,10 @@ void CentralOpenGlWidget::resizeGL(int width, int height)
     const GLsizei physicalWidth  = static_cast<GLsizei>(std::round(width  * dpr));
     const GLsizei physicalHeight = static_cast<GLsizei>(std::round(height * dpr));
 
-    // Update any window-size dependent resources
     m_rm->updateWindowSize(physicalWidth, physicalHeight);
 
-    // Set OpenGL viewport using physical pixels
     m_gl->glViewport(0, 0, physicalWidth, physicalHeight);
 
- //   m_rm->updateWindowSize(width, height);
- //   m_gl->glViewport(0, 0, width, height);
 }
 
 /* ------------------------------------------------------------------------------

@@ -1052,6 +1052,16 @@ public:
         int linkedSubplotIdx = -1
     );
 
+
+    /**
+     * @brief Resize the plot window.
+     *
+     * @param width window width in logical pixels
+     * @param height window height in logical pixels
+     */
+    void resize(int width, int height);
+
+
     /**
      * @brief Read data from a csv file.
      *

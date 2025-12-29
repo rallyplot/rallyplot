@@ -697,6 +697,10 @@ PYBIND11_MODULE(pythonBindings, m)
         py::arg("row") = py::none(),
         py::arg("col") = py::none()
         )
+        .def("resize",
+             [](Plotter& self, int width, int height){ self.resize(width, height); },
+             py::arg("width"), py::arg("height")
+        )
 
         /* ----------------------------------------------------------------------------------------------------------------
             Plots
