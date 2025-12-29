@@ -118,12 +118,6 @@ class TestPlotter:
         elif MODE == "test":
             stored_buffer = np.load(stored_buffer_filepath)
 
-            if frame_buffer.size != stored_buffer.size:
-                print(
-                    f"SIZE MISMATCH!!!: test name {test_name}\n frame buffer size: {frame_buffer.size} stored buffer size: {stored_buffer.size}"
-                )
-                return
-
             corrcoef = np.corrcoef(frame_buffer, stored_buffer)
             percent_wrong = (np.where(frame_buffer != stored_buffer)[0].size / frame_buffer.size ) * 100
 
