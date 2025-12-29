@@ -97,7 +97,7 @@ class TestPlotter:
     def _handle_check(self, plotter, test_name):
         """
         """
-        plotter.resize(1000, 1000)
+        plotter.resize(500, 500)
         if MODE == "check":
             plotter.start()
             return
@@ -128,10 +128,8 @@ class TestPlotter:
             percent_wrong = (np.where(frame_buffer != stored_buffer)[0].size / frame_buffer.size ) * 100
 
             assert corrcoef[1, 1] > 0.999
-            if test_name == "test_pin_y_axis":
-                assert percent_wrong < 2
-            else:
-                assert percent_wrong < 0.5
+            assert percent_wrong < 0.5
+
             print(f"Test {test_name} passed with corrcoef: {corrcoef[1, 1]} and percent_wrong: {percent_wrong:.4f}")
         else:
             raise ValueError("MODE not recognised.")
