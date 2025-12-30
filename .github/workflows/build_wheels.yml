@@ -7,6 +7,12 @@ on:
     tags:
       - "v*"
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+
 jobs:
 
   build_wheels:
