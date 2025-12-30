@@ -679,8 +679,8 @@ PYBIND11_MODULE(pythonBindings, m)
         .def("add_linked_subplot", [](Plotter& self, float heightAsProportion) { self.addLinkedSubplot(heightAsProportion); }, py::arg("height_as_proportion"))
         .def("_grab_frame_buffer",
              [](Plotter& self,
-                int row,
-                int col
+                std::optional<int> row,
+                std::optional<int> col
             ){
 
                std::tuple<std::vector<std::uint8_t>, int, int> frameBufferOutput = self._grabFrameBuffer(row, col);
@@ -694,7 +694,13 @@ PYBIND11_MODULE(pythonBindings, m)
 
                return output;
         },
-        py::arg("row"), py::arg("col"))
+        py::arg("row") = py::none(),
+        py::arg("col") = py::none()
+        )
+        .def("resize",
+             [](Plotter& self, int width, int height){ self.resize(width, height); },
+             py::arg("width"), py::arg("height")
+        )
 
         /* ----------------------------------------------------------------------------------------------------------------
             Plots

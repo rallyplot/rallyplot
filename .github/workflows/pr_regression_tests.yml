@@ -1,0 +1,63 @@
+name: Linux - test_plotter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test_plotter_linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            libgl1-mesa-dev \
+            libegl1-mesa-dev \
+            libxkbcommon-x11-0 \
+            libxcb-cursor0 \
+            libxcb-keysyms1 \
+            libxcb-shape0 \
+            libxcb-icccm4
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install -U numpy matplotlib scipy aqtinstall auditwheel
+
+      - name: Build rallyplot wheel
+        run: |
+          python distribution/build_wheel.py
+
+      - name: Install rallyplot wheel
+        run: |
+          WHEEL_PATH=$(ls distribution/*.whl)
+          echo "Installing wheel: $WHEEL_PATH"
+          python -m pip install "$WHEEL_PATH"          
+
+      - name: Run test_plotter (xvfb)
+        env:
+          PYTHONFAULTHANDLER: "1"
+          PYTHONUNBUFFERED: "1"
+          MPLBACKEND: "Agg"
+        run: |
+          xvfb-run -a python -u tests/python/test_regression.py "test"
+          xvfb-run -a python -u tests/python/test_toy_data.py
+          xvfb-run -a python -u tests/python/test_smoke_dataframe.py

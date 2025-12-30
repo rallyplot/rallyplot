@@ -32,7 +32,7 @@ elif os_name == "Darwin":
 elif os_name == "Linux":
     env["Qt6_DIR"] = f"{qt_install_path.as_posix()}/6.8.2/gcc_64/lib/cmake/Qt6"
 
-env["CMAKE_ARGS"] = "-DRALLYPLOT_BUILD_DEV=ON -DUSE_VENDORED_QT=ON"
+env["CMAKE_ARGS"] = "-DRALLYPLOT_BUILD_DEV=ON"
 
 # 3) Build the wheel
 

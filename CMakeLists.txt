@@ -247,7 +247,7 @@ if(RALLYPLOT_BUILD_DEV)
 
   if (WIN32)
     # In Windows, we use windeployqt because it is easy to use,
-    # onlyrequiring an .exe stub. It copies some libraries
+    # only requiring an .exe stub. It copies some libraries
     # that are not obvious dependencies.
 
     # Build a tiny Qt exe just for windeployqt scanning. This is preferable

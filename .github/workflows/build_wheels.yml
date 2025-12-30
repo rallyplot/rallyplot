@@ -6,7 +6,6 @@ on:
       - main
     tags:
       - "v*"
-  pull_request:
 
 jobs:
 
@@ -134,10 +133,12 @@ jobs:
           # -------------------------------------------------------------------
 
           CIBW_TEST_COMMAND_WINDOWS: >
-            python D:/a/rallyplot/rallyplot/tests/python/test_simple_plotter.py
+            python D:/a/rallyplot/rallyplot/tests/python/test_instantiate_plotter.py
+            python D:/a/rallyplot/rallyplot/tests/python/test_toy_data.py
 
           CIBW_TEST_COMMAND_MACOS: >
-            python ${{ github.workspace }}/tests/python/test_simple_plotter.py
+            python ${{ github.workspace }}/tests/python/test_instantiate_plotter.py
+            python ${{ github.workspace }}/tests/python/test_toy_data.py
 
           CIBW_TEST_COMMAND_LINUX: |
             bash <<'BASH'
@@ -165,8 +166,8 @@ jobs:
             # Optional quick sanity prints
             echo "DISPLAY=$DISPLAY  QT_QPA_PLATFORM=$QT_QPA_PLATFORM"
 
-            python /project/tests/python/test_simple_plotter.py
-            python /project/tests/python/test_simple_toy_data.py
+            python /project/tests/python/test_instantiate_plotter.py
+            python /project/tests/python/test_toy_data.py
             BASH
 
         # --- Wayland test (optional) ---
@@ -175,7 +176,7 @@ jobs:
         #   weston --backend=headless --socket=wayland-1 --idle-time=0 >/dev/null 2>&1 &
         #   WPID=$!
         #   for i in $(seq 1 50); do [ -S "$XDG_RUNTIME_DIR/wayland-1" ] && break; sleep 0.1; done
-        #   QT_QPA_PLATFORM=wayland WAYLAND_DISPLAY=wayland-1 python {project}/tests/python/test_simple_plotter.py
+        #   QT_QPA_PLATFORM=wayland WAYLAND_DISPLAY=wayland-1 python {project}/tests/python/test_instantiate_plotter.py
         #   kill "$WPID" || true
         #   rm -rf "$XDG_RUNTIME_DIR"
         # else

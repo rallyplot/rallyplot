@@ -19,7 +19,6 @@ classifiers = [
 # TODO: add delvewheel, (auditwheel, patchelf) (windows, Linux specific)
 [project.optional-dependencies]
 dev = [
-  "pytest",
   "matplotlib",
   "aqtinstall",
 ]
