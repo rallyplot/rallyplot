@@ -14,4 +14,6 @@ def test_toy_candledata():
     assert len(dates) == 1000
     assert isinstance(dates[0], datetime.datetime)
 
+    print("Successfully run `test_toy_candledata`.")
+
 test_toy_candledata()
