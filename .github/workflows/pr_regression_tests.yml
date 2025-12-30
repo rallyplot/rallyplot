@@ -58,5 +58,6 @@ jobs:
           PYTHONUNBUFFERED: "1"
           MPLBACKEND: "Agg"
         run: |
-          xvfb-run -a python -u tests/python/test_full_plotter.py "test"
-
+          xvfb-run -a python -u tests/python/test_regression.py "test"
+          xvfb-run -a python -u tests/python/test_toy_data.py
+          xvfb-run -a python -u tests/python/test_full_plotter.py

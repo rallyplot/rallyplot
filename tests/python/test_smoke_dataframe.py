@@ -3,8 +3,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def test_all_dataframe_functions():
 
+CHECK = False
+
+
+def start_if_required(plotter):
+    if CHECK:
+        plotter.start()
+
+
+def test_all_dataframe_functions():
+    """
+    Smoke test all functions that use dataframes as input.
+    These are lightweight wrappers around the plotting subfunctions
+    and so only smoke tests are currently performed.
+    """
     x = np.random.normal(size=10_000)
 
     open = x
@@ -26,46 +39,66 @@ def test_all_dataframe_functions():
     # just test every pandas input and check there are no crashes.
 
     plotter = Plotter()
-
     plotter.candlestick_from_df(df)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.candlestick_from_df(df, dates)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.candlestick_from_df(df, dates_str)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.candlestick(open, high, low, close, dates)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.candlestick(open, high, low, close, dates_str)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.line(df["Open"], dates)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.line(df["Open"], dates_str)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.bar(df["Open"], dates)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.bar(df["Open"], dates_str)
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.line(df["Open"], dates)
     plotter.scatter(dates, df["Open"])
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.line(df["Open"], dates_str)
     plotter.scatter(dates_str, df["Open"])
-    plotter.start()
+    start_if_required(plotter)
+    plotter.finish()
 
+    plotter = Plotter()
     plotter.line(df["Open"])
     plotter.scatter(np.arange(dates.size), df["Open"])
-    print(type(df["Open"]))
-    plotter.start()
-
+    start_if_required(plotter)
+    plotter.finish()
 
 test_all_dataframe_functions()

@@ -2,8 +2,15 @@
 Regression Testing
 ------------------
 
+When generating test data, first run this python script with "check"
+CLI argument. Confirm that the plots are displayed correctly, as
+directed by the prompts.
 
+Assuming everything is displayed as expected, re-run the script with
+the "generate" argument. This will generate the new regression test-data
+for the OS you are on.
 
+Finally, to test on other machines, run with "test" CLI argument.
 
 """
 import sys
@@ -1228,6 +1235,7 @@ class TestPlotter:
     def cprint(self, str):
         if MODE == "check":
             print(str)
+
 
 test_plotter = TestPlotter()
 
