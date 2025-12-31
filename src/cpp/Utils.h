@@ -21,6 +21,9 @@ int utils_getSign(T value)
 
 
 inline QString utils_glmBackgroundColorToQtStylesheet(glm::vec4 color)
+/*
+    Convert a glm::vec4 to a Qt color stylesheet format.
+*/
 {
     std::string stylesheet = (
         "background-color: rgba("
@@ -147,7 +150,8 @@ inline std::string utils_scatterShapeEnumToStr(ScatterShape shape)
 
 inline QFont utils_getQtFont(Font font)
 /*
-    For now, restrict the font so that it must match ones available for OpenGL.
+   Load the requested font from the vendored ttf fonts. See `resources.qrc`.
+   For now, restrict the font so that it must match ones available for OpenGL.
  */
 {
     QString fontFamily = QString::fromStdString(utils_fontEnumToStr(font));

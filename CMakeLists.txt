@@ -19,7 +19,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets OpenGL OpenGLWidgets)
 
 add_library(rallyplot SHARED
 
-  src/cpp/rallyplot_global.h
+
   src/cpp/structure/CentralOpenGlWidget.cpp
   src/cpp/structure/CentralOpenGlWidget.h
   src/cpp/charts/fonts/arial.ttf
@@ -113,6 +113,9 @@ add_library(rallyplot SHARED
   src/cpp/include/UserVector.h
   src/cpp/include/ToyData.h
 )
+
+# Used for proper Windows ddl import / export api in `Plotter.h`
+target_compile_definitions(rallyplot PRIVATE RALLYPLOT_LIBRARY)
 
 # Set the RPATH for rallyplot on macOS and linux.
 # The convention on macOS is for all Qt frameworks to be in the root

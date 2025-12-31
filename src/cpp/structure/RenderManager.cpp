@@ -26,13 +26,6 @@ RenderManager::RenderManager(CentralOpenGlWidget& window, Configs& configs, QOpe
     m_gl.glDisable(GL_CULL_FACE);
     m_gl.glDisable(GL_DEPTH_TEST);
 
-//   m_gl.glEnable(GL_LINE_SMOOTH);
-//   m_gl.glEnable(GL_LINE_SMOOTH);
-//   m_gl.glEnable(GL_POLYGON_SMOOTH);
-//   m_gl.glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-//   m_gl.glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-//   m_gl.glEnable(GL_BLEND);
-//   m_gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 };
 
 
@@ -43,7 +36,7 @@ RenderManager::~RenderManager()
 
 void RenderManager::paint()
 /*
-    Render loop for this plot.
+    Render loop for this subplot.
 */
 {
     // Clear the screen
@@ -106,7 +99,7 @@ void RenderManager::addLinkedSubplot(double heightAsProportion)
         std::move(subplot)
     );
 
-    // Finally, shift the position of all plots to accomodate the new subplot
+    // Finally, shift the position of all plots to accommodate the new subplot
     double cumuHeight = 0.0;
 
     for (int i = m_linkedSubplots.size() - 1; i >= 0; i--)

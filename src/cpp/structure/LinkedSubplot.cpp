@@ -33,7 +33,7 @@ LinkedSubplot::LinkedSubplot(
     m_windowViewport(windowViewport),
     m_JointPlotData(*this),
     m_camera(configs, *this, windowViewport, m_JointPlotData),
-    m_axisTickLabels(m_configs, *this, glFunctions),  // TODO: read everything off subplot??? makes most sense I think.... TODO TODO TODO
+    m_axisTickLabels(m_configs, *this, glFunctions),
     m_axesObject(configs, sharedXData, *this, glFunctions)
 {
     if (m_yHeightProportion <= 0.50){
@@ -94,10 +94,6 @@ void LinkedSubplot::setupFirstPlot(int numElements)
 /* Candlestick Plot
 --------------------------------------------------------------------- */
 
-// TODO: add option here for labels!
-// TODO: need to be very careful about std::vector<float> moves! using the pointer will be much
-// better after all actually...
-
 void LinkedSubplot::candlestick(
     const float* openPtr, std::size_t openSize,
     const float* highPtr, std::size_t highSize,
@@ -127,7 +123,6 @@ void LinkedSubplot::candlestick(
         std::move(candlestick)
     );
 
-    // TODO: OWN FUNC?
     if (m_JointPlotData.numPlots() == 1)
     {
         setupFirstPlot(m_JointPlotData.getNumDatapoints());
@@ -194,7 +189,6 @@ void LinkedSubplot::line(
         std::move(linePlot)
     );
 
-    // TODO: OWN FUNC
     if (m_JointPlotData.numPlots() == 1)
     {
         setupFirstPlot(m_JointPlotData.getNumDatapoints());
@@ -233,7 +227,6 @@ void LinkedSubplot::bar(
         std::move(bar)
     );
 
-    // TODO: OWN FUNC
     if (m_JointPlotData.numPlots() == 1)
     {
         setupFirstPlot(m_JointPlotData.getNumDatapoints());
@@ -302,11 +295,10 @@ void LinkedSubplot::pinYAxis(bool on)
 
 
 // Line Drawing
-// -------------------------------------------------------------------------------- TODO TIDY THIS UP
+// --------------------------------------------------------------------------------
 
 void LinkedSubplot::startLineDraw(double x, double y, BackendDrawLineSettings drawLineSettings)
 {
-    // TOOD: handle cancelled halfway through drawing case!
     m_drawLines.emplace_back(std::make_unique<DrawLine>(m_gl, x, y, *this, drawLineSettings));
     m_lineDrawing = true;
 }

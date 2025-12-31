@@ -139,6 +139,7 @@ int main(int argc, char* argv[])
 
     PlotterArgs plotterArgs{};
     plotterArgs.antiAliasingSamples = 8;
+    plotterArgs.colorMode = ColorMode::dark;
 
     Plotter plotter = Plotter(plotterArgs);
 
