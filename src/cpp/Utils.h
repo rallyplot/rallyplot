@@ -150,7 +150,7 @@ inline std::string utils_scatterShapeEnumToStr(ScatterShape shape)
 
 inline QFont utils_getQtFont(Font font)
 /*
-   Load the requested font from the vendored ttf fonts.
+   Load the requested font from the vendored ttf fonts. See `resources.qrc`.
    For now, restrict the font so that it must match ones available for OpenGL.
  */
 {
