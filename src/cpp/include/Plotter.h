@@ -355,7 +355,7 @@ struct AxisLabelSettings : LabelSettingsBase
         font = Font::arial;
         weight = "bold";
         fontSize = 12;
-        std::optional<std::vector<float>> color = std::nullopt;
+        color = std::nullopt;
     }
 
     AxisLabelSettings(Font font_, std::string weight_, int fontSize_, std::optional<std::vector<float>> color_)
