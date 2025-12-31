@@ -10,7 +10,7 @@ template<typename T>
 class StdPtrVector
 /*
     Read-only wrapper around non-owning pointers to expose some
-    functionality of std::vector for convenience and backward compatability.
+    functionality of std::vector for convenience and backward compatibility.
  */
 {
 

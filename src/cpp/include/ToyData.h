@@ -27,7 +27,7 @@ struct ToyCandleStickdataSettings
     Settings for generation of candlestick data by an AR1 process
     and high / low values drawn from a zero mean gaussian (with `highLowStd`).
     Volumes are drawn from a gaussian (`volumeMean`, `volumeStd`) with minimum value `volumeMin`.
-    Dates start at `startDate` and increment wih time `timeResolution`.
+    Dates start at `startDate` and increment with time `timeResolution`.
 */
 {
     float phi = 0.999999f;

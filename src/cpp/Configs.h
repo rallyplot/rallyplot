@@ -7,9 +7,18 @@
 #include "include/Plotter.h"
 #include "Utils.h"
 
-// Be very careful when editing these as set in order of definition below.
-
+// Sets the buffer size of the number of ticks available on the x or y axis.
 constexpr int cfg_MAX_NUM_TICKS = 50;
+
+// The public interface splits basic camera settings
+// and y axis limits / zoom mode. Under the hood however
+// these are combined. Take the default arguments from the
+// public interface and by default set no y-axis limits.
+//
+// Pinned : automatically pinned to the min / max value in the view
+// Fixed : Set to fixed values based on the plot data
+// UserSet : fixed, and set by user.
+enum class YAxisMode {Pinned, FixedAuto, FixedUser};
 
 
 struct ColorModeDefaults {
@@ -57,9 +66,12 @@ struct DarkModeDefaults : public ColorModeDefaults
     }
 };
 
-// This is a direct copy of AxisSettings but the
-// vector type is changed to GLM to keep that dependency hidden.
-// This isn't ideal.
+// Backend Settings
+// ---------------------------------------------------------------
+// These settings are used backend and are similar to the frontend API
+// but std::vector are converted to glm, and std::nullopt colors are
+// converted according to the selected light / dark mode.
+
 struct BackendAxisSettings
 {
     int minNumTicks;
@@ -77,17 +89,6 @@ struct BackendAxisSettings
     glm::vec4 axisColor;
     glm::vec4 fontColor;
 };
-
-// The public interface splits basic camera settings
-// and y axis limits / zoom mode. Under the hood however
-// these are combined. Take the default arguments from the
-// public interface and by default set no y-axis limits.
-
-//
-// Pinned : automatically pinned to the min / max value in the view
-// Fixed : Set to fixed values based on the plot data
-// UserSet : fixed, and set by user.
-enum class YAxisMode {Pinned, FixedAuto, FixedUser};
 
 
 struct BackendCameraSettings
@@ -114,10 +115,6 @@ struct PlotOptions
     int initWidth;
     int initHeight;
 };
-
-
-// TODO: this approach is insane. There must be a better way!
-// ------------------------------------------------------------------
 
 struct BackendCandlestickSettings
 {
@@ -210,10 +207,10 @@ struct BackendScatterSettings
         markerSizeFree = settings.markerSizeFree;
     }
     ScatterShape shape;
-    glm::vec4 color;               // color
-    bool fixedSize;          // fixedSize
-    double markerSizeFixed;        // markerSizeFixed;
-    double markerSizeFree;         // markerSizeFree
+    glm::vec4 color;
+    bool fixedSize;
+    double markerSizeFixed;
+    double markerSizeFree;
 };
 
 
@@ -249,7 +246,11 @@ struct BackendHoverValueSettings
 
 class Configs
 /*
-    TODO: explain levels
+    Configs class holding all settings for plot display. Separate instances of this class
+    are created for each subplot. The default configs held on the main window are
+    passed by value to each new subplot on the `PlotWrapperWidget` instantiation. This
+    means that all new subplots inherit the initial configs but can be adjusted separately
+    if desired.
  */
 {
 
@@ -258,7 +259,6 @@ public:
     : m_plotOptions(plotOptions)
     {
         m_backgroundColor = m_plotOptions.colorMode == ColorMode::light ? m_lightModeDefaults.backgroundColor : m_darkModeDefaults.backgroundColor;
-        renderColorMode();
 
         m_defaultCrosshairSettings = convertToCrosshairSettings(CrosshairSettings{});
         m_defaultDrawLineSettings = convertToBackendDrawLineSettings(DrawLineSettings{});
@@ -279,18 +279,16 @@ public:
     LightModeDefaults m_lightModeDefaults;
     CustomModeDefaults m_customModeDefaults;
 
-    BackendCrosshairSettings convertToCrosshairSettings(CrosshairSettings crosshairSettings);
-    BackendDrawLineSettings convertToBackendDrawLineSettings(DrawLineSettings drawLineSettings);
-    BackendAxisSettings convertToBackendAxisSettings(AxisSettings axisSettings);
-    BackendHoverValueSettings convertBackendHoverValueSettings(HoverValueSettings hoverValueSettings);
-    BackendLegendSettings convertBackendLegendSettings(LegendSettings legendSettings);
-
-    void renderColorMode();
+    BackendCrosshairSettings convertToCrosshairSettings(const CrosshairSettings& crosshairSettings);
+    BackendDrawLineSettings convertToBackendDrawLineSettings(const DrawLineSettings& drawLineSettings);
+    BackendAxisSettings convertToBackendAxisSettings(const AxisSettings& axisSettings);
+    BackendHoverValueSettings convertBackendHoverValueSettings(const HoverValueSettings& hoverValueSettings);
+    BackendLegendSettings convertBackendLegendSettings(const LegendSettings& legendSettings);
 
     PlotOptions m_plotOptions;
     glm::vec4 m_backgroundColor;
 
-    // These are not exposed.
+    // These are not publicly exposed.
     int m_numStartingDatapoints = 150;
     double m_xAxisPadding = 0.75;  // cannot be more than 1
 
