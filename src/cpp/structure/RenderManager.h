@@ -13,19 +13,12 @@
 
 
 class RenderManager
-    /*
-        Class to organise the draw loop and coordination of all plot classes,
-        axes class, axis tick / tick label classes.
+/*
+    Class to organise the draw loop and coordination of all plot classes,
+    axes class, axis tick / tick label classes.
 
-        Implements the render loop.
-    
-        TODO
-        ----
-        Next, have a vector of plots std::vector<CandlestickPlot> which we loop over the draw
-        functions to plot on top of eachother. Expose an add_plot() function that allows
-        new plots to be added on top! It is all coordinated from here.
-        Add more plots types, then canelstickPlot becomes the base class.
-    */
+    Implements the render loop.
+*/
 {
 
 public:
