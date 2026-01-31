@@ -1,8 +1,5 @@
-// Copyright (C) 2016 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
-
-#ifndef GLWIDGET_H
-#define GLWIDGET_H
+#ifndef CENTRAL_OPENGL_WIDGET_H
+#define CENTRAL_OPENGL_WIDGET_H
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
@@ -39,7 +36,7 @@ public:
 
     QSize getMainwindowSize();
 
-    std::unique_ptr<RenderManager> m_rm;  // we manage this
+    std::unique_ptr<RenderManager> m_rm;
     Configs& m_configs;
 
 private:
@@ -52,8 +49,6 @@ private:
     QOpenGLFunctions_3_3_Core* m_gl = nullptr;  // Qt manages this
 
     std::optional<QPoint> m_lastPosForZoom = std::nullopt;
-
-    bool m_mouseOutOfBounds = true;  // TODO: this definately duplicates some stuff
 
     QTimer* m_timer;
 

@@ -4,6 +4,8 @@
 #include "../charts/plots/BasePlot.h"
 #include "../charts/Camera.h"
 
+using MinMaxVectorType = const std::pair<const StdPtrVector<float>&, const StdPtrVector<float>&>;
+
 class LinkedSubplot;  // forward declaration
 
 class JointPlotData
@@ -43,7 +45,6 @@ public:
     double getDataMinX() const;
     double getDataMaxX() const;
 
-    // TODO: this is going to be super slow, must be a better way!
     std::tuple<double, double> getMinMaxInViewRange(double leftBorder, double rightBorder) const;
 
     void cycleCandlestickPlotType();
@@ -51,7 +52,7 @@ public:
 
 private:
 
-    std::vector<std::unique_ptr<BasePlot>> m_plotVector;  // TODO: use unique ptr here!!!!!!!!
+    std::vector<std::unique_ptr<BasePlot>> m_plotVector;
     const LinkedSubplot& m_sp;
     // If we have only one plot, the min / max vector is just the
     // plot data itself. Otherwise, we need to compute this if we
@@ -66,7 +67,7 @@ private:
     double m_maxValue = 0;
 
     void recomputeMinMax();
-    const std::pair<const StdPtrVector<float>&, const StdPtrVector<float>&> getMinMaxVector(const std::unique_ptr<BasePlot>& plot);
+    MinMaxVectorType getMinMaxVector(const std::unique_ptr<BasePlot>& plot);
 };
 
 #endif

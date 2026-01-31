@@ -7,10 +7,14 @@
 #include <string>
 #include "../../vendor/date-master/date/date.h"  // Howard Hinnant's date library
 
+
 SharedXData::SharedXData() {}
 
 
 std::string SharedXData::getSingleFormattedLabel(int tickIndex)
+/*
+
+*/
 {
     using namespace std::chrono;
     using namespace date;
@@ -27,8 +31,8 @@ std::string SharedXData::getSingleFormattedLabel(int tickIndex)
         return vector[tickIndex];
     }
 
-    if (std::holds_alternative<std::reference_wrapper<const std::vector<system_clock::time_point>>>(*m_xData)) {
-        const auto& vector = std::get<std::reference_wrapper<const std::vector<system_clock::time_point>>>(*m_xData).get();
+    if (std::holds_alternative<TimepointVectorRef>(*m_xData)) {
+        const auto& vector = std::get<TimepointVectorRef>(*m_xData).get();
         if (tickIndex < 0 || tickIndex >= static_cast<int>(vector.size())) {
             return "";
         }
@@ -36,7 +40,6 @@ std::string SharedXData::getSingleFormattedLabel(int tickIndex)
         auto tickTime = vector[tickIndex];
         auto dayPoint = floor<days>(tickTime);
         year_month_day ymd = dayPoint;
-        auto timeOfDay = make_time(tickTime - dayPoint);
 
         // Day suffix logic (same as before)
         unsigned day = static_cast<unsigned>(ymd.day());
@@ -67,6 +70,9 @@ std::string SharedXData::getSingleFormattedLabel(int tickIndex)
 
 
 std::vector<std::string> SharedXData::getXTickLabelDatetime(std::vector<int> allTickLabels)
+/*
+
+*/
 {
     using namespace std::chrono;
     using namespace date;
@@ -74,11 +80,11 @@ std::vector<std::string> SharedXData::getXTickLabelDatetime(std::vector<int> all
     std::vector<std::string> labels;
 
     if (!m_xData.has_value() ||
-        !std::holds_alternative<std::reference_wrapper<const std::vector<system_clock::time_point>>>(*m_xData)) {
+        !std::holds_alternative<TimepointVectorRef>(*m_xData)) {
         return labels;
     }
 
-    const auto& labelVector = std::get<std::reference_wrapper<const std::vector<system_clock::time_point>>>(*m_xData).get();
+    const auto& labelVector = std::get<TimepointVectorRef>(*m_xData).get();
     if (allTickLabels.empty() || allTickLabels.front() < 0 || allTickLabels.back() >= static_cast<int>(labelVector.size())) {
         return labels;
     }
@@ -174,6 +180,9 @@ std::vector<std::string> SharedXData::getXTickLabelDatetime(std::vector<int> all
 
 
 std::string SharedXData::getXTickLabelStr(int tickIndex)
+/*
+
+*/
 {
     if (!m_xData.has_value())
     {
@@ -188,6 +197,9 @@ std::string SharedXData::getXTickLabelStr(int tickIndex)
 
 
 std::vector<int> SharedXData::convertDateToIndex(const std::vector<std::string>& stringVector) const
+/*
+
+*/
 {
     if (stringVector.empty())
         return {};
@@ -203,7 +215,8 @@ std::vector<int> SharedXData::convertDateToIndex(const std::vector<std::string>&
 
         if (it == dateMap.end())
         {
-            std::cerr << "CRITICAL ERROR: Scatterplot date string \"" << label << "\" not found in x-axis labels."<< std::endl;
+            std::cerr << "CRITICAL ERROR: Scatterplot date string \""
+                      << label << "\" not found in x-axis labels."<< std::endl;
             std::exit(EXIT_FAILURE);
         }
         indexes.push_back(it->second);
@@ -214,6 +227,9 @@ std::vector<int> SharedXData::convertDateToIndex(const std::vector<std::string>&
 
 
 std::vector<int> SharedXData::convertDateToIndex(const std::vector<std::chrono::system_clock::time_point>& timeVector) const
+/*
+
+*/
 {
     if (timeVector.empty())
         return {};
@@ -239,6 +255,9 @@ std::vector<int> SharedXData::convertDateToIndex(const std::vector<std::chrono::
 
 
 DateType SharedXData::getDateType()
+/*
+
+*/
 {
     if (!m_xData.has_value())
     {
@@ -267,7 +286,8 @@ void SharedXData::handleNewXDataVector(DateVector xData)
     {
         if (m_xData.has_value() && std::holds_alternative<TimepointVectorRef>(m_xData.value()))
         {
-            std::cerr << "CRITIAL ERROR: plot contains timepoint dates but we are trying to set string. This should be caught further up." << std::endl;
+            std::cerr << "CRITIAL ERROR: plot contains timepoint dates but we are trying to set string. "
+                         "This should be caught further up." << std::endl;
             std::exit(EXIT_FAILURE);
         }
 
@@ -287,7 +307,8 @@ void SharedXData::handleNewXDataVector(DateVector xData)
     {
         if (m_xData.has_value() && std::holds_alternative<StringVectorRef>(m_xData.value()))
         {
-            std::cerr << "CRITIAL ERROR: plot contains string dates but we are trying to set timepoint. This should be caught further up." << std::endl;
+            std::cerr << "CRITIAL ERROR: plot contains string dates but we are trying to set timepoint. "
+                         "This should be caught further up." << std::endl;
             std::exit(EXIT_FAILURE);
         }
 

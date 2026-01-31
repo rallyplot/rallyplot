@@ -7,7 +7,12 @@
 #include "../../vendor/fmt/include/fmt/core.h"
 
 
-AxesObject::AxesObject(Configs& configs, SharedXData& sharedXData, LinkedSubplot& subplot, QOpenGLFunctions_3_3_Core& glFunctions)
+AxesObject::AxesObject(
+    Configs& configs,
+    SharedXData& sharedXData,
+    LinkedSubplot& subplot,
+    QOpenGLFunctions_3_3_Core& glFunctions
+)
     :  m_configs(configs),
        m_sharedXData(sharedXData),
        m_linkedSubplot(subplot),
@@ -194,7 +199,9 @@ void AxesObject::initYTicks()
   Drawers
  ----------------------------------------------------------------------------------------------------------*/
 
-void AxesObject::drawYAxesAndTicks(glm::mat4& viewportTransform, glm::mat4& NDCMatrix, double yHeightProportion)
+void AxesObject::drawYAxesAndTicks(
+    glm::mat4& viewportTransform, glm::mat4& NDCMatrix, double yHeightProportion
+)
 /*
     Coordinate drawing of all axes, ticks, labels and gridlines.
 */
@@ -415,7 +422,16 @@ void AxesObject::drawXTickLabels(
 
     m_linkedSubplot.axisTickLabels().xWriteTextToBuffer(allTickLabels, numChars);
 
-    m_linkedSubplot.axisTickLabels().drawXTickLabels(viewportTransform, tickStartView, tickDeltaView, axisPos, numChars, 25.0f, 25.0f, startAtLowestIdx);
+    m_linkedSubplot.axisTickLabels().drawXTickLabels(
+        viewportTransform,
+        tickStartView,
+        tickDeltaView,
+        axisPos,
+        numChars,
+        25.0f,
+        25.0f,
+        startAtLowestIdx
+    );
 
     // Allow time_point as a vector and hold it on SharesXAxis
     // Show it with the label as above

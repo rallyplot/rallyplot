@@ -388,11 +388,6 @@ void Camera::panX(double panValue)
     to the m_left and m_right boundary to move the view. However, cases
     in which we are at the x-axis limits must be handled, as well as if
     we are pinned to the primary x-axis.
-
-    TODO
-    ----
-    In the case we are pinning to a primary x-axis, we dont want to pan past this 
-    axis, not sure on the best approach here, could just return and do nothing.
 */
 {
     if (panValue == 0)
@@ -427,7 +422,6 @@ void Camera::panX(double panValue)
     bool underMaxLimit;
     double offsetToMaxLimit;
 
-    // TODO: own function with unpacking!
     double minX;
     double maxX;
     double padding;

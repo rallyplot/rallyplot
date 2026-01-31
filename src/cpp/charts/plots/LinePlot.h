@@ -21,8 +21,7 @@ public:
         LinkedSubplot& subplot,
         QOpenGLFunctions_3_3_Core& glFunctions,
         const float* yPtr, std::size_t ySize
-        // double yHeightProportion
-        );
+    );
     ~LinePlot();
 
     void draw(glm::mat4& NDCMatrix, Camera& camera) override;
@@ -43,7 +42,6 @@ private:
 
     unsigned int m_yDataVBO;
     VertexArrayObject m_yDataVAO;
-//    double m_sp_yHeightProportion;
 };
 
 #endif

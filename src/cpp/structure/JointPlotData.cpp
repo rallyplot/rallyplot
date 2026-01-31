@@ -38,7 +38,7 @@ void JointPlotData::addPlot(std::unique_ptr<BasePlot> plot)
 }
 
 
-const std::pair<const StdPtrVector<float>&, const StdPtrVector<float>&> JointPlotData::getMinMaxVector(const std::unique_ptr<BasePlot>& plot)
+MinMaxVectorType JointPlotData::getMinMaxVector(const std::unique_ptr<BasePlot>& plot)
 {
     if (const auto& castPlot = dynamic_cast<OneValuePlot*>(plot.get()))
     {
@@ -58,10 +58,12 @@ const std::pair<const StdPtrVector<float>&, const StdPtrVector<float>&> JointPlo
 
 void JointPlotData::recomputeMinMax()
 /*
-    TODO
+    The min / max value across all shared plots as separate vectors `m_computedMinVector`, `m_computedMaxVector`.
+    This is used to pin the y-axis to the min / max value shown on the graph.
+    When a new plot is added, we need to recompute these vectors.
  */
 {
-    const std::pair<const StdPtrVector<float>&, const StdPtrVector<float>&> firstPlotMinMax = getMinMaxVector(m_plotVector[0]);
+    MinMaxVectorType firstPlotMinMax = getMinMaxVector(m_plotVector[0]);
 
     if (m_plotVector.size() == 1)
     {
@@ -91,8 +93,11 @@ void JointPlotData::recomputeMinMax()
             m_computedMaxVector[i] = firstMax[i];
         }
 
+        // Update computedMin/Max vectors based on the values of all other plots.
         for (int plotIdx = 1; plotIdx < m_plotVector.size(); plotIdx++)
         {
+            // If we have a scatterplot, just iterate through the values of the scatterplot
+            // and match the index to the value-to-update as required
             if (ScatterPlot* scatterPlot = dynamic_cast<ScatterPlot*>(m_plotVector[plotIdx].get()))
             {
                 const StdPtrVector<int>& xData = scatterPlot->getPlotData().getXData();
@@ -112,9 +117,10 @@ void JointPlotData::recomputeMinMax()
                     }
                 }
             }
+            // Otherwise, iterate and check every datapoint in the graph
             else
             {
-                const std::pair<const StdPtrVector<float>&, const StdPtrVector<float>&> minMaxVectors = getMinMaxVector(m_plotVector[plotIdx]);
+                MinMaxVectorType minMaxVectors = getMinMaxVector(m_plotVector[plotIdx]);
 
                 const StdPtrVector<float>& minVector = minMaxVectors.first;
                 const StdPtrVector<float>& maxVector = minMaxVectors.second;
@@ -187,7 +193,7 @@ int JointPlotData::getNumDatapoints() const
     }
     else
     {
-        return m_plotVector[0]->getNumDatapoints();  // TODO: all this assumes badly that scatterplot is never the first plot!!!_!!_!)!))!
+        return m_plotVector[0]->getNumDatapoints();
     }
 }
 
@@ -218,8 +224,6 @@ double JointPlotData::getDataMaxY() const
 }
 
 
-// TODO: this should be at the render manager level!!
-// Same for delta, these are shared across all plots!
 double JointPlotData::getDataMinX() const
 /*
     This is always 0.0 now, as the x-axis
@@ -265,7 +269,7 @@ std::tuple<double, double> JointPlotData::getMinMaxInViewRange(double leftBorder
 
     double min, max;
 
-    // TODO: note this is not 100% optimised, if the first plot is not candlestick then
+    // This is not very well optimised, if the first plot is not candlestick then
     // m_minVector == m_maxVector (it is just the data) and we could use std::min_max_element
     auto minValue = std::min_element(m_minVector.begin() + startIdx, m_minVector.begin() + endIdx);
     auto maxValue = std::max_element(m_maxVector.begin() + startIdx, m_maxVector.begin() + endIdx);

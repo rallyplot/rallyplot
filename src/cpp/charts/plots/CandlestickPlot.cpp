@@ -276,7 +276,7 @@ void CandlestickPlot::initializeAllBuffers()
 
 
     // Interleave the data for fast access on the GPU.
-    // TODO: this is a copy operation
+    // This is a copy operation
     std::vector<float> tmp;
     tmp.resize(m_plotData.m_open.size() * 4);
 
