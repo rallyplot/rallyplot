@@ -1,4 +1,6 @@
-name: Linux - test_plotter
+name: PyPi Regression Tests (Linux only)
+# Downloads the latest version of `rallyplot` from PyPI
+# and runs regression tests on Linux.
 
 on:
   schedule:

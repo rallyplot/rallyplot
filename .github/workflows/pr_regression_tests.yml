@@ -1,4 +1,6 @@
-name: Linux - test_plotter
+name: PR Regression Tests (Linux only)
+# Build the wheel from the current PR and
+# run regression tests (Linux only)
 
 on:
   push:
