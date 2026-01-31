@@ -33,7 +33,7 @@ def test_all_dataframe_functions():
     })
 
     # Generate 10k datetimes starting from 2023-01-01, one minute apart
-    dates = pd.date_range(start="2023-01-01", periods=10_000, freq="T", tz="UTC")
+    dates = pd.date_range(start="2023-01-01", periods=10_000, freq="min", tz="UTC")
     dates_str = dates.astype(str).tolist()
 
     # just test every pandas input and check there are no crashes.
