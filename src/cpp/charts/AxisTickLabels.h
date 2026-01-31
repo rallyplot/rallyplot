@@ -52,8 +52,28 @@ public:
     void yWriteTextToBuffer(const std::vector<std::string>& allTickText, int numDigits);
     void xWriteTextToBuffer(const std::vector<std::string>& allTickText, int numDigits);
 
-    void drawYTickLabels(glm::mat4& viewportTransform, float tickStartView, float tickDeltaView, float axisPos, int numChars, float x, float y, int startAtLowestIdx, double yHeightProportion);
-	void drawXTickLabels(glm::mat4& viewportTransform, float tickStartView, float tickDeltaView, float axisPos, int numChars, float x, float y, int startAtLowestIdx);
+    void drawYTickLabels(
+        glm::mat4& viewportTransform,
+        float tickStartView,
+        float tickDeltaView,
+        float axisPos,
+        int numChars,
+        float x,
+        float y,
+        int startAtLowestIdx,
+        double yHeightProportion
+    );
+
+    void drawXTickLabels(
+        glm::mat4& viewportTransform,
+        float tickStartView,
+        float tickDeltaView,
+        float axisPos,
+        int numChars,
+        float x,
+        float y,
+        int startAtLowestIdx
+    );
 
 private:
 
@@ -78,7 +98,13 @@ private:
 	std::vector<float> m_xLabelBuffer = std::vector<float>(m_maxEverBufferLength, 1.0f);
 
 	// Internal writers and drawers
-    void writeTextToBuffer(const std::vector<std::string>& allTickText, int numDigits, unsigned int labelVBO, VertexArrayObject& labelVAO, bool isXAxis);
+    void writeTextToBuffer(
+        const std::vector<std::string>& allTickText,
+        int numDigits,
+        unsigned int labelVBO,
+        VertexArrayObject& labelVAO,
+        bool isXAxis
+    );
 
 	void draw(
 		glm::mat4& viewportTransform,

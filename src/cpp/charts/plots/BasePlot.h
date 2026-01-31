@@ -4,7 +4,7 @@
 #include <variant>
 #include <QOpenGLFunctions_3_3_Core>
 #include "../Camera.h"
-#include "CandlestickData.h"  // TODO: RENAME FIX NAMIN!!
+#include "CandlestickData.h"
 #include "LineData.h"
 #include "BasePlotData.h"
 
@@ -78,8 +78,6 @@ public:
     virtual CandlestickColor getPlotColor() const = 0;
 
 };
-
-
 
 
 #endif

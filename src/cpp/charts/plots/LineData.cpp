@@ -11,11 +11,16 @@ LineData::LineData(Configs& configs, const float* yPtr, std::size_t ySize)
 
 
 std::optional<UnderMouseData> LineData::getDataUnderMouse(
-    int _, double yData, double yPadding, bool alwaysShow, std::optional<double> xMousePos
+    int _,
+    double yData,
+    double yPadding,
+    bool alwaysShow,
+    std::optional<double> xMousePos
 ) const
 /*
-    For LineData, it is not enough to get the data at the mouse tip to the nearest index, as it is only the value of the point,
-    not the interpolation. Here we must linear interpolate between the two nearest points oto the mouse in order to get the exact value.
+    For LineData, it is not enough to get the data at the mouse tip to the nearest index,
+    as it is only the value of the point, not the interpolation. Here we must linear
+    interpolate between the two nearest points oto the mouse in order to get the exact value.
 */
 {
 

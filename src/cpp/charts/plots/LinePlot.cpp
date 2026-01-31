@@ -52,7 +52,7 @@ void LinePlot::draw(glm::mat4& NDCMatrix, Camera& camera)
         m_lineProgram.setUniform1f("miterLimit", m_lineSettings.miterLimit);
         m_lineProgram.setUniform1f("yHeightProportion", m_linkedSubplot.m_yHeightProportion);
         m_lineProgram.setUniform1i("numVertices", m_plotData.getYData().size());
-        m_lineProgram.setUniform1f("subplotHeightProportion", m_linkedSubplot.windowViewport().subplotSizePercent().second); // TODO: this naming is super confusing, this is the high level subplot
+        m_lineProgram.setUniform1f("subplotHeightProportion", m_linkedSubplot.windowViewport().subplotSizePercent().second);
 
         m_yDataVAO.bind();
 

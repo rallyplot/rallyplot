@@ -482,12 +482,12 @@ void CentralOpenGlWidget::moveDrawLine()
 
 void CentralOpenGlWidget::showCrosshairs(QPainter& painter)
 /*
-
+    Draw crosshair lines over the plot. Uses QPainter rather than raw OpenGL calls.
  */
 {
     // Draw crosshair lines
     glm::vec4 lcol = m_crosshairSettings.lineColor;
-    QColor lineColor = QColor(lcol[0] * 255, lcol[1] * 255, lcol[2] * 255, lcol[3] * 255);  // TODO: GLM TO QT COLOR!
+    QColor lineColor = QColor(lcol[0] * 255, lcol[1] * 255, lcol[2] * 255, lcol[3] * 255);
     QPen crosshairPen(lineColor, m_crosshairSettings.linewidth, Qt::DashLine);
     painter.setPen(crosshairPen);
     painter.drawLine(m_mousePosInfo.cursorPos.x(), 0, m_mousePosInfo.cursorPos.x(), height());
@@ -528,7 +528,8 @@ void CentralOpenGlWidget::showCrosshairs(QPainter& painter)
 
 void CentralOpenGlWidget::showValuePopup(QPainter& painter)
 /*
-
+    Add the value popup box that shows the values of the graph at the mouse value.
+    Uses QPainter calls rather than raw OpenGL.
  */
 {
     {

@@ -38,6 +38,10 @@ using TimepointMap = std::unordered_map<std::chrono::system_clock::time_point, i
 
 
 class SharedXData
+/*
+    Class to handle the shared x-axis values shared
+    between all data on a linked subplot.
+*/
 {
 
 public:

@@ -4,7 +4,7 @@
 #include <glm.hpp>
 #include <qfileinfo.h>
 #include <qopenglfunctions_3_3_core.h>
-
+#include "../include/Plotter.h"
 
 struct Character {
     unsigned int textureID;   // ID handle of the glyph texture

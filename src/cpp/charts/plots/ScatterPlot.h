@@ -25,7 +25,7 @@ public:
     );
     ~ScatterPlot();
 
-    void draw(glm::mat4& NDCMatrix, Camera& camera);
+    void draw(glm::mat4& NDCMatrix, Camera& camera) override;
 
     const ScatterplotData& getPlotData() const override { return m_plotData; }
 

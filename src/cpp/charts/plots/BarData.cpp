@@ -11,8 +11,6 @@ BarData::BarData(Configs& configs, std::optional<float> minValue, const float* y
     float minValueFinal;
     if (!minValue.has_value())
     {
-        // auto [minIt, maxIt] = std::minmax_element(m_yData.data(), m_yData.data() + m_yData.size());
-        // minValueFinal = *minIt - 0.01f * (*maxIt - *minIt);
         minValueFinal = 0.0f;
     }
     else
@@ -20,7 +18,7 @@ BarData::BarData(Configs& configs, std::optional<float> minValue, const float* y
         minValueFinal = minValue.value();
     }
 
-    // TODO: This is wasteful, but is kept for now as we need to return a 'minimum vector'
+    // This is wasteful, but is kept for now as we need to return a 'minimum vector'
     // for min / max view computation. It would be better to return a float and then
     // hanle this in JointPlotData.cpp
     m_minValue = minValueFinal;
