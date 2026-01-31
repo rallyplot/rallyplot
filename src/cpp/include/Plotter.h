@@ -355,7 +355,7 @@ struct AxisLabelSettings : LabelSettingsBase
         font = Font::arial;
         weight = "bold";
         fontSize = 12;
-        std::optional<std::vector<float>> color = std::nullopt;
+        color = std::nullopt;
     }
 
     AxisLabelSettings(Font font_, std::string weight_, int fontSize_, std::optional<std::vector<float>> color_)
@@ -535,12 +535,16 @@ struct DrawLineSettings
 // -------------------------------------------------------
 
 #if defined(_WIN32) || defined(__CYGWIN__)
-#define PLOTTER_API __declspec(dllexport)
+#  ifdef RALLYPLOT_LIBRARY  // see CMakeLists.txt
+#    define RALLYPLOT_API __declspec(dllexport)
+#  else
+#    define RALLYPLOT_API __declspec(dllimport)
+#  endif
 #else
-#define PLOTTER_API
+#  define RALLYPLOT_API             // not needed on Linux/macOS
 #endif
 
-class PLOTTER_API Plotter
+class RALLYPLOT_API Plotter
 /*
     Top-level class for plotting. Coordinate the plot window
     set up and all public plotting functions.

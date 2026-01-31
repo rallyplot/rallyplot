@@ -1,37 +1,15 @@
+/*
+    These functions convert from frontend API values to backend. This handles two main cases:
+        - backend axis settings use glm::vec4 instead of std::vector. However, we don't want
+          glm as an external dependency, so perform the conversion internally here.
+        - Default colors for light / dark mode, we want to set these according to
+          the light / dark mode, and only set them differently if the user passes a value.
+*/
 #include "Configs.h"
 
-void Configs::renderColorMode()
-{
-    ColorModeDefaults* colorSettings = nullptr;
 
-    if (m_plotOptions.colorMode == ColorMode::light)
-    {
-        colorSettings = &m_lightModeDefaults;
-    }
-    else if (m_plotOptions.colorMode == ColorMode::dark)
-    {
-        colorSettings = &m_darkModeDefaults;
-    }
-    m_backgroundColor = colorSettings->backgroundColor;
-
-    m_defaultXAxisSettings.axisColor = colorSettings->axisColor;
-    m_defaultYAxisSettings.axisColor = colorSettings->axisColor;
-
-    m_defaultXAxisSettings.fontColor = colorSettings->fontColor;
-    m_defaultYAxisSettings.fontColor = colorSettings->fontColor;
-
-    m_defaultYAxisSettings.gridlineColor = colorSettings->gridlineColor;
-    m_defaultXAxisSettings.gridlineColor = colorSettings->gridlineColor;
-}
-
-// TODO: use constructors like done before, much better!
-BackendAxisSettings Configs::convertToBackendAxisSettings(AxisSettings axisSettings)
+BackendAxisSettings Configs::convertToBackendAxisSettings(const AxisSettings& axisSettings)
 /*
-    Backend axis setting uses glm::vec4 instead of std::vector
-    to avoid glm as a dependency. Also, we cannot set default colors
-    because the color depends on light vs. dark mode. For now,
-    perform a hacky setting based on the current light / dark mode.
-
     This assumes setYAxisSettings / setXAxisSettings is only called once
     (because, if setYAxisSettings for example is called twice, the defaults
     will override the settings from the first call. Handling this will be much
@@ -82,7 +60,7 @@ BackendAxisSettings Configs::convertToBackendAxisSettings(AxisSettings axisSetti
 }
 
 
-BackendCrosshairSettings Configs::convertToCrosshairSettings(CrosshairSettings crosshairSettings)
+BackendCrosshairSettings Configs::convertToCrosshairSettings(const CrosshairSettings& crosshairSettings)
 {
     BackendCrosshairSettings settings;
 
@@ -122,7 +100,7 @@ BackendCrosshairSettings Configs::convertToCrosshairSettings(CrosshairSettings c
 }
 
 
-BackendDrawLineSettings Configs::convertToBackendDrawLineSettings(DrawLineSettings drawLineSettings)
+BackendDrawLineSettings Configs::convertToBackendDrawLineSettings(const DrawLineSettings& drawLineSettings)
 {
     BackendDrawLineSettings settings;
 
@@ -140,7 +118,7 @@ BackendDrawLineSettings Configs::convertToBackendDrawLineSettings(DrawLineSettin
     return settings;
 }
 
-BackendHoverValueSettings Configs::convertBackendHoverValueSettings(HoverValueSettings hoverValueSettings)
+BackendHoverValueSettings Configs::convertBackendHoverValueSettings(const HoverValueSettings& hoverValueSettings)
 {
     BackendHoverValueSettings settings;
 
@@ -179,7 +157,7 @@ BackendHoverValueSettings Configs::convertBackendHoverValueSettings(HoverValueSe
 }
 
 
-BackendLegendSettings Configs::convertBackendLegendSettings(LegendSettings legendSettings)
+BackendLegendSettings Configs::convertBackendLegendSettings(const LegendSettings& legendSettings)
 {
     BackendLegendSettings settings;
 

@@ -85,7 +85,7 @@ glm::mat4 WindowViewportObject::setForLinkedSubplotYAxis(double yStartProportion
 void WindowViewportObject::setForLinkedSubplotPlot(double yStartProportion, double yHeightProportion)
 /*
     Set a restricted viewport for drawing the actual plot.
-    Unlike axis, we just restict the viewport along the both
+    Unlike axis, we just restrict the viewport along the both
     x and y axis, then draw into it.
 */
 {
@@ -137,12 +137,12 @@ void WindowViewportObject::setRestrictedViewport(double xMargin, double yStart, 
              draw the x-axis (and ticks)
 
     yStart: The start position of the y-axis, incorporating both the
-            y-axis margin as well as offsets when there are mutliple
+            y-axis margin as well as offsets when there are multiple
             sub-plots.
 
     xWidth: Width of which to restrict the viewport.
 
-    yHeight: Height of which to restict the viewport.
+    yHeight: Height of which to restrict the viewport.
 */
 {
 

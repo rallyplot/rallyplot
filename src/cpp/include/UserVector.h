@@ -9,13 +9,8 @@
 template<typename T>
 class StdPtrVector
 /*
-    Basic wrapper around pointers (non-owning) to expose some
-    functionality of std::vector for convenience and backward compatability.
-
-// TODO: EXPLAIN
-// Yes, std::vector<float>(ptr, ptr + size) does perform a copy of the data.
-
-Copies are by value
+    Read-only wrapper around non-owning pointers to expose some
+    functionality of std::vector for convenience and backward compatibility.
  */
 {
 
@@ -30,12 +25,11 @@ public:
     StdPtrVector(StdPtrVector&&) = default;
     StdPtrVector& operator=(StdPtrVector&&) = default;
 
-    T operator[](int index) const
+    T operator[](std::size_t index) const
     {
 
         if (index < 0 || index >= static_cast<int>(m_size))
         {
-            // This is an internal error
             std::cerr << "CRITICAL ERROR: StdPtrVector called with bad index. "
                       << "Index must be positive and less than "  << std::to_string(m_size) << std::endl;
             std::exit(EXIT_FAILURE);
