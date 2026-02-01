@@ -25,7 +25,6 @@ class PlotWrapperWidget : public QWidget
 public:
 
     explicit PlotWrapperWidget(QWidget* parent, Configs configs);
-    ~PlotWrapperWidget();
 
     void setXLabel(std::string text, AxisLabelSettings settings);
     void setYLabel(std::string text, AxisLabelSettings settings);
