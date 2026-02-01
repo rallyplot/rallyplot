@@ -1,5 +1,7 @@
 #include "JointPlotData.h"
 #include "LinkedSubplot.h"
+#include <stdexcept>
+#include <string>
 #include "../charts/plots/BasePlot.h"
 #include "../charts/plots/CandlestickPlot.h"
 #include "../charts/Camera.h"
@@ -24,11 +26,11 @@ void JointPlotData::addPlot(std::unique_ptr<BasePlot> plot)
     {
         if (!dynamic_cast<ScatterPlot*>(plot.get()) && plot->getNumDatapoints() != getNumDatapoints())
         {
-            std::cerr << "CRITICAL ERROR: The added plot has " << plot->getNumDatapoints()
-                      << " datapoints, but all plots that are not scatterplots must have the"
-                         " same number of datapoints. The current number of datapoints on the"
-                         "plot is " << plot->getNumDatapoints() << "." << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("The added plot has " + std::to_string(plot->getNumDatapoints())
+                      + " datapoints, but all plots that are not scatterplots must have the"
+                        " same number of datapoints. The current number of datapoints on the"
+                        "plot is " + std::to_string(plot->getNumDatapoints()) + "."
+            );
         }
     }
 
@@ -80,8 +82,7 @@ void JointPlotData::recomputeMinMax()
 
         if (dynamic_cast<ScatterPlot*>(m_plotVector[0].get()))
         {
-            std::cerr << "CRITICAL ERROR: first plot in m_plotVector cannot be a scatterlot." << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("CRITICAL ERROR: first plot in m_plotVector cannot be a scatterlot.");
         }
 
         const StdPtrVector<float>& firstMin = firstPlotMinMax.first;

@@ -4,7 +4,8 @@
 #include <QLibrary>
 #include <QApplication>
 #include <csv.h>
-
+#include <stdexcept>
+#include <string>
 #include <qapplication.h>
 #include <qwidget.h>
 #include <QPointer>
@@ -122,6 +123,7 @@ public:
     {
         // Must delete (not deleteLater()) or openGl
         // context is not torn down properly.
+        m_mainwindowSubplots.clear();
         delete m_mainWidget;
 
         m_application.quit();
@@ -841,7 +843,7 @@ public:
                 }
                 else if (dateType == DateType::String)
                 {
-                    std::cerr << "Warning: string dates already exist on the plot. Dates will be updated." << std::endl;
+                    throw std::runtime_error("Warning: string dates already exist on the plot. Dates will be updated.");
                 }
             }
             else if (std::holds_alternative<TimepointVectorRef>(dates.value()))
@@ -852,7 +854,7 @@ public:
                 }
                 else if (dateType == DateType::Timepoint)
                 {
-                    std::cerr << "Warning: timepoint dates already exist on the plot. Dates will be updated." << std::endl;
+                    throw std::runtime_error("Warning: timepoint dates already exist on the plot. Dates will be updated.");
                 }
             }
 

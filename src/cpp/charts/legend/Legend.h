@@ -48,8 +48,7 @@ struct LegendItemGlm
         }
         else
         {
-            std::cerr << "CRITICAL ERROR: Plot type not recognised." << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("CRITICAL ERROR: Plot type not recognised.");
         }
     }
 

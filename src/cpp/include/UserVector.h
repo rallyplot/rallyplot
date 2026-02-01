@@ -2,9 +2,8 @@
 #ifndef UserVector_H
 #define UserVector_H
 
-#include <iostream>
 #include <string>
-
+#include <stdexcept>
 
 template<typename T>
 class StdPtrVector
@@ -27,12 +26,12 @@ public:
 
     T operator[](std::size_t index) const
     {
-
         if (index < 0 || index >= static_cast<int>(m_size))
         {
-            std::cerr << "CRITICAL ERROR: StdPtrVector called with bad index. "
-                      << "Index must be positive and less than "  << std::to_string(m_size) << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error(
+              "CRITICAL ERROR: StdPtrVector called with bad index. "
+              "Index must be positive and less than: "  + std::to_string(m_size)
+            );
         }
         return m_ptr[index];
     }

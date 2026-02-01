@@ -2,11 +2,6 @@
 #include "../Utils.h"
 
 
-PlotWrapperWidget::~PlotWrapperWidget()
-{
-    delete m_centralOpenGlWidget;
-}
-
 void PlotWrapperWidget::setBackgroundColor(glm::vec4 color)
 {
     m_backgroundColor = color;
@@ -46,7 +41,7 @@ PlotWrapperWidget::PlotWrapperWidget(QWidget* parent, Configs configs) : QWidget
     bool clockwise = (m_configs.m_plotOptions.axisRight) ? true : false;
     m_yAxisLabel = new VerticalLabel("", this, clockwise);
     m_yAxisLabel->setVisible(false);
-    m_xAxisLabel->setAlignment(Qt::AlignHCenter);
+    m_yAxisLabel->setAlignment(Qt::AlignVCenter);
     m_yAxisLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     m_topPadWidget = new QWidget(this);
@@ -145,8 +140,7 @@ int PlotWrapperWidget::accountForNegativeIdx(int index) const
         {
             if (index < 0)
             {
-                std::cerr << "The negative index " << index << "is bigger than the number of subplots: " << numSubplots << std::endl;
-                std::exit(EXIT_FAILURE);
+                throw std::runtime_error("The negative index " + std::to_string(index) + "is bigger than the number of subplots: " + std::to_string(numSubplots));
             }
         }
         int processedIndex = numSubplots + index;
@@ -167,8 +161,7 @@ const std::unique_ptr<LinkedSubplot>& PlotWrapperWidget::linkedSubplot(int index
 
     if (index >= numSubplots)
     {
-        std::cerr << "CRITICAL ERROR: The `linkedSubplotIdx`: " << index << " is larger than the number of plots: " << numSubplots << std::endl;
-        std::exit(EXIT_FAILURE);
+        throw std::runtime_error("The `linkedSubplotIdx`: " + std::to_string(index) + " is larger than the number of plots: " + std::to_string(numSubplots));
     }
 
     return m_centralOpenGlWidget->m_rm->m_linkedSubplots[index];

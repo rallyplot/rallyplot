@@ -3,7 +3,8 @@
 #include <cassert>
 #include <glm.hpp>
 #include <QLabel>
-#include <iostream>
+#include <stdexcept>
+#include <string>
 #include <qobject.h>
 #include <QFontDatabase>
 #include <QFont>
@@ -56,8 +57,7 @@ inline QFont::Weight utils_stringToQtFontWeight(const QString& weightStr)
 
     if (!weightMap.contains(key))
     {
-        std::cerr << "CRITICAL ERROR: Invalid font weight: " << weightStr.toStdString() << std::endl;
-        std::exit(EXIT_FAILURE);
+        throw std::runtime_error("CRITICAL ERROR: Invalid font weight: " + weightStr.toStdString());
     }
 
     return weightMap.value(key);
@@ -74,8 +74,7 @@ inline glm::vec4 utils_colorToGlmVec(const float* ptr, int size)
     {
         if (*(ptr + i) < 0.0f || *(ptr + i) > 1.0f)
         {
-            std::cerr << "CRITICAL_ERROR: RGBA color must be in the range [0, 1]" << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("CRITICAL_ERROR: RGBA color must be in the range [0, 1]");
         }
     }
 
@@ -98,8 +97,7 @@ inline glm::vec4 utils_colorToGlmVec(const float* ptr, int size)
     }
     else
     {
-        std::cerr << "CRITICAL ERROR: Color must be an array of size 1-4 (that will fill RGBA array from left to right)." << std::endl;
-        std::exit(EXIT_FAILURE);
+        throw std::runtime_error("CRITICAL ERROR: Color must be an array of size 1-4 (that will fill RGBA array from left to right).");
     }
     return vec;
 }
@@ -158,8 +156,7 @@ inline QFont utils_getQtFont(Font font)
 
     if (!(font == Font::arial || font == Font::consola))
     {
-        std::cerr << "CRITICAL ERROR: `font` must be 'arial' or 'consola'" << std::endl;
-        std::exit(EXIT_FAILURE);
+        throw std::runtime_error("CRITICAL ERROR: `font` must be 'arial' or 'consola'");
     }
 
     if (!QFontDatabase::families().contains(fontFamily))

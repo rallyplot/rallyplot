@@ -1,4 +1,6 @@
 #define PYBIND11_DETAILED_ERROR_MESSAGES
+#include <stdexcept>
+#include <string>
 #include <Plotter.h>
 #include <ToyData.h>
 #include <pybind11/pybind11.h>
