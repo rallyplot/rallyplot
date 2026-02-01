@@ -2,6 +2,8 @@
 #define FMT_UNICODE 0
 #include <vector>
 #include <cmath>
+#include <stdexcept>
+#include <string>
 #include "../structure/LinkedSubplot.h"
 #include "../structure/JointPlotData.h"
 #include "../../vendor/fmt/include/fmt/core.h"
@@ -256,8 +258,7 @@ void AxesObject::drawAxes(glm::mat4& viewportTransform, std::string toDraw)
     }
     else
     {
-        std::cerr << "CRITICAL ERROR: `toDraw` value not recognised." << std::endl;
-        std::exit(EXIT_FAILURE);
+        throw std::runtime_error("`toDraw` value not recognised.");
     }
 }
 
@@ -690,8 +691,7 @@ int AxesObject::getNumTicksShown(std::string axisName)
     }
     else
     {
-        std::cerr << "CRITICAL ERROR: axisName " << axisName << " not recognised." << std::endl;
-        std::exit(EXIT_FAILURE);
+        throw std::runtime_error("axisName " + axisName + " not recognised.");
     }
     return numTicksShown;
 }
@@ -716,8 +716,7 @@ tickFinderResult AxesObject::tickFinder(double dmin, double dmax, int numTicks, 
 
     if (range <= 0 || numTicks <= 1)
     {
-        std::cerr << "CRITCAL ERROR: Invalid input: dmax must be greater than dmin, and numTicks must be > 1" << std::endl;
-        std::exit(EXIT_FAILURE);
+        throw std::runtime_error("CRITCAL ERROR: Invalid input: dmax must be greater than dmin, and numTicks must be > 1");
     }
 
     int intervals = numTicks - 1;

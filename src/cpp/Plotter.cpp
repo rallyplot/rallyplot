@@ -1,10 +1,12 @@
 #include "include/Plotter.h"
 #include "structure/SharedXData.h"
+#include <iostream>
 #include <qboxlayout.h>
 #include <QLibrary>
 #include <QApplication>
 #include <csv.h>
-
+#include <stdexcept>
+#include <string>
 #include <qapplication.h>
 #include <qwidget.h>
 #include <QPointer>
@@ -17,7 +19,7 @@ void checkStringIsValid(std::string str)
     {
         if (static_cast<unsigned char>(c) > 127)
         {
-            throw std::runtime_error(
+            throw std::invalid_argument(
                 "The character " + std::string(1, c) + "in string " + str + " is not valid. Only basic ASCII characters (0–127) are supported."
             );
         }
@@ -158,10 +160,13 @@ public:
     std::tuple<std::vector<std::uint8_t>, int, int> grabFrameBuffer(
         std::optional<int> row = std::nullopt, std::optional<int> col = std::nullopt
     )
+    /*
+        Only for internal use, testing. Will show() the mainwindow.
+     */
     {
         if (!(row.has_value() == col.has_value()))
         {
-            throw std::runtime_error("`row` and `col` must both be passed if one is.");
+            throw std::invalid_argument("`row` and `col` must both be passed if one is.");
         }
         if (!row.has_value())
         {
@@ -235,9 +240,9 @@ public:
         Set at the opengl widget level as crosshair is Qt painted on
      */
     {
-        throwExpectionOnInvalidColorOptional(crosshairSettings.lineColor);
-        throwExpectionOnInvalidColorOptional(crosshairSettings.backgroundColor);
-        throwExpectionOnInvalidColorOptional(crosshairSettings.fontColor);
+        throwExceptionOnInvalidColorOptional(crosshairSettings.lineColor);
+        throwExceptionOnInvalidColorOptional(crosshairSettings.backgroundColor);
+        throwExceptionOnInvalidColorOptional(crosshairSettings.fontColor);
 
         activeSubplot()->openGlWidget()->setCrosshairSettings(crosshairSettings);
     }
@@ -247,16 +252,16 @@ public:
         Set at the opengl widget level as hover value is Qt painted on
      */
     {
-        throwExpectionOnInvalidColorOptional(hoverValueSettings.fontColor);
-        throwExpectionOnInvalidColorOptional(hoverValueSettings.backgroundColor);
-        throwExpectionOnInvalidColorOptional(hoverValueSettings.borderColor);
+        throwExceptionOnInvalidColorOptional(hoverValueSettings.fontColor);
+        throwExceptionOnInvalidColorOptional(hoverValueSettings.backgroundColor);
+        throwExceptionOnInvalidColorOptional(hoverValueSettings.borderColor);
 
         activeSubplot()->openGlWidget()->setHoverValueSettings(hoverValueSettings);
     }
 
     void setDrawLineSettings(DrawLineSettings drawLineSettings)
     {
-        throwExpectionOnInvalidColorOptional(drawLineSettings.color);
+        throwExceptionOnInvalidColorOptional(drawLineSettings.color);
 
         activeSubplot()->openGlWidget()->setDrawLineSettings(drawLineSettings);
     }
@@ -316,9 +321,9 @@ public:
             throw std::invalid_argument("maxNumTicks cannot be bigger than " + std::to_string(cfg_MAX_NUM_TICKS) + ".");
         }
 
-        throwExpectionOnInvalidColorOptional(axisSettings.gridlineColor);
-        throwExpectionOnInvalidColorOptional(axisSettings.axisColor);
-        throwExpectionOnInvalidColorOptional(axisSettings.fontColor);
+        throwExceptionOnInvalidColorOptional(axisSettings.gridlineColor);
+        throwExceptionOnInvalidColorOptional(axisSettings.axisColor);
+        throwExceptionOnInvalidColorOptional(axisSettings.fontColor);
     }
 
     /* -----------------------------------------------------------------------------------
@@ -465,7 +470,7 @@ public:
     {
         if (settings.has_value())
         {
-            throwExpectionOnInvalidColorOptional(settings.value().color);
+            throwExceptionOnInvalidColorOptional(settings.value().color);
         }
 
         AxisLabelSettings passedSettings{
@@ -479,7 +484,7 @@ public:
     {
         if (settings.has_value())
         {
-            throwExpectionOnInvalidColorOptional(settings.value().color);
+            throwExceptionOnInvalidColorOptional(settings.value().color);
         }
 
         AxisLabelSettings passedSettings{
@@ -493,7 +498,7 @@ public:
     {
         if (settings.has_value())
         {
-            throwExpectionOnInvalidColorOptional(settings.value().color);
+            throwExceptionOnInvalidColorOptional(settings.value().color);
         }
 
         TitleLabelSettings passedSettings{
@@ -537,12 +542,12 @@ public:
 
             for (const LegendItem& item : labelsVector)
             {
-                throwExpectionOnInvalidColor(item.leftColor);
-                throwExpectionOnInvalidColor(item.rightColor);
+                throwExceptionOnInvalidColor(item.leftColor);
+                throwExceptionOnInvalidColor(item.rightColor);
             }
         }
-        throwExpectionOnInvalidColorOptional(legendSettings.fontColor);
-        throwExpectionOnInvalidColor(legendSettings.boxColor);
+        throwExceptionOnInvalidColorOptional(legendSettings.fontColor);
+        throwExceptionOnInvalidColor(legendSettings.boxColor);
 
         int linkedIdx = activeSubplot()->accountForNegativeIdx(linkedSubplotIdx);
 
@@ -590,7 +595,7 @@ public:
     {
         if (m_mainwindowSubplots.find(SubKey{row, col}) == m_mainwindowSubplots.end())
         {
-            throw std::runtime_error(
+            throw std::invalid_argument(
                 "Cannot activate subplot at row: " + std::to_string(row) + ", col: "
                 + std::to_string(col) + ", it does not exist."
                 );
@@ -606,7 +611,7 @@ public:
     {
         if (yHeights.size() != activeSubplot()->renderManager()->m_linkedSubplots.size())
         {
-            throw std::runtime_error("Number of subplot heights must match the number of subplots");
+            throw std::invalid_argument("Number of subplot heights must match the number of subplots");
         }
         activeSubplot()->renderManager()->resizeLinkedSubplots(yHeights);
     }
@@ -630,12 +635,12 @@ public:
             throw std::invalid_argument("Candlestick open, high, low, close vectors are not all the same size.");
         }
 
-        throwExpectionForFailedPlotChecks(openSize, dates, linkedSubplotIdx);
+        throwExceptionForFailedPlotChecks(openSize, dates, linkedSubplotIdx);
 
         if (candlestickSettings.has_value())
         {
-            throwExpectionOnInvalidColor(candlestickSettings.value().upColor);
-            throwExpectionOnInvalidColor(candlestickSettings.value().downColor);
+            throwExceptionOnInvalidColor(candlestickSettings.value().upColor);
+            throwExceptionOnInvalidColor(candlestickSettings.value().downColor);
         }
 
         BackendCandlestickSettings backendSettings{
@@ -660,7 +665,7 @@ public:
         int linkedSubplotIdx
     )
     {
-        throwExpectionForFailedPlotChecks(ySize, dates, linkedSubplotIdx);
+        throwExceptionForFailedPlotChecks(ySize, dates, linkedSubplotIdx);
 
         BackendLineSettings backendSettings{
             lineSettings.value_or(LineSettings{})
@@ -677,11 +682,11 @@ public:
         int linkedSubplotIdx
     )
     {
-        throwExpectionForFailedPlotChecks(ySize, dates, linkedSubplotIdx);
+        throwExceptionForFailedPlotChecks(ySize, dates, linkedSubplotIdx);
 
         if (barSettings.has_value())
         {
-            throwExpectionOnInvalidColor(barSettings.value().color);
+            throwExceptionOnInvalidColor(barSettings.value().color);
         }
 
         BackendBarSettings backendSettings{
@@ -701,7 +706,7 @@ public:
 
         if (activeSubplot()->linkedSubplot(linkedSubplotIdx)->jointPlotData().isEmpty())
         {
-            throw std::runtime_error("`scatter` cannot be the first plot. It must be overlaid onto another plot.");
+            throw std::invalid_argument("`scatter` cannot be the first plot. It must be overlaid onto another plot.");
         }
 
         DateType dateType = activeSubplot()->linkedSubplot(linkedSubplotIdx)->sharedXData().getDateType();
@@ -710,22 +715,22 @@ public:
         {
             if (dateType == DateType::Timepoint)
             {
-                throw std::runtime_error("The x-axis data must always be string, index or chrono timepoint. Currently it is timepoint, but string data was passed.");
+                throw std::invalid_argument("The x-axis data must always be string, index or chrono timepoint. Currently it is timepoint, but string data was passed.");
             }
             else if (dateType == DateType::NoDate)
             {
-                throw std::runtime_error("The x-axis data must always be string, index or chrono timepoint. Currently it is an index, but string data was passed.");
+                throw std::invalid_argument("The x-axis data must always be string, index or chrono timepoint. Currently it is an index, but string data was passed.");
             }
         }
         else if (std::holds_alternative<TimepointVectorRef>(xData))
         {
             if (dateType == DateType::String)
             {
-                throw std::runtime_error("The x-axis data must always be string, index or chrono timepoint. Currently it is string, but timepoint data was passed.");
+                throw std::invalid_argument("The x-axis data must always be string, index or chrono timepoint. Currently it is string, but timepoint data was passed.");
             }
             else if (dateType == DateType::NoDate)
             {
-                throw std::runtime_error("The x-axis data must always be string, index or chrono timepoint. Currently it is an index, but timepoint data was passed.");
+                throw std::invalid_argument("The x-axis data must always be string, index or chrono timepoint. Currently it is an index, but timepoint data was passed.");
             }
         }
 
@@ -737,16 +742,16 @@ public:
      * ----------------------------------------------------------------------------------- */
 
 
-    void throwExpectionOnInvalidColorOptional (std::optional<std::vector<float>> color)
+    void throwExceptionOnInvalidColorOptional (std::optional<std::vector<float>> color)
     {
         if (color.has_value())
         {
-            throwExpectionOnInvalidColor(color.value());
+            throwExceptionOnInvalidColor(color.value());
         }
     };
 
 
-    void throwExpectionOnInvalidColor(std::vector<float> color)
+    void throwExceptionOnInvalidColor(std::vector<float> color)
     {
         if (color.size() == 0 || color.size() > 4)
         {
@@ -782,7 +787,7 @@ public:
         }
     }
 
-    void throwExpectionForFailedPlotChecks(
+    void throwExceptionForFailedPlotChecks(
         std::size_t ySize,
         OptionalDateVector dates,
         int linkedSubplotIdx
@@ -794,7 +799,7 @@ public:
         {
             throw std::invalid_argument(
                 "linkedSubplotIdx: " + std::to_string(linkedSubplotIdx) +
-                "is larger than the number of plots: " + std::to_string(numLinkedSubplots)
+                " is larger than the number of plots: " + std::to_string(numLinkedSubplots)
             );
         }
 
@@ -837,7 +842,7 @@ public:
             {
                 if (dateType == DateType::Timepoint)
                 {
-                    throw std::invalid_argument("Dates are already set with string labels. Cannot now set a timepoint vector as dates.");
+                    throw std::invalid_argument("Dates are already set with timepoint labels. Cannot now set a string vector as dates.");
                 }
                 else if (dateType == DateType::String)
                 {
@@ -848,7 +853,7 @@ public:
             {
                 if (dateType == DateType::String)
                 {
-                    throw std::invalid_argument("Dates are already set with timepoint labels. Cannot now set a string vector as dates.");
+                    throw std::invalid_argument("Dates are already set with string labels. Cannot now set a timepoint vector as dates.");
                 }
                 else if (dateType == DateType::Timepoint)
                 {

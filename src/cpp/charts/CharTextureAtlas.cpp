@@ -38,6 +38,7 @@ void CharTextureAtlas::setupCharTextureAtlas()
     FT_Library ft;
     if (FT_Init_FreeType(&ft))
     {
+        // Use `cerr` here so we don't need to worry about resource leaks.
         std::cerr << "CRITICAL ERROR: Freetype could not init FreeType Library" << std::endl;
         std::exit(EXIT_FAILURE);
     }

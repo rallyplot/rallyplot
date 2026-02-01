@@ -23,23 +23,23 @@ std::optional<UnderMouseData> LineData::getDataUnderMouse(
     interpolate between the two nearest points oto the mouse in order to get the exact value.
 */
 {
-
-    int yIdxLower = std::floor(xMousePos.value() / m_delta);
-    int yIdxUpper = yIdxLower + 1;
-
-    if (yIdxLower < 0)  // this is very similar to the camera function...
+    double xMousePosValue = xMousePos.value();
+    if (xMousePosValue < 0.0)
     {
-        yIdxLower = 0;
+        xMousePosValue = 0.0;
     }
-    else if (yIdxUpper > m_yData.size() - 1)
+    int idxLower = std::floor(xMousePosValue / m_delta);
+    int idxUpper = idxLower + 1;
+
+    if (idxUpper > m_yData.size() - 1)
     {
-        yIdxUpper = m_yData.size() - 1;
+        idxUpper = m_yData.size() - 1;
     }
 
-    double m = (m_yData[yIdxUpper] - m_yData[yIdxLower]) / m_delta;
+    double m = (m_yData[idxUpper] - m_yData[idxLower]) / m_delta;
 
-    double xStart = yIdxLower * m_delta;
-    double yPlotData =  m_yData[yIdxLower] + (xMousePos.value() - xStart) * m;
+    double xStart = idxLower * m_delta;
+    double yPlotData =  m_yData[idxLower] + (xMousePos.value() - xStart) * m;
 
     if ((alwaysShow || yPlotData - yPadding < yData && yData < yPlotData + yPadding))
     {

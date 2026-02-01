@@ -4,6 +4,7 @@
 #include <chrono>
 #include <ctime>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include "../../vendor/date-master/date/date.h"  // Howard Hinnant's date library
 
@@ -215,9 +216,7 @@ std::vector<int> SharedXData::convertDateToIndex(const std::vector<std::string>&
 
         if (it == dateMap.end())
         {
-            std::cerr << "CRITICAL ERROR: Scatterplot date string \""
-                      << label << "\" not found in x-axis labels."<< std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("Scatterplot date string \"" + label + "\" not found in x-axis labels.");
         }
         indexes.push_back(it->second);
     }
@@ -243,8 +242,7 @@ std::vector<int> SharedXData::convertDateToIndex(const std::vector<std::chrono::
 
         if (it == dateMap.end())
         {
-            std::cerr << "CRITICAL ERROR: scatterplot datetime Datetime not found in x-axis labels." << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("Scatterplot datetime Datetime not found in x-axis labels.");
         }
 
         indexes.push_back(it->second);
@@ -272,8 +270,7 @@ DateType SharedXData::getDateType()
         return DateType::String;
     }
 
-    std::cerr << "CRITICAL ERROR: m_xDAta type not recognised." << std::endl;
-    std::exit(EXIT_FAILURE);
+    throw std::runtime_error("m_xDAta type not recognised.");
 }
 
 
@@ -286,9 +283,7 @@ void SharedXData::handleNewXDataVector(DateVector xData)
     {
         if (m_xData.has_value() && std::holds_alternative<TimepointVectorRef>(m_xData.value()))
         {
-            std::cerr << "CRITIAL ERROR: plot contains timepoint dates but we are trying to set string. "
-                         "This should be caught further up." << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("CRITIAL ERROR: plot contains timepoint dates but we are trying to set string. This should be caught further up.");
         }
 
         const StringVectorRef data = std::get<StringVectorRef>(xData);
@@ -307,9 +302,7 @@ void SharedXData::handleNewXDataVector(DateVector xData)
     {
         if (m_xData.has_value() && std::holds_alternative<StringVectorRef>(m_xData.value()))
         {
-            std::cerr << "CRITIAL ERROR: plot contains string dates but we are trying to set timepoint. "
-                         "This should be caught further up." << std::endl;
-            std::exit(EXIT_FAILURE);
+            throw std::runtime_error("plot contains string dates but we are trying to set timepoint. This should be caught further up.");
         }
 
         const TimepointVectorRef data = std::get<TimepointVectorRef>(xData);

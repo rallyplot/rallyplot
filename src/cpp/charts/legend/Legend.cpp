@@ -1,8 +1,10 @@
 #include "Legend.h"
 #include "../../structure/LinkedSubplot.h"
+#include <iostream>
 #include <qopenglfunctions_3_3_core.h>
 #include <glm.hpp>
-
+#include <stdexcept>
+#include <string>
 
 Legend::Legend(
         std::vector<LegendItemGlm> legendItems,
