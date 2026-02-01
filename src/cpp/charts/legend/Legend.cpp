@@ -204,7 +204,6 @@ std::pair<float, float> Legend::writeLabelsToBuffer(const std::vector<std::strin
     vertices.reserve(numDigits);
 
     int numLabels = allLabelText.size();
-    std::cout << "NUM LABELS: " << numLabels << std::endl;
 
     std::vector<float> textWidths;
     float maxTextHeight = 0;
