@@ -95,7 +95,7 @@ class TestPlotter:
         return (open, high, low, close)
 
     def N(self):
-        # don't change this now stuff is hard coded based on it :(
+        # don't change this now everything is hard coded based on it :/
         return 150
 
     # Main Checking Function
@@ -1067,7 +1067,7 @@ class TestPlotter:
         self.check_error_raised(
             lambda: plotter.candlestick(open, high, low, close, dates_datetime),
             ValueError,
-            "Dates are already set with timepoint labels."
+            "Dates are already set with string labels."
         )
 
     def test_dates_error_datetime_first(self, candlestick_data):
@@ -1085,7 +1085,7 @@ class TestPlotter:
         self.check_error_raised(
             lambda: plotter.candlestick(open, high, low, close, dates_string),
             ValueError,
-            "Dates are already set with string labels"
+            "Dates are already set with timepoint labels"
         )
 
     def test_cerr_is_shown_for_repeat_string(self, candlestick_data):
