@@ -57,7 +57,7 @@ inline QFont::Weight utils_stringToQtFontWeight(const QString& weightStr)
 
     if (!weightMap.contains(key))
     {
-        throw std::runtime_error("CRITICAL ERROR: Invalid font weight: " + weightStr.toStdString());
+        throw std::runtime_error("Invalid font weight: " + weightStr.toStdString());
     }
 
     return weightMap.value(key);
@@ -74,7 +74,7 @@ inline glm::vec4 utils_colorToGlmVec(const float* ptr, int size)
     {
         if (*(ptr + i) < 0.0f || *(ptr + i) > 1.0f)
         {
-            throw std::runtime_error("CRITICAL_ERROR: RGBA color must be in the range [0, 1]");
+            throw std::runtime_error("RGBA color must be in the range [0, 1]");
         }
     }
 
@@ -97,7 +97,7 @@ inline glm::vec4 utils_colorToGlmVec(const float* ptr, int size)
     }
     else
     {
-        throw std::runtime_error("CRITICAL ERROR: Color must be an array of size 1-4 (that will fill RGBA array from left to right).");
+        throw std::runtime_error("Color must be an array of size 1-4 (that will fill RGBA array from left to right).");
     }
     return vec;
 }
@@ -156,7 +156,7 @@ inline QFont utils_getQtFont(Font font)
 
     if (!(font == Font::arial || font == Font::consola))
     {
-        throw std::runtime_error("CRITICAL ERROR: `font` must be 'arial' or 'consola'");
+        throw std::runtime_error("`font` must be 'arial' or 'consola'");
     }
 
     if (!QFontDatabase::families().contains(fontFamily))

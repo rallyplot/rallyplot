@@ -258,7 +258,7 @@ void AxesObject::drawAxes(glm::mat4& viewportTransform, std::string toDraw)
     }
     else
     {
-        throw std::runtime_error("CRITICAL ERROR: `toDraw` value not recognised.");
+        throw std::runtime_error("`toDraw` value not recognised.");
     }
 }
 
@@ -691,7 +691,7 @@ int AxesObject::getNumTicksShown(std::string axisName)
     }
     else
     {
-        throw std::runtime_error("CRITICAL ERROR: axisName " + axisName + " not recognised.");
+        throw std::runtime_error("axisName " + axisName + " not recognised.");
     }
     return numTicksShown;
 }
