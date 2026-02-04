@@ -1,3 +1,4 @@
+#include <iostream>
 #define PYBIND11_DETAILED_ERROR_MESSAGES
 #include <stdexcept>
 #include <string>

@@ -68,7 +68,12 @@ class TestPlotter:
     # ---------------------------------------------------------------------------------
 
     def candlestick_data(self):
-        """"""
+        """
+        This is just used for test data. Since, the toy candlestick data
+        has been created and ideally this would use that function. However,
+        as the values here are required to be stable for regression tests,
+        this test data generation function will not be changed.
+        """
         N = self.N()
 
         arr = np.empty(N)
@@ -104,10 +109,11 @@ class TestPlotter:
     def _handle_check(self, plotter, test_name):
         """
         """
-        plotter.resize(500, 500)
         if MODE == "check":
             plotter.start()
             return
+
+        plotter.resize(500, 500)
 
         # Always take the frame buffer from the first subplot, when taking
         # from the active subplot, the framebuffer was not rendered properly.
@@ -216,8 +222,7 @@ class TestPlotter:
         open, high, low, close = candlestick_data
 
         self.cprint(
-            "This first plot is with anti-aliasing off. Compare to the next"
-            "plot which is switched on with level 2"
+            "This first plot is with anti-aliasing off. Proceed."
         )
 
         plotter = Plotter(anti_aliasing_samples=0,color_mode="light")
@@ -227,7 +232,7 @@ class TestPlotter:
         plotter.finish()
 
         self.cprint(
-            "Anti-alias at 2. The next plot will be at 8 and should be improved."
+            "Anti-alias at 2. The next plot will be at 2 and should be improved."
         )
 
         plotter = Plotter(anti_aliasing_samples=2, color_mode="light")
@@ -237,7 +242,7 @@ class TestPlotter:
         plotter.finish()
 
         self.cprint(
-            "Anti-alias at 4."
+            "Anti-alias at 32."
         )
         plotter = Plotter(anti_aliasing_samples=32, color_mode="light")
         plotter.line(open, width=5)
@@ -700,7 +705,7 @@ class TestPlotter:
         self.cprint(
             "Test Add Legend\n"
             "---------------\n"
-            "1) Should as A B C and unformatted legend in subplot as D\n"
+            "1) Should as ACESS B C and unformatted legend in subplot as D\n"
             "2) The legend should be offset 100 from the top right\n"
             "3) The lines should be taller and wider\n"
             "4) The left padding is 20, no inter-padding or right padding\n"
@@ -924,7 +929,7 @@ class TestPlotter:
             "Test Bar Plot\n"
             "---------------------\n"
             "1) Color is red\n"
-            "2) No space between bars",
+            "2) Gap is as big as the bar",
         )
 
         self._handle_check(plotter, "test_bar")
@@ -972,7 +977,7 @@ class TestPlotter:
 
         self.cprint("Test x-axis string\n"
               "------------------\n"
-              "1) a candlestick with x-axis limited to 4000-5000\n"
+              "1) a candlestick with x-axis limited to 145-175\n"
               "2) a scatter on candle open at 146 and 175 only"
         )
 
